@@ -1,37 +1,24 @@
-import type { ProsopographyData } from '../data/prosopography';
+export function renderNarrativeLayerToggle(): HTMLElement {
+  const wrapper = document.createElement('div');
+  wrapper.className = 'narrative-layer';
 
-export function renderNarrativeLayerToggle(data: ProsopographyData): HTMLElement {
-  const section = document.createElement('section');
-  section.className = 'view';
+  const label = document.createElement('label');
+  label.textContent = 'Narrative layer ';
 
-  const heading = document.createElement('h2');
-  heading.textContent = 'Narrative Layer Toggle';
+  const select = document.createElement('select');
+  select.name = 'narrative-layer';
+  select.setAttribute('aria-label', 'Narrative layer');
 
-  const description = document.createElement('p');
-  description.textContent =
-    'UI stub for enabling or disabling narrative layers. No filtering is applied yet.';
+  const options = ['canon', 'faction_a', 'faction_b'];
+  options.forEach((optionValue) => {
+    const option = document.createElement('option');
+    option.value = optionValue;
+    option.textContent = optionValue;
+    select.append(option);
+  });
 
-  const stub = document.createElement('p');
-  stub.className = 'stub';
-  stub.textContent = 'Stub view: narrative layer controls are pending.';
+  label.append(select);
+  wrapper.append(label);
 
-  const toggleWrapper = document.createElement('div');
-  const toggleLabel = document.createElement('label');
-  const toggleInput = document.createElement('input');
-  toggleInput.type = 'checkbox';
-  toggleInput.disabled = true;
-  toggleLabel.append(toggleInput, ' Enable narrative overlays');
-
-  toggleWrapper.append(toggleLabel);
-
-  const metadata = document.createElement('p');
-  metadata.textContent = `Available narrative layers: ${data.narratives.length}`;
-
-  const todo = document.createElement('p');
-  todo.className = 'todo';
-  todo.textContent =
-    'TODO: connect narrative layer toggles to builder-provided narrative definitions.';
-
-  section.append(heading, description, stub, toggleWrapper, metadata, todo);
-  return section;
+  return wrapper;
 }

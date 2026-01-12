@@ -1,8 +1,6 @@
 import './style.css';
-import { createProsopographyDataLoader } from './data/loader';
-import { renderEntityEncyclopedia } from './views/entity-encyclopedia';
-import { renderRelationshipGraph } from './views/relationship-graph';
-import { renderNarrativeLayerToggle } from './views/narrative-layer';
+import { loadManifest } from './data/loadManifest';
+import { renderManifestApp } from './views/manifest-app';
 
 const app = document.querySelector<HTMLDivElement>('#app');
 
@@ -24,27 +22,20 @@ header.append(title, subtitle);
 
 const status = document.createElement('p');
 status.className = 'status';
-status.textContent = 'Loading compiled data...';
+status.textContent = 'Loading manifest...';
 
 const main = document.createElement('main');
 main.className = 'site-main';
 
 app.append(header, status, main);
 
-const dataLoader = createProsopographyDataLoader();
-
-dataLoader
-  .load()
-  .then((data) => {
-    status.textContent = 'Loaded compiled artifacts.';
-    main.append(
-      renderEntityEncyclopedia(data),
-      renderRelationshipGraph(data),
-      renderNarrativeLayerToggle(data),
-    );
+loadManifest()
+  .then((manifest) => {
+    status.textContent = 'Loaded manifest.';
+    main.append(renderManifestApp(manifest));
   })
   .catch((error: Error) => {
-    status.textContent = 'Failed to load compiled artifacts.';
+    status.textContent = 'Failed to load manifest.';
 
     const errorMessage = document.createElement('pre');
     errorMessage.textContent = error.message;
