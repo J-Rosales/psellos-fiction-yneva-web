@@ -5,6 +5,7 @@ import { loadAssertionsByPerson } from './data/loadAssertionsByPerson';
 import { loadManifest } from './data/loadManifest';
 import { loadNarrativeLayers } from './data/loadNarrativeLayers';
 import { loadPersons } from './data/loadPersons';
+import { renderLayerCompareView } from './views/layer-compare';
 import { renderManifestApp } from './views/manifest-app';
 
 const app = document.querySelector<HTMLDivElement>('#app');
@@ -29,10 +30,13 @@ const status = document.createElement('p');
 status.className = 'status';
 status.textContent = 'Loading artifacts...';
 
+const navigation = document.createElement('nav');
+navigation.className = 'site-nav';
+
 const main = document.createElement('main');
 main.className = 'site-main';
 
-app.append(header, status, main);
+app.append(header, status, navigation, main);
 
 Promise.all([
   loadManifest(),
@@ -51,16 +55,79 @@ Promise.all([
     ]) => {
       const narrativeLayers = await loadNarrativeLayers(assertionsByLayer);
       status.textContent = 'Loaded artifacts.';
-      main.append(
-        renderManifestApp(
-          manifest,
-          persons,
-          assertionsByPerson,
-          assertionsById,
-          assertionsByLayer,
-          narrativeLayers,
-        ),
-      );
+
+      const content = document.createElement('div');
+      content.className = 'site-content';
+      main.append(content);
+
+      const views = [
+        {
+          id: 'manifest',
+          label: 'Manifest overview',
+          render: () =>
+            renderManifestApp(
+              manifest,
+              persons,
+              assertionsByPerson,
+              assertionsById,
+              assertionsByLayer,
+              narrativeLayers,
+            ),
+        },
+        {
+          id: 'compare-layers',
+          label: 'Compare layers',
+          render: () =>
+            renderLayerCompareView(
+              assertionsByLayer,
+              assertionsById,
+              narrativeLayers,
+            ),
+        },
+      ] as const;
+
+      const renderNavigation = (currentView: string) => {
+        const list = document.createElement('ul');
+        list.className = 'site-nav__list';
+        views.forEach((view) => {
+          const item = document.createElement('li');
+          const link = document.createElement('a');
+          link.href = buildViewUrl(view.id);
+          link.textContent = view.label;
+          if (view.id === currentView) {
+            link.setAttribute('aria-current', 'page');
+          }
+          link.addEventListener('click', (event) => {
+            event.preventDefault();
+            navigateToView(view.id);
+          });
+          item.append(link);
+          list.append(item);
+        });
+        navigation.replaceChildren(list);
+      };
+
+      const renderView = () => {
+        const currentView = resolveView();
+        renderNavigation(currentView);
+        const view =
+          views.find((entry) => entry.id === currentView) ?? views[0];
+        content.replaceChildren(view.render());
+      };
+
+      const navigateToView = (viewId: string) => {
+        try {
+          const url = new URL(window.location.href);
+          url.searchParams.set('view', viewId);
+          window.history.pushState({}, '', url);
+        } catch {
+          // Ignore navigation if URL APIs are unavailable.
+        }
+        renderView();
+      };
+
+      window.addEventListener('popstate', renderView);
+      renderView();
     },
   )
   .catch((error: Error) => {
@@ -71,3 +138,22 @@ Promise.all([
     errorMessage.className = 'error';
     main.append(errorMessage);
   });
+
+function resolveView(): string {
+  try {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('view') ?? 'manifest';
+  } catch {
+    return 'manifest';
+  }
+}
+
+function buildViewUrl(viewId: string): string {
+  try {
+    const url = new URL(window.location.href);
+    url.searchParams.set('view', viewId);
+    return url.toString();
+  } catch {
+    return `?view=${encodeURIComponent(viewId)}`;
+  }
+}
