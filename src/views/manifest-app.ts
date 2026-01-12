@@ -5,12 +5,16 @@ import type { Manifest } from '../data/loadManifest';
 import type { PersonRecord } from '../data/loadPersons';
 import { renderNarrativeLayerToggle } from './narrative-layer';
 
+const LAYER_STORAGE_KEY = 'psellos.selectedLayer';
+const LAYER_QUERY_PARAM = 'layer';
+
 export function renderManifestApp(
   manifest: Manifest,
   persons: Record<string, PersonRecord>,
   assertionsByPerson: AssertionsByPerson,
   assertionsById: Record<string, AssertionRecord>,
   assertionsByLayer: AssertionsByLayer,
+  availableLayers: string[],
 ): HTMLElement {
   const section = document.createElement('section');
   section.className = 'view';
@@ -21,17 +25,23 @@ export function renderManifestApp(
   const content = document.createElement('div');
 
   let selectedPersonId: string | null = null;
-  let selectedLayer = 'canon';
+  let selectedLayer = resolveInitialLayerSelection();
 
-  const layerOptions = buildLayerOptions(assertionsByLayer);
+  const layerOptions = buildLayerOptions(availableLayers);
   const narrativeToggle = renderNarrativeLayerToggle(
     layerOptions,
     selectedLayer,
     (layerId) => {
       selectedLayer = layerId;
+      persistLayerSelection(layerId);
       render();
     },
   );
+
+  console.info('[psellos-web] narrative layers', {
+    availableLayers: layerOptions,
+    selectedLayer,
+  });
 
   const render = () => {
     const allowedAssertionIds = new Set(
@@ -62,6 +72,66 @@ export function renderManifestApp(
 
   section.append(heading, narrativeToggle, content);
   return section;
+}
+
+function resolveInitialLayerSelection(): string {
+  const fromUrl = readLayerFromUrl();
+  if (fromUrl) {
+    return fromUrl;
+  }
+
+  const fromStorage = readLayerFromStorage();
+  if (fromStorage) {
+    return fromStorage;
+  }
+
+  return 'canon';
+}
+
+function readLayerFromUrl(): string | null {
+  try {
+    const params = new URLSearchParams(window.location.search);
+    return params.get(LAYER_QUERY_PARAM);
+  } catch {
+    return null;
+  }
+}
+
+function readLayerFromStorage(): string | null {
+  try {
+    return window.localStorage.getItem(LAYER_STORAGE_KEY);
+  } catch {
+    return null;
+  }
+}
+
+function persistLayerSelection(layerId: string): void {
+  const updatedUrl = writeLayerToUrl(layerId);
+  if (!updatedUrl) {
+    writeLayerToStorage(layerId);
+    return;
+  }
+
+  writeLayerToStorage(layerId);
+}
+
+function writeLayerToUrl(layerId: string): boolean {
+  try {
+    const url = new URL(window.location.href);
+    url.searchParams.set(LAYER_QUERY_PARAM, layerId);
+    window.history.replaceState({}, '', url);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function writeLayerToStorage(layerId: string): void {
+  try {
+    window.localStorage.setItem(LAYER_STORAGE_KEY, layerId);
+  } catch {
+    // Ignore storage failures.
+  }
 }
 
 function renderHomeView(
@@ -221,10 +291,8 @@ function renderPersonDetailView(
   return container;
 }
 
-function buildLayerOptions(assertionsByLayer: AssertionsByLayer): string[] {
-  const layerIds = Object.keys(assertionsByLayer);
-  if (layerIds.includes('canon')) {
-    return ['canon', ...layerIds.filter((layerId) => layerId !== 'canon')];
-  }
-  return ['canon', ...layerIds];
+function buildLayerOptions(layers: string[]): string[] {
+  return [...layers].sort((a, b) =>
+    a.localeCompare(b, undefined, { sensitivity: 'base' }),
+  );
 }
