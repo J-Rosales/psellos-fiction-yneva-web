@@ -1,4 +1,5 @@
-import type { AssertionRecord } from '../data/loadAssertions';
+import type { AssertionRecord } from '../data/loadAssertionsById';
+import type { AssertionsByPerson } from '../data/loadAssertionsByPerson';
 import type { Manifest } from '../data/loadManifest';
 import type { PersonRecord } from '../data/loadPersons';
 import { renderNarrativeLayerToggle } from './narrative-layer';
@@ -6,7 +7,8 @@ import { renderNarrativeLayerToggle } from './narrative-layer';
 export function renderManifestApp(
   manifest: Manifest,
   persons: Record<string, PersonRecord>,
-  assertions: AssertionRecord[],
+  assertionsByPerson: AssertionsByPerson,
+  assertionsById: Record<string, AssertionRecord>,
 ): HTMLElement {
   const section = document.createElement('section');
   section.className = 'view';
@@ -26,7 +28,8 @@ export function renderManifestApp(
         ? renderPersonDetailView(
             manifest,
             persons,
-            assertions,
+            assertionsByPerson,
+            assertionsById,
             selectedPersonId,
             (id) => {
               selectedPersonId = id;
@@ -91,7 +94,8 @@ function renderHomeView(
 function renderPersonDetailView(
   manifest: Manifest,
   persons: Record<string, PersonRecord>,
-  assertions: AssertionRecord[],
+  assertionsByPerson: AssertionsByPerson,
+  assertionsById: Record<string, AssertionRecord>,
   personId: string,
   onSelect: (id: string | null) => void,
 ): HTMLElement {
@@ -146,10 +150,12 @@ function renderPersonDetailView(
 
   const relatedList = document.createElement('ul');
 
-  const relatedAssertions = assertions.filter(
-    (assertion) =>
-      assertion.subjectId === personId || assertion.objectId === personId,
-  );
+  const relatedAssertionIds = assertionsByPerson[personId] ?? [];
+  const relatedAssertions = relatedAssertionIds
+    .map((assertionId) => assertionsById[assertionId])
+    .filter(
+      (assertion): assertion is AssertionRecord => assertion !== undefined,
+    );
 
   if (relatedAssertions.length === 0) {
     const empty = document.createElement('p');

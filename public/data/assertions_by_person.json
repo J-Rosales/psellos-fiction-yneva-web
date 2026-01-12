@@ -1,0 +1,18 @@
+{
+  "person_001": [
+    "assertion_001",
+    "assertion_002",
+    "assertion_004",
+    "assertion_005"
+  ],
+  "person_002": [
+    "assertion_001",
+    "assertion_003",
+    "assertion_004"
+  ],
+  "person_003": [
+    "assertion_002",
+    "assertion_003",
+    "assertion_005"
+  ]
+}
