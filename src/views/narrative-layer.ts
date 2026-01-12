@@ -11,6 +11,10 @@ export function renderNarrativeLayerToggle(data: ProsopographyData): HTMLElement
   description.textContent =
     'UI stub for enabling or disabling narrative layers. No filtering is applied yet.';
 
+  const stub = document.createElement('p');
+  stub.className = 'stub';
+  stub.textContent = 'Stub view: narrative layer controls are pending.';
+
   const toggleWrapper = document.createElement('div');
   const toggleLabel = document.createElement('label');
   const toggleInput = document.createElement('input');
@@ -28,6 +32,6 @@ export function renderNarrativeLayerToggle(data: ProsopographyData): HTMLElement
   todo.textContent =
     'TODO: connect narrative layer toggles to builder-provided narrative definitions.';
 
-  section.append(heading, description, toggleWrapper, metadata, todo);
+  section.append(heading, description, stub, toggleWrapper, metadata, todo);
   return section;
 }

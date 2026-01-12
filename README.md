@@ -1,6 +1,10 @@
 # Psellos Web
 
-Psellos Web is a static, read-only web application for exploring compiled prosopographical data produced by `psellos-builder`. The site focuses on presenting entities, relationships, and narratives derived from builder outputs, without embedding or editing source data.
+Psellos Web is a static, read-only web application for exploring compiled prosopographical data produced by `psellos-builder`. The site focuses on presenting entities, relationships, and narratives derived from builder outputs, without embedding or editing source data. It is a demonstrative visualization rather than an authoring tool.
+
+## Project Context
+
+Psellos Web is part of the broader `psellos-hub` ecosystem and exists to visualize published artifacts generated elsewhere.
 
 ## Purpose
 
@@ -14,7 +18,7 @@ Psellos Web is a static, read-only web application for exploring compiled prosop
 2. Those build artifacts are copied into `public/data/` as static assets.
 3. The Vite build emits a static site that fetches the JSON at runtime via `fetch()`.
 
-The app does **not** read or transform raw data directly. It only consumes builder output.
+The app does **not** read or transform raw data directly. It only consumes builder output and assumes those artifacts have already been validated upstream.
 
 ## Separation from canon and schema
 
