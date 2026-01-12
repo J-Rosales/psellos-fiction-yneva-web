@@ -3,6 +3,7 @@ import { loadAssertionsById } from './data/loadAssertionsById';
 import { loadAssertionsByLayer } from './data/loadAssertionsByLayer';
 import { loadAssertionsByPerson } from './data/loadAssertionsByPerson';
 import { loadManifest } from './data/loadManifest';
+import { loadNarrativeLayers } from './data/loadNarrativeLayers';
 import { loadPersons } from './data/loadPersons';
 import { renderManifestApp } from './views/manifest-app';
 
@@ -41,24 +42,27 @@ Promise.all([
   loadAssertionsByLayer(),
 ])
   .then(
-    ([
+    async ([
       manifest,
       persons,
       assertionsByPerson,
       assertionsById,
       assertionsByLayer,
     ]) => {
-    status.textContent = 'Loaded artifacts.';
-    main.append(
-      renderManifestApp(
-        manifest,
-        persons,
-        assertionsByPerson,
-        assertionsById,
-        assertionsByLayer,
-      ),
-    );
-  })
+      const narrativeLayers = await loadNarrativeLayers(assertionsByLayer);
+      status.textContent = 'Loaded artifacts.';
+      main.append(
+        renderManifestApp(
+          manifest,
+          persons,
+          assertionsByPerson,
+          assertionsById,
+          assertionsByLayer,
+          narrativeLayers,
+        ),
+      );
+    },
+  )
   .catch((error: Error) => {
     status.textContent = 'Failed to load artifacts.';
 

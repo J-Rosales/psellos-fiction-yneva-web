@@ -1,3 +1,7 @@
+function isMissingLayer(layers: string[], selectedLayer: string): boolean {
+  return selectedLayer !== '' && !layers.includes(selectedLayer);
+}
+
 export function renderNarrativeLayerToggle(
   layers: string[],
   selectedLayer: string,
@@ -20,16 +24,32 @@ export function renderNarrativeLayerToggle(
     select.append(option);
   });
 
+  const status = document.createElement('span');
+  status.className = 'narrative-layer__status';
+
+  const updateStatus = (layerId: string) => {
+    if (isMissingLayer(layers, layerId)) {
+      status.textContent = `Current layer: ${layerId} (missing)`;
+      status.hidden = false;
+    } else {
+      status.textContent = '';
+      status.hidden = true;
+    }
+  };
+
   select.value = selectedLayer;
+  updateStatus(selectedLayer);
+
   select.addEventListener('change', (event) => {
     const target = event.target;
     if (target instanceof HTMLSelectElement) {
+      updateStatus(target.value);
       onSelect(target.value);
     }
   });
 
   label.append(select);
-  wrapper.append(label);
+  wrapper.append(label, status);
 
   return wrapper;
 }
