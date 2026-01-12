@@ -52,6 +52,18 @@ The UI also reads the following minimal fields from M2b artifacts:
 
 Additional fields are ignored so the UI can remain forward-compatible with future artifact expansions.
 
+## M2c artifact requirements
+
+For the M2c slice, Psellos Web expects the following additional adjacency artifacts under
+`public/data/`, copied from `psellos-builder/dist/`:
+
+- `assertions_by_person.json` (object mapping person id ➜ array of assertion ids)
+- `assertions_by_id.json` (object mapping assertion id ➜ assertion object)
+
+Person detail views use the adjacency index to resolve related assertions and no longer scan
+the full assertions list. Additional fields are ignored so the UI can remain forward-compatible
+with future artifact expansions.
+
 ## Development
 
 ```bash

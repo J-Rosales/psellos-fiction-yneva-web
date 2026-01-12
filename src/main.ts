@@ -1,5 +1,6 @@
 import './style.css';
-import { loadAssertions } from './data/loadAssertions';
+import { loadAssertionsById } from './data/loadAssertionsById';
+import { loadAssertionsByPerson } from './data/loadAssertionsByPerson';
 import { loadManifest } from './data/loadManifest';
 import { loadPersons } from './data/loadPersons';
 import { renderManifestApp } from './views/manifest-app';
@@ -31,10 +32,17 @@ main.className = 'site-main';
 
 app.append(header, status, main);
 
-Promise.all([loadManifest(), loadPersons(), loadAssertions()])
-  .then(([manifest, persons, assertions]) => {
+Promise.all([
+  loadManifest(),
+  loadPersons(),
+  loadAssertionsByPerson(),
+  loadAssertionsById(),
+])
+  .then(([manifest, persons, assertionsByPerson, assertionsById]) => {
     status.textContent = 'Loaded artifacts.';
-    main.append(renderManifestApp(manifest, persons, assertions));
+    main.append(
+      renderManifestApp(manifest, persons, assertionsByPerson, assertionsById),
+    );
   })
   .catch((error: Error) => {
     status.textContent = 'Failed to load artifacts.';
