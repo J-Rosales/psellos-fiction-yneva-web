@@ -1,0 +1,12 @@
+{
+  "spec_version": "0.1.0",
+  "counts": {
+    "persons": 3,
+    "assertions": 5
+  },
+  "person_index": {
+    "person_001": "Anna Komnene",
+    "person_002": "Michael Psellos",
+    "person_003": "Romanos IV Diogenes"
+  }
+}

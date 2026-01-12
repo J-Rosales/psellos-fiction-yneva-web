@@ -28,6 +28,17 @@ The app does **not** read or transform raw data directly. It only consumes build
 
 Where contracts are assumed, TODOs call out the expected builder artifacts so the two systems can be aligned.
 
+## M2a manifest requirements
+
+For the current M2a slice, Psellos Web only requires `public/data/manifest.json` (copied from `psellos-builder/dist/manifest.json`). The UI reads the following fields from the manifest:
+
+- `spec_version` (string)
+- `counts.persons` (number)
+- `counts.assertions` (number)
+- `person_index` (object mapping person id ➜ display name)
+
+Additional fields are ignored so the UI can remain forward-compatible with future manifest expansions.
+
 ## Development
 
 ```bash
