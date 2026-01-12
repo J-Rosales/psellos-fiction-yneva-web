@@ -1,5 +1,5 @@
 import './style.css';
-import { loadProsopographyData } from './data/prosopography';
+import { createProsopographyDataLoader } from './data/loader';
 import { renderEntityEncyclopedia } from './views/entity-encyclopedia';
 import { renderRelationshipGraph } from './views/relationship-graph';
 import { renderNarrativeLayerToggle } from './views/narrative-layer';
@@ -31,7 +31,10 @@ main.className = 'site-main';
 
 app.append(header, status, main);
 
-loadProsopographyData()
+const dataLoader = createProsopographyDataLoader();
+
+dataLoader
+  .load()
   .then((data) => {
     status.textContent = 'Loaded compiled artifacts.';
     main.append(
