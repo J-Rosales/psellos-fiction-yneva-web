@@ -114,6 +114,20 @@ Reports are written to:
 - `docs/check-url-policy.json`
 - `docs/check-artifact-contract.json`
 
+### Desktop release gate (Milestone 7)
+
+```bash
+npm run release:desktop-gate
+```
+
+This command runs:
+- full build,
+- unit/integration tests,
+- Playwright e2e suite,
+- milestone policy checks,
+
+and writes a consolidated report to `docs/m7-release-gate-report.json`.
+
 ## Current stack baseline
 
 - React + TypeScript + Vite
