@@ -27,7 +27,7 @@ function toUint8Array(value: string | Uint8Array): Uint8Array {
   if (typeof value === 'string') {
     return new TextEncoder().encode(value);
   }
-  return value;
+  return new Uint8Array(value);
 }
 
 export function createZipBlob(entries: ZipEntry[]): Blob {
@@ -101,9 +101,22 @@ export function createZipBlob(entries: ZipEntry[]): Blob {
   endView.setUint32(16, offset, true);
   endView.setUint16(20, 0, true);
 
-  return new Blob([...localParts, ...centralParts, endRecord], {
+  const toBuffer = (bytes: Uint8Array): ArrayBuffer =>
+    bytes.buffer.slice(
+      bytes.byteOffset,
+      bytes.byteOffset + bytes.byteLength,
+    ) as ArrayBuffer;
+
+  return new Blob(
+    [
+      ...localParts.map(toBuffer),
+      ...centralParts.map(toBuffer),
+      toBuffer(endRecord),
+    ],
+    {
     type: 'application/zip',
-  });
+    },
+  );
 }
 
 export type { ZipEntry };

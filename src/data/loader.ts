@@ -5,7 +5,11 @@ export interface ProsopographyDataLoader {
 }
 
 class FetchProsopographyDataLoader implements ProsopographyDataLoader {
-  constructor(private readonly artifactUrl: string) {}
+  private readonly artifactUrl: string;
+
+  constructor(artifactUrl: string) {
+    this.artifactUrl = artifactUrl;
+  }
 
   async load(): Promise<ProsopographyData> {
     const response = await fetch(this.artifactUrl);
