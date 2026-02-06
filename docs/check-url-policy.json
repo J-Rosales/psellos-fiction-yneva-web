@@ -1,0 +1,9 @@
+{
+  "error_count": 0,
+  "warning_count": 2,
+  "errors": [],
+  "warnings": [
+    "src/App.tsx missing implementation hint token: urlsearchparams",
+    "src/App.tsx missing implementation hint token: history"
+  ]
+}

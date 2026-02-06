@@ -57,6 +57,41 @@ interface MapResponse {
   }>;
 }
 
+interface LayersResponse {
+  meta: ApiMeta;
+  items: string[];
+}
+
+interface LayerChangelogResponse {
+  meta: ApiMeta;
+  item: {
+    layer: string;
+    base: string;
+    added: string[];
+    removed: string[];
+  };
+}
+
+interface LayerConsistencyResponse {
+  meta: ApiMeta;
+  item: {
+    layer: string;
+    entities_count: number;
+    assertions_count: number;
+    graph_edges_count: number;
+    map_features_count: number;
+    checks: Record<string, boolean>;
+  };
+}
+
+interface MetricsResponse {
+  meta: ApiMeta;
+  item: {
+    total_requests: number;
+    routes: Record<string, { count: number; avg_ms: number; max_ms: number }>;
+  };
+}
+
 function buildQuery(params: Record<string, string | number | boolean | undefined>): string {
   const query = new URLSearchParams();
   Object.entries(params).forEach(([key, value]) => {
@@ -137,5 +172,31 @@ export async function fetchMapFeatures(input: { filters: CoreFilters }): Promise
     rel_type: input.filters.rel_type,
     q: input.filters.q,
   });
+}
+
+export async function fetchLayers(input: { layer: string }): Promise<LayersResponse> {
+  return requestJson<LayersResponse>('/api/layers', { layer: input.layer });
+}
+
+export async function fetchLayerChangelog(input: {
+  layer: string;
+  base: string;
+}): Promise<LayerChangelogResponse> {
+  return requestJson<LayerChangelogResponse>(`/api/layers/${encodeURIComponent(input.layer)}/changelog`, {
+    base: input.base,
+    layer: input.layer,
+  });
+}
+
+export async function fetchLayerConsistency(input: {
+  layer: string;
+}): Promise<LayerConsistencyResponse> {
+  return requestJson<LayerConsistencyResponse>('/api/diagnostics/layer-consistency', {
+    layer: input.layer,
+  });
+}
+
+export async function fetchApiMetrics(): Promise<MetricsResponse> {
+  return requestJson<MetricsResponse>('/api/diagnostics/metrics', {});
 }
 

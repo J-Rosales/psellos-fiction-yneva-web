@@ -12,7 +12,11 @@
     "test:e2e": "playwright test",
     "api:dev": "tsx backend/src/server.ts",
     "ingest:dry": "node backend/scripts/ingestCompiledArtifacts.mjs --data-dir public/data",
-    "ingest:apply": "node backend/scripts/ingestCompiledArtifacts.mjs --data-dir public/data --apply"
+    "ingest:apply": "node backend/scripts/ingestCompiledArtifacts.mjs --data-dir public/data --apply",
+    "check:spec-adr-sync": "python skills/spec-adr-sync-checker/scripts/check_sync.py --root . --report docs/check-spec-adr-sync.json",
+    "check:url-policy": "python skills/url-state-filter-policy-tester/scripts/check_url_policy.py --root . --report docs/check-url-policy.json",
+    "check:artifact-contract": "python skills/artifact-contract-auditor/scripts/audit_artifacts.py --data-dir public/data --profile m2c --report docs/check-artifact-contract.json",
+    "check:milestone6": "npm run check:spec-adr-sync && npm run check:url-policy && npm run check:artifact-contract"
   },
   "devDependencies": {
     "@playwright/test": "^1.58.1",
