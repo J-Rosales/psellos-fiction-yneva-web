@@ -190,15 +190,90 @@ export class ArtifactRepository implements Repository {
     return { nodes, edges };
   }
 
-  getMapFeatures(layer: string): Record<string, unknown>[] {
-    const assertions = this.listAssertions(layer);
-    return assertions
-      .filter((item) => this.hasLocationHint(item))
-      .map((item) => ({
-        type: 'Feature',
-        geometry: null,
-        properties: item,
-      }));
+  getMapFeatures(
+    layer: string,
+    options?: { rel_type?: string; q?: string },
+  ): {
+    features: Array<Record<string, unknown>>;
+    groups: Array<Record<string, unknown>>;
+    buckets: Record<string, unknown>;
+  } {
+    const assertions = this.listAssertions(layer, { rel_type: options?.rel_type });
+    const query = String(options?.q ?? '').trim().toLowerCase();
+    const groups = new Map<
+      string,
+      {
+        place_key: string;
+        place_label: string;
+        coordinates: [number, number] | null;
+        assertion_ids: string[];
+        entity_ids: string[];
+      }
+    >();
+    let unknownGeoCount = 0;
+
+    assertions.forEach((item) => {
+      const placeLabel = this.extractPlaceLabel(item);
+      const coords = this.extractCoordinates(item);
+      const placeKey = placeLabel.toLowerCase() || 'unknown_place';
+      const subject = this.readId(item, 'subject');
+      const object = this.readId(item, 'object');
+      const entityIds = [subject, object].filter((id): id is string => Boolean(id));
+
+      if (query) {
+        const searchable = `${placeLabel} ${entityIds.join(' ')} ${JSON.stringify(item).toLowerCase()}`;
+        if (!searchable.includes(query)) {
+          return;
+        }
+      }
+
+      const existing = groups.get(placeKey) ?? {
+        place_key: placeKey,
+        place_label: placeLabel || 'Unknown place',
+        coordinates: coords,
+        assertion_ids: [],
+        entity_ids: [],
+      };
+      existing.assertion_ids.push(String(item.id ?? 'unknown-assertion'));
+      entityIds.forEach((entityId) => {
+        if (!existing.entity_ids.includes(entityId)) {
+          existing.entity_ids.push(entityId);
+        }
+      });
+      if (!existing.coordinates && coords) {
+        existing.coordinates = coords;
+      }
+      if (!coords) {
+        unknownGeoCount += 1;
+      }
+      groups.set(placeKey, existing);
+    });
+
+    const orderedGroups = Array.from(groups.values()).sort((left, right) =>
+      left.place_label.localeCompare(right.place_label, undefined, { sensitivity: 'base' }),
+    );
+    const features = orderedGroups.map((group) => ({
+      type: 'Feature',
+      geometry: group.coordinates
+        ? { type: 'Point', coordinates: [group.coordinates[1], group.coordinates[0]] }
+        : null,
+      properties: {
+        place_key: group.place_key,
+        place_label: group.place_label,
+        assertion_count: group.assertion_ids.length,
+        entity_ids: group.entity_ids,
+      },
+    }));
+
+    const ambiguousPlaceCount = orderedGroups.filter((group) => group.assertion_ids.length > 1).length;
+    return {
+      features,
+      groups: orderedGroups,
+      buckets: {
+        unknown_geo_assertion_count: unknownGeoCount,
+        ambiguous_place_group_count: ambiguousPlaceCount,
+      },
+    };
   }
 
   getLayerChangelog(layer: string, base: string): Record<string, unknown> {
@@ -221,6 +296,50 @@ export class ArtifactRepository implements Repository {
   private hasLocationHint(record: Record<string, unknown>): boolean {
     const payload = JSON.stringify(record).toLowerCase();
     return payload.includes('location') || payload.includes('place') || payload.includes('geo');
+  }
+
+  private extractPlaceLabel(record: Record<string, unknown>): string {
+    const candidates = [
+      this.readNestedString(record, ['extensions', 'psellos', 'place']),
+      this.readNestedString(record, ['extensions', 'psellos', 'location']),
+      this.readNestedString(record, ['location', 'name']),
+      this.readNestedString(record, ['place', 'name']),
+      this.readNestedString(record, ['place']),
+      this.readNestedString(record, ['location']),
+    ].filter(Boolean);
+    return candidates[0] ? this.toTitle(candidates[0]) : '';
+  }
+
+  private extractCoordinates(record: Record<string, unknown>): [number, number] | null {
+    const latCandidates = [
+      this.readNestedNumber(record, ['extensions', 'psellos', 'lat']),
+      this.readNestedNumber(record, ['location', 'lat']),
+      this.readNestedNumber(record, ['lat']),
+      this.readNestedNumber(record, ['latitude']),
+    ];
+    const lonCandidates = [
+      this.readNestedNumber(record, ['extensions', 'psellos', 'lon']),
+      this.readNestedNumber(record, ['extensions', 'psellos', 'lng']),
+      this.readNestedNumber(record, ['location', 'lon']),
+      this.readNestedNumber(record, ['location', 'lng']),
+      this.readNestedNumber(record, ['lon']),
+      this.readNestedNumber(record, ['lng']),
+      this.readNestedNumber(record, ['longitude']),
+    ];
+    const lat = latCandidates.find((value): value is number => typeof value === 'number');
+    const lon = lonCandidates.find((value): value is number => typeof value === 'number');
+    if (typeof lat !== 'number' || typeof lon !== 'number') {
+      return null;
+    }
+    return [lat, lon];
+  }
+
+  private toTitle(value: string): string {
+    return value
+      .split(' ')
+      .filter(Boolean)
+      .map((token) => token.slice(0, 1).toUpperCase() + token.slice(1))
+      .join(' ');
   }
 
   private traverseNeighborhood(

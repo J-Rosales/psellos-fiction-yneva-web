@@ -14,14 +14,14 @@ Repository constraints remain in force:
 ## Now / Next / Blocked
 
 ## Now
-- [ ] Build `/map` route container with MapLibre integration.
-- [ ] Implement place-first discovery workflow.
-- [ ] Group results by place then entities.
+- [ ] Reconcile existing layer compare/diagnostics tools with new shell.
+- [ ] Ensure narrative layer filtering works consistently in graph, map, and query/database surfaces.
+- [ ] Add diagnostics route integration for data quality checks.
 
 ## Next
-- [ ] Implement raw-marker initial rendering.
-- [ ] Implement shared side-panel card pattern (same interaction model as graph).
-- [ ] Implement scale-modifier settings in map config flow.
+- [ ] Add basic observability hooks (logs + latency metrics) on API.
+- [ ] Add skill-driven checks in workflow (spec/ADR sync, URL/filter policy, artifact contract audit).
+- [ ] Run full release-gate build/test and share-link verification prep.
 
 ## Blocked
 - [ ] PostGIS enablement decision
@@ -186,18 +186,27 @@ Blocker: internal stability gates not yet satisfied.
 
 ## Milestone 5: Map Experience (MapLibre, Place-First)
 
-- [ ] Build `/map` route container with MapLibre integration.
-- [ ] Implement place-first discovery workflow.
-- [ ] Group results by place then entities.
-- [ ] Implement raw-marker initial rendering.
-- [ ] Implement shared side-panel card pattern (same interaction model as graph).
-- [ ] Implement scale-modifier settings in map config flow.
-- [ ] Keep tile pipeline out of initial release.
-- [ ] Add explicit handling for unknown/ambiguous map-linked semantics.
+- [x] Build `/map` route container with MapLibre integration.
+- [x] Implement place-first discovery workflow.
+- [x] Group results by place then entities.
+- [x] Implement raw-marker initial rendering.
+- [x] Implement shared side-panel card pattern (same interaction model as graph).
+- [x] Implement scale-modifier settings in map config flow.
+- [x] Keep tile pipeline out of initial release.
+- [x] Add explicit handling for unknown/ambiguous map-linked semantics.
 
 ### Exit criteria
-- [ ] Map behavior matches ADR-0004 and UX spec.
-- [ ] Layer hard-filter semantics preserved on map queries.
+- [x] Map behavior matches ADR-0004 and UX spec.
+- [x] Layer hard-filter semantics preserved on map queries.
+
+### Verification log (Milestone 5)
+- Map API place-first grouping and unknown/ambiguous buckets implemented in `backend/src/routes/map.ts` and `backend/src/lib/repository.ts`.
+- Map route implemented with MapLibre raw markers, place-first side panel, and scale-modifier controls in `src/views/mapRoute.tsx`.
+- Map route wired in `src/router.tsx`; map API client in `src/api/client.ts`.
+- Milestone 5 verification tests added in `backend/tests/milestone5.verification.test.ts`.
+- Marker extraction unit test added in `src/views/mapUtils.test.ts`.
+- Build verification: `npm run build` passed.
+- Unit/integration verification: `npm run test:unit` passed.
 
 ---
 
