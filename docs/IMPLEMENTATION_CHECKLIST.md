@@ -14,14 +14,14 @@ Repository constraints remain in force:
 ## Now / Next / Blocked
 
 ## Now
-- [ ] Create Fastify service skeleton with typed route modules.
-- [ ] Add Zod schemas for request parsing and response shaping.
-- [ ] Implement baseline endpoint stubs for read-only API routes.
+- [ ] Build `/entities` with MUI X DataGrid using server-side query mode.
+- [ ] Build `/entity/:id` with MUI card/panel composition and linked assertions.
+- [ ] Implement global search pipeline with fuzzy default and exact toggle wiring.
 
 ## Next
-- [ ] Enforce layer hard-filter semantics in all relevant endpoints.
-- [ ] Implement PostgreSQL schema and batch ingest pipeline from compiled artifacts.
-- [ ] Add API integration tests for layer behavior and error shape.
+- [ ] Support hard include/exclude `rel_type` on search screens.
+- [ ] Surface unknown/ambiguous buckets explicitly in entity/search UI.
+- [ ] Add loading/empty/error states for entity and search routes.
 
 ## Blocked
 - [ ] PostGIS enablement decision
@@ -92,28 +92,37 @@ Blocker: internal stability gates not yet satisfied.
 
 ## Milestone 2: Data and API Core (Fastify + PostgreSQL Index)
 
-- [ ] Create Fastify service skeleton with typed route modules.
-- [ ] Add Zod schemas for request parsing and response shaping.
-- [ ] Implement baseline endpoint stubs:
-  - [ ] `GET /api/entities`
-  - [ ] `GET /api/entities/:id`
-  - [ ] `GET /api/assertions`
-  - [ ] `GET /api/graph/neighborhood`
-  - [ ] `GET /api/map/features`
-  - [ ] `GET /api/layers`
-  - [ ] `GET /api/layers/:id/changelog`
-- [ ] Enforce layer hard-filter semantics in all relevant endpoints.
-- [ ] Add default `layer=canon` behavior when absent.
-- [ ] Return empty+warning metadata for unknown layer.
-- [ ] Add minimal consistent error shape (`status`, `message`, `request_id`, optional `layer`).
-- [ ] Implement PostgreSQL schema for persons/assertions/layers/edges/places/link tables.
-- [ ] Build batch ingest pipeline from compiled artifacts.
-- [ ] Add ingest report output (counts, warnings, failures).
+- [x] Create Fastify service skeleton with typed route modules.
+- [x] Add Zod schemas for request parsing and response shaping.
+- [x] Implement baseline endpoint stubs:
+  - [x] `GET /api/entities`
+  - [x] `GET /api/entities/:id`
+  - [x] `GET /api/assertions`
+  - [x] `GET /api/graph/neighborhood`
+  - [x] `GET /api/map/features`
+  - [x] `GET /api/layers`
+  - [x] `GET /api/layers/:id/changelog`
+- [x] Enforce layer hard-filter semantics in all relevant endpoints.
+- [x] Add default `layer=canon` behavior when absent.
+- [x] Return empty+warning metadata for unknown layer.
+- [x] Add minimal consistent error shape (`status`, `message`, `request_id`, optional `layer`).
+- [x] Implement PostgreSQL schema for persons/assertions/layers/edges/places/link tables.
+- [x] Build batch ingest pipeline from compiled artifacts.
+- [x] Add ingest report output (counts, warnings, failures).
 
 ### Exit criteria
-- [ ] API route integration tests pass for layer behavior and error shape.
-- [ ] Ingest from compiled artifacts is repeatable and idempotent.
-- [ ] No runtime dependency on raw YAML/spec files.
+- [x] API route integration tests pass for layer behavior and error shape.
+- [x] Ingest from compiled artifacts is repeatable and idempotent.
+- [x] No runtime dependency on raw YAML/spec files.
+
+### Verification log (Milestone 2)
+- API skeleton and typed modules implemented in `backend/src/app.ts` and `backend/src/routes/*`.
+- Zod request schemas and response helpers implemented in `backend/src/lib/contracts.ts` and `backend/src/lib/response.ts`.
+- PostgreSQL schema added at `backend/sql/schema.sql`.
+- Batch ingest pipeline added at `backend/scripts/ingestCompiledArtifacts.mjs`.
+- Ingest dry-run report: `docs/m2-ingest-report.json`.
+- API integration tests: `backend/tests/api.integration.test.ts` (pass).
+- Build + unit + e2e verification passed after Milestone 2 implementation.
 
 ---
 

@@ -9,7 +9,10 @@
     "preview": "vite preview",
     "test": "npm run test:unit && npm run test:e2e",
     "test:unit": "vitest run",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "api:dev": "tsx backend/src/server.ts",
+    "ingest:dry": "node backend/scripts/ingestCompiledArtifacts.mjs --data-dir public/data",
+    "ingest:apply": "node backend/scripts/ingestCompiledArtifacts.mjs --data-dir public/data --apply"
   },
   "devDependencies": {
     "@playwright/test": "^1.58.1",
@@ -23,6 +26,7 @@
     "jsdom": "^28.0.0",
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.18",
+    "tsx": "^4.21.0",
     "typescript": "~5.9.3",
     "vite": "^7.2.4",
     "vitest": "^4.0.18"

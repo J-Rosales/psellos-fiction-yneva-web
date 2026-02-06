@@ -1,0 +1,12 @@
+{
+  "data_dir": "E:\\Github\\psellos-prosopography\\psellos-fiction-yneva-web\\public\\data",
+  "apply": false,
+  "counts": {
+    "layers": 2,
+    "persons": 53,
+    "assertions": 65,
+    "edges": 65
+  },
+  "warnings": [],
+  "failures": []
+}

@@ -84,6 +84,19 @@ npm install
 npm run dev
 ```
 
+### API and ingest utilities (Milestone 2)
+
+```bash
+# Start read-only API skeleton
+npm run api:dev
+
+# Generate ingest report from compiled artifacts
+npm run ingest:dry -- --report docs/m2-ingest-report.json
+
+# Apply ingest to PostgreSQL (requires DATABASE_URL)
+npm run ingest:apply
+```
+
 ## Current stack baseline
 
 - React + TypeScript + Vite
