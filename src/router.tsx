@@ -8,6 +8,7 @@ import { AppShell, SimpleView } from './App';
 import { EntitiesRouteView } from './views/entitiesRoute';
 import { EntityDetailRouteView } from './views/entityDetailRoute';
 import { GraphRouteView } from './views/graphRoute';
+import { MapRouteView } from './views/mapRoute';
 import { SearchRouteView } from './views/searchRoute';
 
 const rootRoute = createRootRoute({
@@ -47,13 +48,7 @@ const graphRoute = createRoute({
 const mapRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/map',
-  component: () => (
-    <SimpleView
-      title="Map"
-      description="Map route shell is active. MapLibre place-first UI lands in Milestone 5."
-      routeId="/map"
-    />
-  ),
+  component: MapRouteView,
 });
 
 const layersRoute = createRoute({

@@ -11,11 +11,21 @@ export async function registerMapRoutes(app: FastifyInstance, repo: Repository):
       return reply.status(400).send(buildBadRequestError(request, z.prettifyError(parsed.error)));
     }
     const { layer, known, warnings } = resolveLayer(request, repo, parsed.data.layer);
-    const items = known ? repo.getMapFeatures(layer) : [];
+    const result = known
+      ? repo.getMapFeatures(layer, { rel_type: parsed.data.rel_type, q: parsed.data.q })
+      : {
+          features: [],
+          groups: [],
+          buckets: { unknown_geo_assertion_count: 0, ambiguous_place_group_count: 0 },
+        };
     return {
-      meta: buildSuccessMeta(layer, items.length, warnings),
+      meta: {
+        ...buildSuccessMeta(layer, result.features.length, warnings),
+        buckets: result.buckets,
+      },
       type: 'FeatureCollection',
-      features: items,
+      features: result.features,
+      groups: result.groups,
     };
   });
 }

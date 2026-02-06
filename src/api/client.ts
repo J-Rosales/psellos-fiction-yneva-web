@@ -44,6 +44,19 @@ interface GraphResponse {
   edges: AssertionRecord[];
 }
 
+interface MapResponse {
+  meta: ApiMeta;
+  type: 'FeatureCollection';
+  features: Array<Record<string, unknown>>;
+  groups: Array<{
+    place_key: string;
+    place_label: string;
+    coordinates: [number, number] | null;
+    assertion_ids: string[];
+    entity_ids: string[];
+  }>;
+}
+
 function buildQuery(params: Record<string, string | number | boolean | undefined>): string {
   const query = new URLSearchParams();
   Object.entries(params).forEach(([key, value]) => {
@@ -115,6 +128,14 @@ export async function fetchGraphNeighborhood(input: {
     rel_type: input.filters.rel_type,
     entity_id: input.entityId,
     depth: input.depth ?? 2,
+  });
+}
+
+export async function fetchMapFeatures(input: { filters: CoreFilters }): Promise<MapResponse> {
+  return requestJson<MapResponse>('/api/map/features', {
+    layer: input.filters.layer,
+    rel_type: input.filters.rel_type,
+    q: input.filters.q,
   });
 }
 

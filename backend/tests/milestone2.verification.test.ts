@@ -11,16 +11,22 @@ class MilestoneRepo implements Repository {
   listLayers(): string[] {
     return ['canon', 'narrative'];
   }
-  listEntities(layer: string): Record<string, unknown>[] {
-    return layer === 'canon'
-      ? [
-          { id: 'p1', name: 'Entity One' },
-          { id: 'p2', name: 'Entity Two' },
-        ]
-      : [];
+  listEntities(layer: string): {
+    items: Record<string, unknown>[];
+    totalCount: number;
+    buckets: Record<string, unknown>;
+  } {
+    const items =
+      layer === 'canon'
+        ? [
+            { id: 'p1', name: 'Entity One' },
+            { id: 'p2', name: 'Entity Two' },
+          ]
+        : [];
+    return { items, totalCount: items.length, buckets: { unknown_label_count: 0, ambiguous_label_count: 0 } };
   }
   getEntityById(layer: string, id: string): Record<string, unknown> | null {
-    return this.listEntities(layer).find((entity) => entity.id === id) ?? null;
+    return this.listEntities(layer).items.find((entity) => entity.id === id) ?? null;
   }
   listAssertions(layer: string): Record<string, unknown>[] {
     return layer === 'canon'
@@ -34,9 +40,17 @@ class MilestoneRepo implements Repository {
       edges: [{ id: 'a1', subject: 'p1', predicate: 'knows', object: 'p2' }],
     };
   }
-  getMapFeatures(layer: string): Record<string, unknown>[] {
-    if (layer !== 'canon') return [];
-    return [{ type: 'Feature', geometry: null, properties: { id: 'a1' } }];
+  getMapFeatures(layer: string): {
+    features: Record<string, unknown>[];
+    groups: Record<string, unknown>[];
+    buckets: Record<string, unknown>;
+  } {
+    if (layer !== 'canon') return { features: [], groups: [], buckets: {} };
+    return {
+      features: [{ type: 'Feature', geometry: null, properties: { id: 'a1' } }],
+      groups: [{ place_key: 'unknown_place', place_label: 'Unknown place', coordinates: null, assertion_ids: ['a1'], entity_ids: ['p1'] }],
+      buckets: { unknown_geo_assertion_count: 1, ambiguous_place_group_count: 0 },
+    };
   }
   getLayerChangelog(layer: string, base: string): Record<string, unknown> {
     return { layer, base, added: [], removed: [] };
