@@ -94,7 +94,7 @@ export class ArtifactRepository implements Repository {
     const relFilter = this.parseRelTypeFilter(options?.rel_type);
     const page = options?.page ?? 0;
     const pageSize = options?.pageSize ?? 25;
-    const allAssertions = this.listAssertions(layer, { rel_type: options?.rel_type });
+    const allAssertions = this.listAssertions(layer);
 
     const ranked = Object.values(this.persons)
       .map((entity) => ({ entity, score: this.scoreEntity(entity, query, exact) }))
@@ -303,6 +303,12 @@ export class ArtifactRepository implements Repository {
     });
     if (relFilter.include.size > 0 && linked.length === 0) {
       return false;
+    }
+    if (relFilter.include.size > 0) {
+      const hasIncluded = linked.some((assertion) => relFilter.include.has(this.readRelType(assertion)));
+      if (!hasIncluded) {
+        return false;
+      }
     }
     if (relFilter.exclude.size > 0) {
       const hasExcluded = linked.some((assertion) => relFilter.exclude.has(this.readRelType(assertion)));
