@@ -3,6 +3,7 @@ import { DEFAULT_CORE_FILTERS, type CoreFilters } from '../state/filterPinStore'
 const ALL_FILTER_KEYS = [
   'layer',
   'q',
+  'exact',
   'rel_type',
   'date_from',
   'date_to',
@@ -16,25 +17,25 @@ const SUPPORTED_BY_PATH: ReadonlyArray<{
   match: RegExp;
   keys: readonly CoreFilterKey[];
 }> = [
-  { match: /^\/$/, keys: ['layer', 'q'] },
+  { match: /^\/$/, keys: ['layer', 'q', 'exact'] },
   {
     match: /^\/entities$/,
-    keys: ['layer', 'q', 'rel_type', 'date_from', 'date_to', 'entity_type', 'has_geo'],
+    keys: ['layer', 'q', 'exact', 'rel_type', 'date_from', 'date_to', 'entity_type', 'has_geo'],
   },
-  { match: /^\/entity\/[^/]+$/, keys: ['layer', 'rel_type', 'date_from', 'date_to'] },
+  { match: /^\/entity\/[^/]+$/, keys: ['layer', 'exact', 'rel_type', 'date_from', 'date_to'] },
   {
     match: /^\/graph$/,
-    keys: ['layer', 'q', 'rel_type', 'date_from', 'date_to', 'entity_type'],
+    keys: ['layer', 'q', 'exact', 'rel_type', 'date_from', 'date_to', 'entity_type'],
   },
   {
     match: /^\/map$/,
-    keys: ['layer', 'q', 'rel_type', 'date_from', 'date_to', 'entity_type', 'has_geo'],
+    keys: ['layer', 'q', 'exact', 'rel_type', 'date_from', 'date_to', 'entity_type', 'has_geo'],
   },
   { match: /^\/layers$/, keys: ['layer'] },
   { match: /^\/diagnostics$/, keys: ['layer'] },
   {
     match: /^\/search$/,
-    keys: ['layer', 'q', 'rel_type', 'date_from', 'date_to', 'entity_type', 'has_geo'],
+    keys: ['layer', 'q', 'exact', 'rel_type', 'date_from', 'date_to', 'entity_type', 'has_geo'],
   },
 ];
 
@@ -48,6 +49,7 @@ export function parseCoreFilters(search: string): CoreFilters {
   return {
     layer: params.get('layer')?.trim() || DEFAULT_CORE_FILTERS.layer,
     q: params.get('q')?.trim() || DEFAULT_CORE_FILTERS.q,
+    exact: params.get('exact') === 'true' ? true : DEFAULT_CORE_FILTERS.exact,
     rel_type: params.get('rel_type')?.trim() || DEFAULT_CORE_FILTERS.rel_type,
     date_from: params.get('date_from')?.trim() || DEFAULT_CORE_FILTERS.date_from,
     date_to: params.get('date_to')?.trim() || DEFAULT_CORE_FILTERS.date_to,
@@ -104,6 +106,7 @@ export function filterLabel(key: CoreFilterKey): string {
   const labels: Record<CoreFilterKey, string> = {
     layer: 'Layer',
     q: 'Search',
+    exact: 'Exact',
     rel_type: 'Relation type',
     date_from: 'Date from',
     date_to: 'Date to',

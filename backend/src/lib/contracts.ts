@@ -6,14 +6,19 @@ export const layerQuerySchema = z.object({
 
 export const entitiesQuerySchema = layerQuerySchema.extend({
   q: z.string().optional(),
+  exact: z.coerce.boolean().optional().default(false),
   rel_type: z.string().optional(),
   date_from: z.string().optional(),
   date_to: z.string().optional(),
   entity_type: z.string().optional(),
   has_geo: z.enum(['any', 'yes', 'no']).optional(),
+  page: z.coerce.number().int().min(0).optional().default(0),
+  page_size: z.coerce.number().int().min(1).max(200).optional().default(25),
 });
 
-export const assertionsQuerySchema = entitiesQuerySchema;
+export const assertionsQuerySchema = entitiesQuerySchema.extend({
+  entity_id: z.string().optional(),
+});
 
 export const graphQuerySchema = layerQuerySchema.extend({
   entity_id: z.string().optional(),
@@ -40,7 +45,9 @@ export interface ApiErrorShape {
 export interface SuccessMeta {
   layer: string;
   result_count: number;
+  total_count?: number;
   warnings?: string[];
+  buckets?: Record<string, unknown>;
 }
 
 export function makeApiError(status: number, message: string, requestId: string, layer?: string): ApiErrorShape {

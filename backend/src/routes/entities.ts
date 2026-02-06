@@ -11,10 +11,26 @@ export async function registerEntityRoutes(app: FastifyInstance, repo: Repositor
       return reply.status(400).send(buildBadRequestError(request, z.prettifyError(parsed.error)));
     }
     const { layer, known, warnings } = resolveLayer(request, repo, parsed.data.layer);
-    const items = known ? repo.listEntities(layer) : [];
+    const listed = known
+      ? repo.listEntities(layer, {
+          q: parsed.data.q,
+          exact: parsed.data.exact,
+          rel_type: parsed.data.rel_type,
+          entity_type: parsed.data.entity_type,
+          page: parsed.data.page,
+          pageSize: parsed.data.page_size,
+        })
+      : { items: [], totalCount: 0, buckets: { unknown_label_count: 0, ambiguous_label_count: 0 } };
+    const result = Array.isArray(listed)
+      ? { items: listed, totalCount: listed.length, buckets: { unknown_label_count: 0, ambiguous_label_count: 0 } }
+      : listed;
     return {
-      meta: buildSuccessMeta(layer, items.length, warnings),
-      items,
+      meta: {
+        ...buildSuccessMeta(layer, result.items.length, warnings),
+        total_count: result.totalCount,
+        buckets: result.buckets,
+      },
+      items: result.items,
     };
   });
 

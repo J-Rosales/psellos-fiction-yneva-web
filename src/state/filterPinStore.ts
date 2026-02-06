@@ -3,6 +3,7 @@ import { create } from 'zustand';
 export interface CoreFilters {
   layer: string;
   q: string;
+  exact: boolean;
   rel_type: string;
   date_from: string;
   date_to: string;
@@ -13,6 +14,7 @@ export interface CoreFilters {
 export const DEFAULT_CORE_FILTERS: CoreFilters = {
   layer: 'canon',
   q: '',
+  exact: false,
   rel_type: '',
   date_from: '',
   date_to: '',

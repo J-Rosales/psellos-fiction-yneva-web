@@ -14,9 +14,10 @@ describe('coreFilters', () => {
   });
 
   it('parses known params and normalizes has_geo', () => {
-    const parsed = parseCoreFilters('?layer=narrative&q=alpha&has_geo=yes');
+    const parsed = parseCoreFilters('?layer=narrative&q=alpha&has_geo=yes&exact=true');
     expect(parsed.layer).toBe('narrative');
     expect(parsed.q).toBe('alpha');
+    expect(parsed.exact).toBe(true);
     expect(parsed.has_geo).toBe('yes');
   });
 
