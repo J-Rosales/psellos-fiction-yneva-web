@@ -7,6 +7,7 @@ import {
 import { AppShell, SimpleView } from './App';
 import { EntitiesRouteView } from './views/entitiesRoute';
 import { EntityDetailRouteView } from './views/entityDetailRoute';
+import { GraphRouteView } from './views/graphRoute';
 import { SearchRouteView } from './views/searchRoute';
 
 const rootRoute = createRootRoute({
@@ -40,13 +41,7 @@ const entityRoute = createRoute({
 const graphRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/graph',
-  component: () => (
-    <SimpleView
-      title="Graph"
-      description="Graph route shell is active. Cytoscape integration lands in Milestone 4."
-      routeId="/graph"
-    />
-  ),
+  component: GraphRouteView,
 });
 
 const mapRoute = createRoute({

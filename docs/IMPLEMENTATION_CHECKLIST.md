@@ -14,14 +14,14 @@ Repository constraints remain in force:
 ## Now / Next / Blocked
 
 ## Now
-- [x] Build `/entities` with MUI X DataGrid using server-side query mode.
-- [x] Build `/entity/:id` with MUI card/panel composition and linked assertions.
-- [x] Implement global search pipeline with fuzzy default and exact toggle wiring.
+- [ ] Build `/map` route container with MapLibre integration.
+- [ ] Implement place-first discovery workflow.
+- [ ] Group results by place then entities.
 
 ## Next
-- [x] Support hard include/exclude `rel_type` on search screens.
-- [x] Surface unknown/ambiguous buckets explicitly in entity/search UI.
-- [x] Add loading/empty/error states for entity and search routes.
+- [ ] Implement raw-marker initial rendering.
+- [ ] Implement shared side-panel card pattern (same interaction model as graph).
+- [ ] Implement scale-modifier settings in map config flow.
 
 ## Blocked
 - [ ] PostGIS enablement decision
@@ -154,23 +154,33 @@ Blocker: internal stability gates not yet satisfied.
 
 ## Milestone 4: Graph Experience (Cytoscape)
 
-- [ ] Build `/graph` route container with Cytoscape integration.
-- [ ] Implement deep traversal default behavior.
-- [ ] Implement client-driven expansion interactions.
-- [ ] Enforce confidence-first expansion ordering in UI/data flow.
-- [ ] Implement shared side-panel card behavior:
-  - [ ] compact summary default
-  - [ ] expand-on-demand
-- [ ] Show edge labels by default.
-- [ ] Implement `View *` inference modes:
-  - [ ] `View Dynasty`
-  - [ ] `View Workplace`
-- [ ] Allow multi-membership across clusters.
-- [ ] Add Advanced options for cluster precedence controls.
+- [x] Build `/graph` route container with Cytoscape integration.
+- [x] Implement deep traversal default behavior.
+- [x] Implement client-driven expansion interactions.
+- [x] Enforce confidence-first expansion ordering in UI/data flow.
+- [x] Implement shared side-panel card behavior:
+  - [x] compact summary default
+  - [x] expand-on-demand
+- [x] Show edge labels by default.
+- [x] Implement `View *` inference modes:
+  - [x] `View Dynasty`
+  - [x] `View Workplace`
+- [x] Allow multi-membership across clusters.
+- [x] Add Advanced options for cluster precedence controls.
 
 ### Exit criteria
-- [ ] Graph behaviors match ADR-0003 and UX spec.
-- [ ] Layer hard-filter remains intact under graph interactions.
+- [x] Graph behaviors match ADR-0003 and UX spec.
+- [x] Layer hard-filter remains intact under graph interactions.
+
+### Verification log (Milestone 4)
+- Graph route implemented with Cytoscape in `src/views/graphRoute.tsx`.
+- Graph API neighborhood depth/seed/relation filtering and confidence ordering implemented in `backend/src/routes/graph.ts` and `backend/src/lib/repository.ts`.
+- Cluster inference modes and advanced precedence controls implemented in `src/views/graphRoute.tsx`.
+- Verification tests added:
+  - `backend/tests/milestone4.verification.test.ts`
+  - `src/views/graphRoute.test.ts`
+- Build verification: `npm run build` passed.
+- Unit/integration verification: `npm run test:unit` passed.
 
 ---
 

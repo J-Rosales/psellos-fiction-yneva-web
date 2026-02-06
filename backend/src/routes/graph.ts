@@ -18,7 +18,11 @@ export async function registerGraphRoutes(app: FastifyInstance, repo: Repository
         edges: [],
       };
     }
-    const graph = repo.getGraphNeighborhood(layer);
+    const graph = repo.getGraphNeighborhood(layer, {
+      entityId: parsed.data.entity_id,
+      depth: parsed.data.depth,
+      relType: parsed.data.rel_type,
+    });
     return {
       meta: buildSuccessMeta(layer, graph.edges.length, warnings),
       nodes: graph.nodes,
