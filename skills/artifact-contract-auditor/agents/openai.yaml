@@ -1,0 +1,4 @@
+interface:
+  display_name: "Artifact Contract Auditor"
+  short_description: "Audit compiled artifacts for contract drift."
+  default_prompt: "Use $artifact-contract-auditor to validate public/data artifacts and report contract errors."

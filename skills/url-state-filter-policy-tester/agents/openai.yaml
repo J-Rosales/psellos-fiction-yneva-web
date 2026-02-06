@@ -1,0 +1,4 @@
+interface:
+  display_name: "URL State Policy Tester"
+  short_description: "Verify URL, filter, reset, and pin policy."
+  default_prompt: "Use $url-state-filter-policy-tester to validate route/filter policy across docs and source."

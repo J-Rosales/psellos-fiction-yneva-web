@@ -1,0 +1,4 @@
+interface:
+  display_name: "Desktop Release Gate"
+  short_description: "Run stable desktop release readiness checks."
+  default_prompt: "Use $desktop-release-gate to run documentation and build gates before release."

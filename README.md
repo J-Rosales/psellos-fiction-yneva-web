@@ -6,6 +6,19 @@ Psellos Fiction Yneva Web is a static, read-only web application for exploring c
 
 This repo is derived from `psellos-web` and remains part of the broader `psellos-hub` ecosystem. It exists to visualize published artifacts generated elsewhere.
 
+## Upstream references
+
+- Governance authority: `https://github.com/psellos-prosopographia/psellos-hub`
+- Workspace authority index: `https://raw.githubusercontent.com/psellos-prosopographia/psellos-hub/main/AUTHORITY_INDEX.yml`
+- Primary source dataset for this presentation app: `https://github.com/psellos-prosopographia/psellos-fiction-yneva-data`
+- Spec contracts: `https://github.com/psellos-prosopographia/psellos-spec`
+- Artifact compiler: `https://github.com/psellos-prosopographia/psellos-builder`
+- Minimal reference web app baseline: `https://github.com/psellos-prosopographia/psellos-web`
+
+## Working in this repo alone
+
+If this repository is opened as a standalone workspace, treat the links above as authoritative references for cross-repo governance, data provenance, and build contracts. This repository remains presentation-only and artifact-consumer-only.
+
 ## Purpose
 
 - Provide a lightweight, static UI for browsing compiled prosopographical artifacts.

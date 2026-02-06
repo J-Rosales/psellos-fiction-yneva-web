@@ -1,0 +1,4 @@
+interface:
+  display_name: "Graph Inference Rules"
+  short_description: "Infer View* graph clusters from assertions."
+  default_prompt: "Use $graph-view-inference-rules to score dynasty and workplace memberships from assertions."

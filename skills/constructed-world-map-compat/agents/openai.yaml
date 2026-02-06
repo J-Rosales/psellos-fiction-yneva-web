@@ -1,0 +1,4 @@
+interface:
+  display_name: "Constructed World Map Compat"
+  short_description: "Validate scale-modifier world map compatibility."
+  default_prompt: "Use $constructed-world-map-compat to check projection, scale, and PostGIS compatibility assumptions."

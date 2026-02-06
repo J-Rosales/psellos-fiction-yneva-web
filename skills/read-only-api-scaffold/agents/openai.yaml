@@ -1,0 +1,4 @@
+interface:
+  display_name: "Read-Only API Scaffold"
+  short_description: "Generate read-only endpoint scaffolding."
+  default_prompt: "Use $read-only-api-scaffold to create resource-oriented API skeleton files."

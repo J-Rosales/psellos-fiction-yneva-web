@@ -1,0 +1,4 @@
+interface:
+  display_name: "Spec ADR Sync Checker"
+  short_description: "Check docs and ADRs for policy drift."
+  default_prompt: "Use $spec-adr-sync-checker to scan plan/spec/ADR files and flag mismatches."
