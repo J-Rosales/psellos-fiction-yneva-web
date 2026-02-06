@@ -14,14 +14,14 @@ Repository constraints remain in force:
 ## Now / Next / Blocked
 
 ## Now
-- [ ] Reconcile existing layer compare/diagnostics tools with new shell.
-- [ ] Ensure narrative layer filtering works consistently in graph, map, and query/database surfaces.
-- [ ] Add diagnostics route integration for data quality checks.
+- [ ] Run full build/test suite.
+- [ ] Run release gate checks and collect report.
+- [ ] Verify documentation reflects implemented behavior.
 
 ## Next
-- [ ] Add basic observability hooks (logs + latency metrics) on API.
-- [ ] Add skill-driven checks in workflow (spec/ADR sync, URL/filter policy, artifact contract audit).
-- [ ] Run full release-gate build/test and share-link verification prep.
+- [ ] Confirm share-link semantics and URL-state restoration.
+- [ ] Confirm unknown/ambiguous state handling in UI.
+- [ ] Publish release notes for desktop stable.
 
 ## Blocked
 - [ ] PostGIS enablement decision
@@ -212,21 +212,46 @@ Blocker: internal stability gates not yet satisfied.
 
 ## Milestone 6: Layers, Diagnostics, and Policy Hardening
 
-- [ ] Reconcile existing layer compare/diagnostics tools with new shell.
-- [ ] Ensure narrative layer filtering works consistently in:
-  - [ ] graph
-  - [ ] map
-  - [ ] query/database surfaces
-- [ ] Add diagnostics route integration for data quality checks.
-- [ ] Add basic observability hooks (logs + latency metrics) on API.
-- [ ] Add skill-driven checks in workflow:
-  - [ ] spec/ADR sync
-  - [ ] URL/filter policy
-  - [ ] artifact contract audit
+- [x] Reconcile existing layer compare/diagnostics tools with new shell.
+- [x] Ensure narrative layer filtering works consistently in:
+  - [x] graph
+  - [x] map
+  - [x] query/database surfaces
+- [x] Add diagnostics route integration for data quality checks.
+- [x] Add basic observability hooks (logs + latency metrics) on API.
+- [x] Add skill-driven checks in workflow:
+  - [x] spec/ADR sync
+  - [x] URL/filter policy
+  - [x] artifact contract audit
 
 ### Exit criteria
-- [ ] Layer policy is verifiably consistent across all relevant views.
-- [ ] Diagnostics and policy checks are runnable and documented.
+- [x] Layer policy is verifiably consistent across all relevant views.
+- [x] Diagnostics and policy checks are runnable and documented.
+
+### Verification log (Milestone 6)
+- Layer and diagnostics route views implemented in:
+  - `src/views/layersRoute.tsx`
+  - `src/views/diagnosticsRoute.tsx`
+- Routes integrated into app shell in `src/router.tsx`.
+- Diagnostics API endpoints implemented in `backend/src/routes/diagnostics.ts`:
+  - `GET /api/diagnostics/layer-consistency`
+  - `GET /api/diagnostics/metrics`
+- Basic API observability hooks and in-memory metrics implemented in `backend/src/lib/observability.ts` and wired in `backend/src/app.ts`.
+- Skill-driven policy workflow scripts added in `package.json`:
+  - `check:spec-adr-sync`
+  - `check:url-policy`
+  - `check:artifact-contract`
+  - `check:milestone6`
+- Policy check reports generated:
+  - `docs/check-spec-adr-sync.json`
+  - `docs/check-url-policy.json`
+  - `docs/check-artifact-contract.json`
+- Milestone 6 verification tests added:
+  - `backend/tests/milestone6.verification.test.ts`
+  - `backend/tests/policy-checks.verification.test.ts`
+- Build verification: `npm run build` passed.
+- Unit/integration verification: `npm run test:unit` passed.
+- Policy workflow verification: `npm run check:milestone6` passed (2 URL-policy warnings, 0 errors).
 
 ---
 

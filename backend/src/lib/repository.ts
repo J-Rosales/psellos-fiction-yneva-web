@@ -31,7 +31,14 @@ export interface Repository {
     nodes: Array<Record<string, unknown>>;
     edges: Array<Record<string, unknown>>;
   };
-  getMapFeatures(layer: string): Array<Record<string, unknown>>;
+  getMapFeatures(
+    layer: string,
+    options?: { rel_type?: string; q?: string },
+  ): {
+    features: Array<Record<string, unknown>>;
+    groups: Array<Record<string, unknown>>;
+    buckets: Record<string, unknown>;
+  };
   getLayerChangelog(layer: string, base: string): Record<string, unknown>;
 }
 

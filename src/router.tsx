@@ -5,9 +5,11 @@ import {
   RouterProvider,
 } from '@tanstack/react-router';
 import { AppShell, SimpleView } from './App';
+import { DiagnosticsRouteView } from './views/diagnosticsRoute';
 import { EntitiesRouteView } from './views/entitiesRoute';
 import { EntityDetailRouteView } from './views/entityDetailRoute';
 import { GraphRouteView } from './views/graphRoute';
+import { LayersRouteView } from './views/layersRoute';
 import { MapRouteView } from './views/mapRoute';
 import { SearchRouteView } from './views/searchRoute';
 
@@ -54,13 +56,7 @@ const mapRoute = createRoute({
 const layersRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/layers',
-  component: () => (
-    <SimpleView
-      title="Layers"
-      description="Narrative layer controls route shell is active."
-      routeId="/layers"
-    />
-  ),
+  component: LayersRouteView,
 });
 
 const searchRoute = createRoute({
@@ -72,13 +68,7 @@ const searchRoute = createRoute({
 const diagnosticsRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/diagnostics',
-  component: () => (
-    <SimpleView
-      title="Diagnostics"
-      description="Diagnostics route shell is active (secondary/admin surface)."
-      routeId="/diagnostics"
-    />
-  ),
+  component: DiagnosticsRouteView,
 });
 
 const routeTree = rootRoute.addChildren([

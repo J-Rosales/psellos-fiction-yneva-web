@@ -97,6 +97,23 @@ npm run ingest:dry -- --report docs/m2-ingest-report.json
 npm run ingest:apply
 ```
 
+### Policy and diagnostics checks (Milestone 6)
+
+```bash
+# Run all policy hardening checks used by Milestone 6
+npm run check:milestone6
+
+# Individual checks
+npm run check:spec-adr-sync
+npm run check:url-policy
+npm run check:artifact-contract
+```
+
+Reports are written to:
+- `docs/check-spec-adr-sync.json`
+- `docs/check-url-policy.json`
+- `docs/check-artifact-contract.json`
+
 ## Current stack baseline
 
 - React + TypeScript + Vite
