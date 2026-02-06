@@ -1,0 +1,43 @@
+{
+  "generated_at": "2026-02-06T06:04:48.474Z",
+  "milestone": "milestone-7-desktop-stable-release-gate",
+  "passed": true,
+  "checks": [
+    {
+      "command": "npm run build",
+      "ok": true,
+      "status": 0,
+      "started_at": "2026-02-06T06:04:03.378Z",
+      "ended_at": "2026-02-06T06:04:24.695Z",
+      "stdout_tail": "\n> psellos-fiction-yneva-web@0.1.0 build\n> tsc && vite build\n\n\u001b[36mvite v7.3.1 \u001b[32mbuilding client environment for production...\u001b[36m\u001b[39m\ntransforming...\n\u001b[32m✓\u001b[39m 1522 modules transformed.\nrendering chunks...\ncomputing gzip size...\n\u001b[2mdist/\u001b[22m\u001b[32mindex.html                 \u001b[39m\u001b[1m\u001b[2m    0.62 kB\u001b[22m\u001b[1m\u001b[22m\u001b[2m │ gzip:   0.38 kB\u001b[22m\n\u001b[2mdist/\u001b[22m\u001b[35massets/index-DAj4hJ8x.css  \u001b[39m\u001b[1m\u001b[2m    3.63 kB\u001b[22m\u001b[1m\u001b[22m\u001b[2m │ gzip:   0.94 kB\u001b[22m\n\u001b[2mdist/\u001b[22m\u001b[36massets/index-BkPwFq-o.js   \u001b[39m\u001b[1m\u001b[33m2,575.62 kB\u001b[39m\u001b[22m\u001b[2m │ gzip: 757.30 kB\u001b[22m\n\u001b[32m✓ built in 16.74s\u001b[39m\n",
+      "stderr_tail": "\u001b[33m\n(!) Some chunks are larger than 500 kB after minification. Consider:\n- Using dynamic import() to code-split the application\n- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\u001b[39m\n"
+    },
+    {
+      "command": "npm run test:unit",
+      "ok": true,
+      "status": 0,
+      "started_at": "2026-02-06T06:04:24.695Z",
+      "ended_at": "2026-02-06T06:04:34.029Z",
+      "stdout_tail": "{\"level\":30,\"time\":1770357870398,\"pid\":63824,\"hostname\":\"ASUS15\",\"reqId\":\"req-1\",\"res\":{\"statusCode\":200},\"responseTime\":0.5385000109672546,\"msg\":\"request completed\"}\n{\"level\":30,\"time\":1770357870398,\"pid\":63824,\"hostname\":\"ASUS15\",\"reqId\":\"req-2\",\"req\":{\"method\":\"GET\",\"url\":\"/api/graph/neighborhood?entity_id=p1&depth=3&rel_type=workplace\",\"host\":\"localhost:80\",\"remoteAddress\":\"127.0.0.1\"},\"msg\":\"incoming request\"}\n{\"level\":30,\"time\":1770357870399,\"pid\":63824,\"hostname\":\"ASUS15\",\"route\":\"GET /api/graph/neighborhood\",\"status\":200,\"elapsed_ms\":1,\"msg\":\"request complete\"}\n{\"level\":30,\"time\":1770357870399,\"pid\":63824,\"hostname\":\"ASUS15\",\"reqId\":\"req-2\",\"res\":{\"statusCode\":200},\"responseTime\":0.4983000159263611,\"msg\":\"request completed\"}\n \u001b[32m✓\u001b[39m backend/tests/milestone4.verification.test.ts \u001b[2m(\u001b[22m\u001b[2m2 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[33m 480\u001b[2mms\u001b[22m\u001b[39m\n     \u001b[33m\u001b[2m✓\u001b[22m\u001b[39m filters graph neighborhood by depth and seed entity \u001b[33m 461\u001b[2mms\u001b[22m\u001b[39m\n{\"level\":30,\"time\":1770357870395,\"pid\":63724,\"hostname\":\"ASUS15\",\"route\":\"GET /api/entities\",\"status\":200,\"elapsed_ms\":9,\"msg\":\"request complete\"}\n{\"level\":30,\"time\":1770357870395,\"pid\":63724,\"hostname\":\"ASUS15\",\"reqId\":\"req-1\",\"res\":{\"statusCode\":200},\"responseTime\":8.993600010871887,\"msg\":\"request completed\"}\n \u001b[32m✓\u001b[39m backend/tests/milestone3.verification.test.ts \u001b[2m(\u001b[22m\u001b[2m3 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[33m 512\u001b[2mms\u001b[22m\u001b[39m\n     \u001b[33m\u001b[2m✓\u001b[22m\u001b[39m surfaces unknown and ambiguous buckets in entities API metadata \u001b[33m 466\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/views/mapUtils.test.ts \u001b[2m(\u001b[22m\u001b[2m1 test\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 3\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m backend/tests/policy-checks.verification.test.ts \u001b[2m(\u001b[22m\u001b[2m1 test\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 3\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/views/graphRoute.test.ts \u001b[2m(\u001b[22m\u001b[2m2 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 3\u001b[2mms\u001b[22m\u001b[39m\n\n\u001b[2m Test Files \u001b[22m \u001b[1m\u001b[32m10 passed\u001b[39m\u001b[22m\u001b[90m (10)\u001b[39m\n\u001b[2m      Tests \u001b[22m \u001b[1m\u001b[32m26 passed\u001b[39m\u001b[22m\u001b[90m (26)\u001b[39m\n\u001b[2m   Start at \u001b[22m 00:04:25\n\u001b[2m   Duration \u001b[22m 8.38s\u001b[2m (transform 927ms, setup 0ms, import 5.48s, tests 2.85s, environment 27.13s)\u001b[22m\n\n",
+      "stderr_tail": ""
+    },
+    {
+      "command": "npm run test:e2e",
+      "ok": true,
+      "status": 0,
+      "started_at": "2026-02-06T06:04:34.029Z",
+      "ended_at": "2026-02-06T06:04:46.578Z",
+      "stdout_tail": "Running 15 tests using 3 workers\n\n  ok  2 [chromium] › tests\\e2e\\routes-smoke.spec.ts:15:3 › route smoke: / (1.4s)\n  ok  3 [chromium] › tests\\e2e\\filter-policy.spec.ts:3:1 › apply updates URL query with layer and search (1.8s)\n  ok  4 [chromium] › tests\\e2e\\routes-smoke.spec.ts:15:3 › route smoke: /entities (954ms)\n  ok  6 [chromium] › tests\\e2e\\routes-smoke.spec.ts:15:3 › route smoke: /entity/sample (829ms)\n  ok  1 [chromium] › tests\\e2e\\release-gate.spec.ts:3:1 › URL-state restoration survives reload and back/forward navigation (3.4s)\n  ok  5 [chromium] › tests\\e2e\\filter-policy.spec.ts:11:1 › reset clears search and resets layer to canon (2.2s)\n  ok  7 [chromium] › tests\\e2e\\routes-smoke.spec.ts:15:3 › route smoke: /graph (923ms)\n  ok  8 [chromium] › tests\\e2e\\release-gate.spec.ts:43:1 › share-link style deep link opens stable analysis context for entity detail (1.0s)\n  ok 10 [chromium] › tests\\e2e\\routes-smoke.spec.ts:15:3 › route smoke: /map (891ms)\n  ok  9 [chromium] › tests\\e2e\\filter-policy.spec.ts:24:1 › pinned incompatible filters show inert chip on route where unsupported (1.6s)\n  ok 11 [chromium] › tests\\e2e\\release-gate.spec.ts:72:1 › unknown and ambiguous buckets are explicitly rendered on entities and search views (1.5s)\n  ok 12 [chromium] › tests\\e2e\\routes-smoke.spec.ts:15:3 › route smoke: /layers (848ms)\n  ok 14 [chromium] › tests\\e2e\\routes-smoke.spec.ts:15:3 › route smoke: /search (710ms)\n  ok 13 [chromium] › tests\\e2e\\filter-policy.spec.ts:37:1 › major route carry prompt can reject carrying filters (1.3s)\n  ok 15 [chromium] › tests\\e2e\\routes-smoke.spec.ts:15:3 › route smoke: /diagnostics (626ms)\n\n  15 passed (10.5s)\n",
+      "stderr_tail": ""
+    },
+    {
+      "command": "npm run check:milestone6",
+      "ok": true,
+      "status": 0,
+      "started_at": "2026-02-06T06:04:46.578Z",
+      "ended_at": "2026-02-06T06:04:48.474Z",
+      "stdout_tail": "  \"warning_count\": 2,\r\n  \"errors\": [],\r\n  \"warnings\": [\r\n    \"src/App.tsx missing implementation hint token: urlsearchparams\",\r\n    \"src/App.tsx missing implementation hint token: history\"\r\n  ]\r\n}\r\n\n> psellos-fiction-yneva-web@0.1.0 check:artifact-contract\n> python skills/artifact-contract-auditor/scripts/audit_artifacts.py --data-dir public/data --profile m2c --report docs/check-artifact-contract.json\n\n{\r\n  \"data_dir\": \"public\\\\data\",\r\n  \"profile\": \"m2c\",\r\n  \"error_count\": 0,\r\n  \"warning_count\": 0,\r\n  \"errors\": [],\r\n  \"warnings\": []\r\n}\r\n",
+      "stderr_tail": ""
+    }
+  ]
+}

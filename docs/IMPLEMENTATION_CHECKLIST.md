@@ -14,14 +14,14 @@ Repository constraints remain in force:
 ## Now / Next / Blocked
 
 ## Now
-- [ ] Run full build/test suite.
-- [ ] Run release gate checks and collect report.
-- [ ] Verify documentation reflects implemented behavior.
+- [ ] Plan Milestone 8 post-stable expansion sequencing.
+- [ ] Start mobile-release track scaffolding (post-stable).
+- [ ] Start accessibility hardening track (post-stable).
 
 ## Next
-- [ ] Confirm share-link semantics and URL-state restoration.
-- [ ] Confirm unknown/ambiguous state handling in UI.
-- [ ] Publish release notes for desktop stable.
+- [ ] Expand API observability beyond baseline metrics.
+- [ ] Harden error schema beyond minimal baseline.
+- [ ] Revisit PostGIS compatibility gate.
 
 ## Blocked
 - [ ] PostGIS enablement decision
@@ -257,16 +257,34 @@ Blocker: internal stability gates not yet satisfied.
 
 ## Milestone 7: Desktop Stable Release Gate
 
-- [ ] Run full build/test suite.
-- [ ] Run release gate checks and collect report.
-- [ ] Verify documentation reflects implemented behavior.
-- [ ] Confirm share-link semantics and URL-state restoration.
-- [ ] Confirm unknown/ambiguous state handling in UI.
-- [ ] Publish release notes for desktop stable.
+- [x] Run full build/test suite.
+- [x] Run release gate checks and collect report.
+- [x] Verify documentation reflects implemented behavior.
+- [x] Confirm share-link semantics and URL-state restoration.
+- [x] Confirm unknown/ambiguous state handling in UI.
+- [x] Publish release notes for desktop stable.
 
 ### Exit criteria
-- [ ] Desktop stable quality threshold passed.
-- [ ] Main branch tagged/released with reproducible build.
+- [x] Desktop stable quality threshold passed.
+- [x] Main branch tagged/released with reproducible build.
+
+### Verification log (Milestone 7)
+- Full suite run completed:
+  - `npm run build`
+  - `npm run test:unit`
+  - `npm run test:e2e`
+- Release gate automation added and run:
+  - command: `npm run release:desktop-gate`
+  - script: `scripts/release-gate-desktop-stable.mjs`
+  - report: `docs/m7-release-gate-report.json`
+- Milestone 7 e2e checks added:
+  - `tests/e2e/release-gate.spec.ts` (URL/share restoration + unknown/ambiguous UI)
+  - `tests/e2e/routes-smoke.spec.ts` updated for route-stable smoke checks.
+- Documentation updated for release gate:
+  - `README.md` (desktop release gate command)
+  - `docs/RELEASE_NOTES_DESKTOP_STABLE.md` (desktop stable release notes)
+- Desktop stable release tag published:
+  - `desktop-stable-v1.0.0`
 
 ---
 
