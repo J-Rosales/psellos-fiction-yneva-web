@@ -11,7 +11,9 @@ export async function registerAssertionRoutes(app: FastifyInstance, repo: Reposi
       return reply.status(400).send(buildBadRequestError(request, z.prettifyError(parsed.error)));
     }
     const { layer, known, warnings } = resolveLayer(request, repo, parsed.data.layer);
-    const items = known ? repo.listAssertions(layer) : [];
+    const items = known
+      ? repo.listAssertions(layer, { rel_type: parsed.data.rel_type, entity_id: parsed.data.entity_id })
+      : [];
     return {
       meta: buildSuccessMeta(layer, items.length, warnings),
       items,

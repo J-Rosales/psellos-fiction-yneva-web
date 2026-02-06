@@ -14,14 +14,14 @@ Repository constraints remain in force:
 ## Now / Next / Blocked
 
 ## Now
-- [ ] Build `/entities` with MUI X DataGrid using server-side query mode.
-- [ ] Build `/entity/:id` with MUI card/panel composition and linked assertions.
-- [ ] Implement global search pipeline with fuzzy default and exact toggle wiring.
+- [x] Build `/entities` with MUI X DataGrid using server-side query mode.
+- [x] Build `/entity/:id` with MUI card/panel composition and linked assertions.
+- [x] Implement global search pipeline with fuzzy default and exact toggle wiring.
 
 ## Next
-- [ ] Support hard include/exclude `rel_type` on search screens.
-- [ ] Surface unknown/ambiguous buckets explicitly in entity/search UI.
-- [ ] Add loading/empty/error states for entity and search routes.
+- [x] Support hard include/exclude `rel_type` on search screens.
+- [x] Surface unknown/ambiguous buckets explicitly in entity/search UI.
+- [x] Add loading/empty/error states for entity and search routes.
 
 ## Blocked
 - [ ] PostGIS enablement decision
@@ -128,19 +128,27 @@ Blocker: internal stability gates not yet satisfied.
 
 ## Milestone 3: Entity and Search Experience
 
-- [ ] Build `/entities` with MUI X DataGrid using server-side query mode.
-- [ ] Build `/entity/:id` with MUI card/panel composition and linked assertions.
-- [ ] Implement global search pipeline with:
-  - [ ] fuzzy default
-  - [ ] exact global toggle
-  - [ ] deterministic tie-break ordering
-- [ ] Support hard include/exclude `rel_type`.
-- [ ] Surface unknown/ambiguous buckets explicitly.
-- [ ] Add loading/empty/error states to entity and search views.
+- [x] Build `/entities` with MUI X DataGrid using server-side query mode.
+- [x] Build `/entity/:id` with MUI card/panel composition and linked assertions.
+- [x] Implement global search pipeline with:
+  - [x] fuzzy default
+  - [x] exact global toggle
+  - [x] deterministic tie-break ordering
+- [x] Support hard include/exclude `rel_type`.
+- [x] Surface unknown/ambiguous buckets explicitly.
+- [x] Add loading/empty/error states to entity and search views.
 
 ### Exit criteria
-- [ ] Entity and search screens function with server-side data.
-- [ ] Search/query semantics match `docs/DATA_QUERY_SPEC.md`.
+- [x] Entity and search screens function with server-side data.
+- [x] Search/query semantics match `docs/DATA_QUERY_SPEC.md`.
+
+### Verification log (Milestone 3)
+- Entities route implemented with MUI X server pagination in `src/views/entitiesRoute.tsx`.
+- Entity detail route implemented with linked assertions panel in `src/views/entityDetailRoute.tsx`.
+- Search route implemented with global fuzzy/exact behavior in `src/views/searchRoute.tsx`.
+- API search semantics implemented in `backend/src/lib/repository.ts` and wired in `backend/src/routes/entities.ts`.
+- Build verification: `npm run build` passed.
+- Unit/integration verification: `npm run test:unit` passed.
 
 ---
 

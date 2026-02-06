@@ -9,6 +9,7 @@ import {
   FormControl,
   FormControlLabel,
   Grid,
+  FormHelperText,
   InputLabel,
   MenuItem,
   Select,
@@ -172,6 +173,18 @@ export function AppShell() {
                     disabled={!isSupported('q')}
                   />
                 </Grid>
+                <Grid size={{ xs: 12, md: 1.5 }}>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={draftFilters.exact}
+                        onChange={(event) => updateDraft('exact', event.target.checked)}
+                        disabled={!isSupported('exact')}
+                      />
+                    }
+                    label="Exact"
+                  />
+                </Grid>
                 <Grid size={{ xs: 12, md: 2 }}>
                   <FormControl fullWidth>
                     <InputLabel id="layer-select-label">Layer</InputLabel>
@@ -188,13 +201,16 @@ export function AppShell() {
                   </FormControl>
                 </Grid>
                 <Grid size={{ xs: 12, md: 2 }}>
-                  <TextField
-                    fullWidth
-                    label="Relation type"
-                    value={draftFilters.rel_type}
-                    onChange={(event) => updateDraft('rel_type', event.target.value)}
-                    disabled={!isSupported('rel_type')}
-                  />
+                  <FormControl fullWidth>
+                    <TextField
+                      fullWidth
+                      label="Relation filters"
+                      value={draftFilters.rel_type}
+                      onChange={(event) => updateDraft('rel_type', event.target.value)}
+                      disabled={!isSupported('rel_type')}
+                    />
+                    <FormHelperText>Use `ally,!enemy` for hard include/exclude</FormHelperText>
+                  </FormControl>
                 </Grid>
                 <Grid size={{ xs: 6, md: 1.5 }}>
                   <TextField

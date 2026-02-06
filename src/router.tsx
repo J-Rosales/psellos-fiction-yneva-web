@@ -3,9 +3,11 @@ import {
   createRoute,
   createRouter,
   RouterProvider,
-  useParams,
 } from '@tanstack/react-router';
 import { AppShell, SimpleView } from './App';
+import { EntitiesRouteView } from './views/entitiesRoute';
+import { EntityDetailRouteView } from './views/entityDetailRoute';
+import { SearchRouteView } from './views/searchRoute';
 
 const rootRoute = createRootRoute({
   component: AppShell,
@@ -26,28 +28,13 @@ const indexRoute = createRoute({
 const entitiesRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/entities',
-  component: () => (
-    <SimpleView
-      title="Entities"
-      description="Entity index surface placeholder. MUI X DataGrid integration is planned for Milestone 3."
-      routeId="/entities"
-    />
-  ),
+  component: EntitiesRouteView,
 });
 
 const entityRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/entity/$entityId',
-  component: () => {
-    const { entityId } = useParams({ from: '/entity/$entityId' });
-    return (
-      <SimpleView
-        title={`Entity ${entityId}`}
-        description="Entity detail route and URL state are wired."
-        routeId={`/entity/${entityId}`}
-      />
-    );
-  },
+  component: EntityDetailRouteView,
 });
 
 const graphRoute = createRoute({
@@ -89,13 +76,7 @@ const layersRoute = createRoute({
 const searchRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/search',
-  component: () => (
-    <SimpleView
-      title="Search"
-      description="Global search route shell is active with URL-synchronized filters."
-      routeId="/search"
-    />
-  ),
+  component: SearchRouteView,
 });
 
 const diagnosticsRoute = createRoute({

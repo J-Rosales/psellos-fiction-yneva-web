@@ -4,9 +4,26 @@ import path from 'node:path';
 export interface Repository {
   isKnownLayer(layer: string): boolean;
   listLayers(): string[];
-  listEntities(layer: string): Array<Record<string, unknown>>;
+  listEntities(
+    layer: string,
+    options?: {
+      q?: string;
+      exact?: boolean;
+      rel_type?: string;
+      entity_type?: string;
+      page?: number;
+      pageSize?: number;
+    },
+  ): {
+    items: Array<Record<string, unknown>>;
+    totalCount: number;
+    buckets: Record<string, unknown>;
+  };
   getEntityById(layer: string, id: string): Record<string, unknown> | null;
-  listAssertions(layer: string): Array<Record<string, unknown>>;
+  listAssertions(
+    layer: string,
+    options?: { rel_type?: string; entity_id?: string },
+  ): Array<Record<string, unknown>>;
   getGraphNeighborhood(layer: string): {
     nodes: Array<Record<string, unknown>>;
     edges: Array<Record<string, unknown>>;
@@ -56,19 +73,83 @@ export class ArtifactRepository implements Repository {
     return [...this.layers];
   }
 
-  listEntities(_layer: string): Array<Record<string, unknown>> {
-    return Object.values(this.persons);
+  listEntities(
+    layer: string,
+    options?: {
+      q?: string;
+      exact?: boolean;
+      rel_type?: string;
+      entity_type?: string;
+      page?: number;
+      pageSize?: number;
+    },
+  ): {
+    items: Array<Record<string, unknown>>;
+    totalCount: number;
+    buckets: Record<string, unknown>;
+  } {
+    const query = (options?.q ?? '').trim().toLowerCase();
+    const exact = options?.exact ?? false;
+    const entityType = (options?.entity_type ?? '').trim().toLowerCase();
+    const relFilter = this.parseRelTypeFilter(options?.rel_type);
+    const page = options?.page ?? 0;
+    const pageSize = options?.pageSize ?? 25;
+    const allAssertions = this.listAssertions(layer, { rel_type: options?.rel_type });
+
+    const ranked = Object.values(this.persons)
+      .map((entity) => ({ entity, score: this.scoreEntity(entity, query, exact) }))
+      .filter(({ entity, score }) => {
+        if (query && score < 0) {
+          return false;
+        }
+        if (entityType) {
+          const value = String(entity.entity_type ?? '').toLowerCase();
+          if (value !== entityType) {
+            return false;
+          }
+        }
+        return this.matchesEntityRelationFilter(entity, allAssertions, relFilter);
+      })
+      .sort((left, right) => {
+        if (right.score !== left.score) {
+          return right.score - left.score;
+        }
+        const leftLabel = String(left.entity.label ?? left.entity.id ?? '');
+        const rightLabel = String(right.entity.label ?? right.entity.id ?? '');
+        const byLabel = leftLabel.localeCompare(rightLabel, undefined, { sensitivity: 'base' });
+        if (byLabel !== 0) {
+          return byLabel;
+        }
+        return String(left.entity.id ?? '').localeCompare(String(right.entity.id ?? ''), undefined, {
+          sensitivity: 'base',
+        });
+      })
+      .map(({ entity }) => entity);
+
+    const totalCount = ranked.length;
+    const items = ranked.slice(page * pageSize, page * pageSize + pageSize);
+    const buckets = this.buildEntityBuckets(ranked);
+    return { items, totalCount, buckets };
   }
 
   getEntityById(_layer: string, id: string): Record<string, unknown> | null {
     return this.persons[id] ?? null;
   }
 
-  listAssertions(layer: string): Array<Record<string, unknown>> {
+  listAssertions(layer: string, options?: { rel_type?: string; entity_id?: string }): Array<Record<string, unknown>> {
     const ids = this.assertionsByLayer[layer] ?? [];
+    const relFilter = this.parseRelTypeFilter(options?.rel_type);
+    const entityId = (options?.entity_id ?? '').trim();
     return ids
       .map((id) => this.assertionsById[id])
-      .filter((item): item is Record<string, unknown> => Boolean(item));
+      .filter((item): item is Record<string, unknown> => Boolean(item))
+      .filter((item) => this.matchesRelTypeFilter(item, relFilter))
+      .filter((item) => {
+        if (!entityId) {
+          return true;
+        }
+        return this.readId(item, 'subject') === entityId || this.readId(item, 'object') === entityId;
+      });
   }
 
   getGraphNeighborhood(layer: string): { nodes: Record<string, unknown>[]; edges: Record<string, unknown>[] } {
@@ -122,5 +203,146 @@ export class ArtifactRepository implements Repository {
   private hasLocationHint(record: Record<string, unknown>): boolean {
     const payload = JSON.stringify(record).toLowerCase();
     return payload.includes('location') || payload.includes('place') || payload.includes('geo');
+  }
+
+  private scoreEntity(entity: Record<string, unknown>, query: string, exact: boolean): number {
+    if (!query) {
+      return 0;
+    }
+    const id = String(entity.id ?? '').toLowerCase();
+    const label = String(entity.label ?? '').toLowerCase();
+    if (exact) {
+      if (label === query) {
+        return 1000;
+      }
+      if (id === query) {
+        return 900;
+      }
+      if (label.includes(query)) {
+        return 500;
+      }
+      if (id.includes(query)) {
+        return 400;
+      }
+      return -1;
+    }
+    const tokens = query.split(/\s+/).filter(Boolean);
+    if (tokens.length === 0) {
+      return 0;
+    }
+    let score = 0;
+    for (const token of tokens) {
+      if (label.startsWith(token)) {
+        score += 80;
+      } else if (label.includes(token)) {
+        score += 40;
+      } else if (id.startsWith(token)) {
+        score += 30;
+      } else if (id.includes(token)) {
+        score += 20;
+      } else {
+        score -= 15;
+      }
+    }
+    return score > 0 ? score : -1;
+  }
+
+  private parseRelTypeFilter(raw: string | undefined): { include: Set<string>; exclude: Set<string> } {
+    const include = new Set<string>();
+    const exclude = new Set<string>();
+    const tokens = String(raw ?? '')
+      .split(',')
+      .map((token) => token.trim().toLowerCase())
+      .filter(Boolean);
+    for (const token of tokens) {
+      if (token.startsWith('!') || token.startsWith('-')) {
+        const value = token.slice(1).trim();
+        if (value) {
+          exclude.add(value);
+        }
+      } else {
+        include.add(token);
+      }
+    }
+    return { include, exclude };
+  }
+
+  private readRelType(record: Record<string, unknown>): string {
+    const direct = String(record.predicate ?? '').trim().toLowerCase();
+    const rel = this.readNestedString(record, ['extensions', 'psellos', 'rel']);
+    return rel || direct;
+  }
+
+  private matchesRelTypeFilter(
+    record: Record<string, unknown>,
+    relFilter: { include: Set<string>; exclude: Set<string> },
+  ): boolean {
+    const rel = this.readRelType(record);
+    if (relFilter.exclude.size > 0 && relFilter.exclude.has(rel)) {
+      return false;
+    }
+    if (relFilter.include.size > 0) {
+      return relFilter.include.has(rel);
+    }
+    return true;
+  }
+
+  private matchesEntityRelationFilter(
+    entity: Record<string, unknown>,
+    assertions: Array<Record<string, unknown>>,
+    relFilter: { include: Set<string>; exclude: Set<string> },
+  ): boolean {
+    if (relFilter.include.size === 0 && relFilter.exclude.size === 0) {
+      return true;
+    }
+    const entityId = String(entity.id ?? '');
+    const linked = assertions.filter((assertion) => {
+      const subject = this.readId(assertion, 'subject');
+      const object = this.readId(assertion, 'object');
+      return subject === entityId || object === entityId;
+    });
+    if (relFilter.include.size > 0 && linked.length === 0) {
+      return false;
+    }
+    if (relFilter.exclude.size > 0) {
+      const hasExcluded = linked.some((assertion) => relFilter.exclude.has(this.readRelType(assertion)));
+      if (hasExcluded) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  private readNestedString(record: Record<string, unknown>, pathParts: string[]): string {
+    let current: unknown = record;
+    for (const key of pathParts) {
+      if (typeof current !== 'object' || current === null || !(key in current)) {
+        return '';
+      }
+      current = (current as Record<string, unknown>)[key];
+    }
+    return typeof current === 'string' ? current.toLowerCase() : '';
+  }
+
+  private buildEntityBuckets(entities: Array<Record<string, unknown>>): Record<string, unknown> {
+    const unknown = entities.filter((entity) => String(entity.label ?? '').trim() === '').length;
+    const labelCounts = new Map<string, number>();
+    for (const entity of entities) {
+      const label = String(entity.label ?? '').trim().toLowerCase();
+      if (!label) {
+        continue;
+      }
+      labelCounts.set(label, (labelCounts.get(label) ?? 0) + 1);
+    }
+    let ambiguous = 0;
+    labelCounts.forEach((count) => {
+      if (count > 1) {
+        ambiguous += count;
+      }
+    });
+    return {
+      unknown_label_count: unknown,
+      ambiguous_label_count: ambiguous,
+    };
   }
 }
