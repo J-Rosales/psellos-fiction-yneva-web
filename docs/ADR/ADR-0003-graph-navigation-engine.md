@@ -16,6 +16,9 @@ Adopt a dedicated graph rendering engine that supports:
 - client-driven expansion behavior,
 - best-effort full graph rendering at available dataset scale.
 
+Engine baseline:
+- Use Cytoscape.js for graph rendering and interaction.
+
 Interaction and semantics details:
 - Node click opens a side-panel card (compact by default, expandable).
 - Edge labels are visible by default.

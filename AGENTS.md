@@ -30,6 +30,20 @@
 - Build compiler: `https://github.com/psellos-prosopographia/psellos-builder`
 - Spec contracts: `https://github.com/psellos-prosopographia/psellos-spec`
 
+## Approved stack baseline
+
+- Frontend runtime/build: `React` + `TypeScript` + `Vite`
+- Frontend routing and async state: `@tanstack/react-router` + `@tanstack/react-query`
+- Frontend local state: `zustand`
+- Graph rendering: `cytoscape`
+- Map rendering: `maplibre-gl`
+- API server: `fastify`
+- Validation: `zod`
+- Index/query database client: `pg` (PostgreSQL)
+- Styling tooling: `tailwindcss` (+ `postcss` and `autoprefixer`)
+
+Use this as the default implementation stack unless superseded by a new ADR.
+
 ## Skill usage tracking
 
 - Track usage counters in `skills/skill-usage-counters.json`.

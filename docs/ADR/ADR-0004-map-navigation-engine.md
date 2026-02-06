@@ -15,6 +15,9 @@ Adopt a map rendering engine with support for:
 - feature/vector response consumption in initial release,
 - event hooks for route integration and panel drill-down.
 
+Engine baseline:
+- Use MapLibre GL JS for map rendering and interaction.
+
 Interaction and semantics details:
 - Map is a primary discovery surface.
 - Results are grouped place first, then related entities.

@@ -14,6 +14,9 @@ Adopt a route-driven frontend platform while preserving read-only artifact consu
 
 Decision details:
 - Keep TypeScript and web-first build tooling.
+- Frontend stack baseline is React + Vite + TypeScript.
+- Use `@tanstack/react-router` for route/state modeling and `@tanstack/react-query` for query orchestration.
+- Use `zustand` for small non-URL local UI state.
 - Use route-driven UI with URL-encoded state for most controls.
 - Keep share links focused on stable analysis context (core filters + selected entity), not full UI microstate.
 - Use explicit `Apply` and `Reset` filter behavior; `Reset` includes `layer` reset to `canon`.

@@ -21,6 +21,9 @@ Decision details:
 - Indexing cadence is batch rebuild on artifact publish.
 - Database remains disposable; compiled artifacts remain source of truth.
 - API style is resource-oriented HTTP endpoints.
+- API implementation baseline is Fastify + TypeScript.
+- Contract/request validation baseline is Zod.
+- PostgreSQL access baseline is via the `pg` client.
 - API starts unversioned and versions at first breaking change.
 - Error model starts minimal and consistent (`status`, `message`, `request_id`, optional `layer`).
 - Observability starts with basic logs and latency metrics; audit metadata is optional initially.
