@@ -35,3 +35,24 @@
 - Track usage counters in `skills/skill-usage-counters.json`.
 - Whenever a repository skill is actually used to do task work, increment its counter by exactly `1`.
 - Do not increment for discovery-only actions (for example listing skills without using one).
+
+## SHIP AND MERGE directive
+
+- Trigger phrase: `SHIP AND MERGE` (all caps, exact phrase).
+- When this phrase is used, perform the following sequence:
+  1. Create a new branch from the current branch tip, named in descriptive kebab-case.
+  2. Include all current changes from the current branch context in that new branch.
+  3. Merge `main` into that new branch to surface and resolve conflicts early.
+  4. Merge that branch back into `main`.
+  5. Attempt to push `main` to `origin`; if conflicts are encountered, stop and request user confirmation before proceeding.
+
+## SHIP AND BRANCH directive
+
+- Trigger phrase: `SHIP AND BRANCH` (all caps, exact phrase).
+- Intent: ship current work into a dedicated alternative branch and continue working there for follow-up sub-branches before returning to `main`.
+- When this phrase is used, perform the following sequence:
+  1. Create a new branch from the current branch tip, named in descriptive kebab-case.
+  2. Include all current changes from the current branch context in that new branch.
+  3. Merge `main` into that new branch to surface and resolve conflicts early.
+  4. Attempt to push that new branch to `origin`; if conflicts are encountered, stop and request user confirmation before proceeding.
+  5. Remain checked out on that alternative branch (do not merge back into `main` in this directive).
