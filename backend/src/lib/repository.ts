@@ -24,7 +24,10 @@ export interface Repository {
     layer: string,
     options?: { rel_type?: string; entity_id?: string },
   ): Array<Record<string, unknown>>;
-  getGraphNeighborhood(layer: string): {
+  getGraphNeighborhood(
+    layer: string,
+    options?: { entityId?: string; depth?: number; relType?: string },
+  ): {
     nodes: Array<Record<string, unknown>>;
     edges: Array<Record<string, unknown>>;
   };
@@ -152,24 +155,39 @@ export class ArtifactRepository implements Repository {
       });
   }
 
-  getGraphNeighborhood(layer: string): { nodes: Record<string, unknown>[]; edges: Record<string, unknown>[] } {
-    const assertions = this.listAssertions(layer);
-    const nodeIds = new Set<string>();
-    assertions.forEach((item) => {
-      const subject = this.readId(item, 'subject');
-      const object = this.readId(item, 'object');
-      if (subject) {
-        nodeIds.add(subject);
-      }
-      if (object) {
-        nodeIds.add(object);
-      }
-    });
+  getGraphNeighborhood(
+    layer: string,
+    options?: { entityId?: string; depth?: number; relType?: string },
+  ): { nodes: Record<string, unknown>[]; edges: Record<string, unknown>[] } {
+    const assertions = this.listAssertions(layer, { rel_type: options?.relType });
+    const depth = options?.depth ?? 2;
+    const seed = (options?.entityId ?? '').trim();
+    let edges = assertions;
+    let nodeIds = new Set<string>();
+
+    if (seed) {
+      const traversal = this.traverseNeighborhood(seed, assertions, depth);
+      edges = traversal.edges;
+      nodeIds = traversal.nodeIds;
+    } else {
+      assertions.forEach((item) => {
+        const subject = this.readId(item, 'subject');
+        const object = this.readId(item, 'object');
+        if (subject) {
+          nodeIds.add(subject);
+        }
+        if (object) {
+          nodeIds.add(object);
+        }
+      });
+    }
+
+    edges = [...edges].sort((left, right) => this.readConfidence(right) - this.readConfidence(left));
     const nodes = Array.from(nodeIds).map((id) => ({
       id,
       ...(this.persons[id] ?? {}),
     }));
-    return { nodes, edges: assertions };
+    return { nodes, edges };
   }
 
   getMapFeatures(layer: string): Record<string, unknown>[] {
@@ -203,6 +221,67 @@ export class ArtifactRepository implements Repository {
   private hasLocationHint(record: Record<string, unknown>): boolean {
     const payload = JSON.stringify(record).toLowerCase();
     return payload.includes('location') || payload.includes('place') || payload.includes('geo');
+  }
+
+  private traverseNeighborhood(
+    seed: string,
+    edges: Array<Record<string, unknown>>,
+    maxDepth: number,
+  ): { nodeIds: Set<string>; edges: Array<Record<string, unknown>> } {
+    const nodeIds = new Set<string>([seed]);
+    const selected: Array<Record<string, unknown>> = [];
+    const selectedEdgeIds = new Set<string>();
+    const frontier = new Set<string>([seed]);
+    for (let depth = 0; depth < maxDepth; depth += 1) {
+      const nextFrontier = new Set<string>();
+      edges.forEach((edge) => {
+        const subject = this.readId(edge, 'subject');
+        const object = this.readId(edge, 'object');
+        if (!subject || !object) {
+          return;
+        }
+        if (frontier.has(subject) || frontier.has(object)) {
+          const edgeId = String(edge.id ?? `${subject}-${object}-${String(edge.predicate ?? '')}`);
+          if (!selectedEdgeIds.has(edgeId)) {
+            selected.push(edge);
+            selectedEdgeIds.add(edgeId);
+          }
+          if (!nodeIds.has(subject)) {
+            nodeIds.add(subject);
+            nextFrontier.add(subject);
+          }
+          if (!nodeIds.has(object)) {
+            nodeIds.add(object);
+            nextFrontier.add(object);
+          }
+        }
+      });
+      frontier.clear();
+      nextFrontier.forEach((id) => frontier.add(id));
+      if (frontier.size === 0) {
+        break;
+      }
+    }
+    return { nodeIds, edges: selected };
+  }
+
+  private readConfidence(record: Record<string, unknown>): number {
+    const raw = this.readNestedNumber(record, ['extensions', 'psellos', 'confidence']);
+    if (typeof raw === 'number') {
+      return raw;
+    }
+    return 0.5;
+  }
+
+  private readNestedNumber(record: Record<string, unknown>, pathParts: string[]): number | null {
+    let current: unknown = record;
+    for (const key of pathParts) {
+      if (typeof current !== 'object' || current === null || !(key in current)) {
+        return null;
+      }
+      current = (current as Record<string, unknown>)[key];
+    }
+    return typeof current === 'number' ? current : null;
   }
 
   private scoreEntity(entity: Record<string, unknown>, query: string, exact: boolean): number {

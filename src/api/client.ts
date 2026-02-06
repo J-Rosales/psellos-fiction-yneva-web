@@ -38,6 +38,12 @@ interface AssertionsResponse {
   items: AssertionRecord[];
 }
 
+interface GraphResponse {
+  meta: ApiMeta;
+  nodes: Array<Record<string, unknown>>;
+  edges: AssertionRecord[];
+}
+
 function buildQuery(params: Record<string, string | number | boolean | undefined>): string {
   const query = new URLSearchParams();
   Object.entries(params).forEach(([key, value]) => {
@@ -96,6 +102,19 @@ export async function fetchAssertionsForEntity(input: {
     layer: input.filters.layer,
     entity_id: input.entityId,
     rel_type: input.filters.rel_type,
+  });
+}
+
+export async function fetchGraphNeighborhood(input: {
+  entityId?: string;
+  depth?: number;
+  filters: CoreFilters;
+}): Promise<GraphResponse> {
+  return requestJson<GraphResponse>('/api/graph/neighborhood', {
+    layer: input.filters.layer,
+    rel_type: input.filters.rel_type,
+    entity_id: input.entityId,
+    depth: input.depth ?? 2,
   });
 }
 
