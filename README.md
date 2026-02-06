@@ -84,6 +84,14 @@ npm install
 npm run dev
 ```
 
+## Current stack baseline
+
+- React + TypeScript + Vite
+- MUI (`@mui/material`, `@mui/lab`, `@mui/icons-material`) + MUI X (`@mui/x-data-grid`, `@mui/x-date-pickers`, `@mui/x-charts`)
+- TanStack Router + TanStack Query
+- Cytoscape.js (graph) + MapLibre GL JS (map)
+- Fastify + Zod + PostgreSQL client (`pg`) for planned read-only API/index layer
+
 ### Static asset pipeline
 
 - Vite serves `public/` as static assets.

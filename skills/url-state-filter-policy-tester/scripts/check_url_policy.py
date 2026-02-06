@@ -24,7 +24,7 @@ DOC_REQUIREMENTS = {
 }
 
 SOURCE_HINTS = {
-    "src/main.ts": [
+    "src/App.tsx": [
         "urlsearchparams",
         "history",
         "view",

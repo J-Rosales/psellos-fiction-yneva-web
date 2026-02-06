@@ -1,6 +1,9 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { App } from './App';
+import { ThemeProvider } from '@mui/material/styles';
+import { CssBaseline } from '@mui/material';
+import { AppRouterProvider } from './router';
+import { appTheme } from './theme/appTheme';
 import './style.css';
 
 const container = document.querySelector<HTMLDivElement>('#app');
@@ -11,6 +14,9 @@ if (!container) {
 
 createRoot(container).render(
   <StrictMode>
-    <App />
+    <ThemeProvider theme={appTheme}>
+      <CssBaseline />
+      <AppRouterProvider />
+    </ThemeProvider>
   </StrictMode>,
 );

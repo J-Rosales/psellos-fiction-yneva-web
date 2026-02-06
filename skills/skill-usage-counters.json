@@ -1,9 +1,9 @@
 {
-  "artifact-contract-auditor": 0,
+  "artifact-contract-auditor": 1,
   "constructed-world-map-compat": 0,
   "desktop-release-gate": 0,
   "graph-view-inference-rules": 0,
   "read-only-api-scaffold": 0,
-  "spec-adr-sync-checker": 0,
-  "url-state-filter-policy-tester": 0
+  "spec-adr-sync-checker": 1,
+  "url-state-filter-policy-tester": 1
 }
