@@ -1,10 +1,10 @@
-# Psellos Web
+# Psellos Fiction Yneva Web
 
-Psellos Web is a static, read-only web application for exploring compiled prosopographical data produced by `psellos-builder`. The site focuses on presenting entities, relationships, and narratives derived from builder outputs, without embedding or editing source data. It is a demonstrative visualization rather than an authoring tool.
+Psellos Fiction Yneva Web is a static, read-only web application for exploring compiled prosopographical data produced by `psellos-builder`, with a presentation focus on the `psellos-fiction-yneva-data` dataset. The site focuses on presenting entities, relationships, and narratives derived from builder outputs, without embedding or editing source data.
 
 ## Project Context
 
-Psellos Web is part of the broader `psellos-hub` ecosystem and exists to visualize published artifacts generated elsewhere.
+This repo is derived from `psellos-web` and remains part of the broader `psellos-hub` ecosystem. It exists to visualize published artifacts generated elsewhere.
 
 ## Purpose
 
@@ -30,7 +30,7 @@ Where contracts are assumed, TODOs call out the expected builder artifacts so th
 
 ## M2b artifact requirements
 
-For the M2b slice, Psellos Web expects the following artifacts under `public/data/`, copied from `psellos-builder/dist/`:
+For the M2b slice, Psellos Fiction Yneva Web expects the following artifacts under `public/data/`, copied from `psellos-builder/dist/`:
 
 - `manifest.json`
 - `persons.json`
@@ -54,7 +54,7 @@ Additional fields are ignored so the UI can remain forward-compatible with futur
 
 ## M2c artifact requirements
 
-For the M2c slice, Psellos Web expects the following additional adjacency artifacts under
+For the M2c slice, Psellos Fiction Yneva Web expects the following additional adjacency artifacts under
 `public/data/`, copied from `psellos-builder/dist/`:
 
 - `assertions_by_person.json` (object mapping person id ➜ array of assertion ids)

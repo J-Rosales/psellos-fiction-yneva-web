@@ -24,7 +24,7 @@ const subtitle = document.createElement('p');
 
 header.className = 'site-header';
 
-title.textContent = 'Psellos Web';
+title.textContent = 'Psellos Fiction Yneva Web';
 subtitle.textContent =
   'Static explorer for compiled prosopographical data from psellos-builder.';
 

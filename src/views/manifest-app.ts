@@ -112,7 +112,7 @@ export function renderManifestApp(
   );
 
   if (!isReviewMode) {
-    console.info('[psellos-web] narrative layers', {
+    console.info('[psellos-fiction-yneva-web] narrative layers', {
       availableLayers: availableLayers.map((layer) => layer.id),
       selectedLayer,
     });

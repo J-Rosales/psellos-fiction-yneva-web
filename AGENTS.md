@@ -1,5 +1,6 @@
 # Agent Instructions
 
+- This repository identity is `psellos-fiction-yneva-web` (presentation web for fiction-yneva artifacts).
 - This repo is read-only with respect to canon.
 - It consumes only compiled artifacts produced by psellos-builder.
 - It must not read raw data or spec files directly.
