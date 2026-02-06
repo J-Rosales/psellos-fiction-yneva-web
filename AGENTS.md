@@ -35,6 +35,9 @@
 - Frontend runtime/build: `React` + `TypeScript` + `Vite`
 - Frontend routing and async state: `@tanstack/react-router` + `@tanstack/react-query`
 - Frontend local state: `zustand`
+- UI component system: `@mui/material` + `@mui/icons-material` + `@mui/lab`
+- Complex UI surfaces: `@mui/x-data-grid` + `@mui/x-date-pickers` + `@mui/x-charts`
+- MUI styling engine: `@emotion/react` + `@emotion/styled`
 - Graph rendering: `cytoscape`
 - Map rendering: `maplibre-gl`
 - API server: `fastify`

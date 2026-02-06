@@ -1,0 +1,4 @@
+interface:
+  display_name: "MUI Accessibility Hardening"
+  short_description: "Audit and harden MUI accessibility flows."
+  default_prompt: "Use $mui-accessibility-hardening to check keyboard/focus/ARIA issues in MUI screens."

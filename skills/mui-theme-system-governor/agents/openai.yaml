@@ -1,0 +1,4 @@
+interface:
+  display_name: "MUI Theme Governor"
+  short_description: "Enforce one MUI theme across all routes."
+  default_prompt: "Use $mui-theme-system-governor to audit and normalize MUI theme usage."

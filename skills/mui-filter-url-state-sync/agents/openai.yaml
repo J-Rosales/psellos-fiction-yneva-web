@@ -1,0 +1,4 @@
+interface:
+  display_name: "MUI Filter URL Sync"
+  short_description: "Sync MUI filters with URL state policy."
+  default_prompt: "Use $mui-filter-url-state-sync to enforce apply/reset/pin URL-state behavior."

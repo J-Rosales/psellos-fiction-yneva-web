@@ -1,0 +1,4 @@
+interface:
+  display_name: "MUI X Grid Integration"
+  short_description: "Wire DataGrid to server query contracts."
+  default_prompt: "Use $mui-x-grid-query-integration to validate DataGrid query/state wiring."

@@ -32,6 +32,7 @@ This repository remains presentation-focused and read-only for canon. It consume
 ### 5.1 Frontend
 - Keep this repository as the presentation application.
 - Use route-driven UI with URL-encoded state for most controls.
+- Use MUI as the component/theming baseline, with MUI X for complex data views.
 - Keep share links focused on stable analysis context instead of full UI microstate.
 
 ### 5.2 Indexing and Query Layer

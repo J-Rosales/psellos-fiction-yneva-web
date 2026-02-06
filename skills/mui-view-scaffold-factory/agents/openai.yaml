@@ -1,0 +1,4 @@
+interface:
+  display_name: "MUI View Scaffold Factory"
+  short_description: "Generate consistent MUI route view scaffolds."
+  default_prompt: "Use $mui-view-scaffold-factory to scaffold a new MUI view shell."

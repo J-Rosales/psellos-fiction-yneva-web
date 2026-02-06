@@ -15,6 +15,9 @@ Adopt a route-driven frontend platform while preserving read-only artifact consu
 Decision details:
 - Keep TypeScript and web-first build tooling.
 - Frontend stack baseline is React + Vite + TypeScript.
+- UI system baseline is MUI (`@mui/material`, `@mui/icons-material`, `@mui/lab`).
+- Complex interface components use MUI X (`@mui/x-data-grid`, `@mui/x-date-pickers`, `@mui/x-charts`).
+- MUI styling/runtime uses Emotion (`@emotion/react`, `@emotion/styled`).
 - Use `@tanstack/react-router` for route/state modeling and `@tanstack/react-query` for query orchestration.
 - Use `zustand` for small non-URL local UI state.
 - Use route-driven UI with URL-encoded state for most controls.
