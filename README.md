@@ -28,8 +28,9 @@ If this repository is opened as a standalone workspace, treat the links above as
 ## Data flow from psellos-builder
 
 1. `psellos-builder` compiles raw sources into publishable JSON artifacts.
-2. Those build artifacts are copied into `public/data/` as static assets.
-3. The Vite build emits a static site that fetches the JSON at runtime via `fetch()`.
+2. Builder output is exported/copied into the repository handoff folder: `builder-dist-run/`.
+3. The importer normalizes dist-run output into runtime assets in `public/data/`.
+4. The Vite build emits a static site that fetches the JSON at runtime via `fetch()`.
 
 The app does **not** read or transform raw data directly. It only consumes builder output and assumes those artifacts have already been validated upstream.
 
@@ -81,8 +82,14 @@ with future artifact expansions.
 
 ```bash
 npm install
+npm run import:dry
+npm run import:apply
 npm run dev
 ```
+
+Importer inbox path (fixed):
+
+- `builder-dist-run/` (expected dist-run source)
 
 ### API and ingest utilities (Milestone 2)
 

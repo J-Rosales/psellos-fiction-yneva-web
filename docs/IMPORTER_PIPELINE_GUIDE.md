@@ -25,6 +25,25 @@ Options:
 - `--report <path>`: report output (default `docs/dist-run-import-report.json`).
 - `--score-config <path>`: external duplicate-score weights JSON.
 
+## Canonical Dist-Run Inbox
+
+Use the repository handoff folder as default source:
+
+- `builder-dist-run/`
+
+Convenience commands:
+
+```bash
+npm run import:dry
+npm run import:apply
+```
+
+These commands are pre-wired to:
+
+- `--dist-run builder-dist-run`
+- `--out public/data`
+- report path `docs/importer-inbox-report.json`
+
 ## Required and Optional Source Layout
 
 Required:
