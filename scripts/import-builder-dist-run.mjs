@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import fs from 'node:fs';
 import path from 'node:path';
+import yaml from 'js-yaml';
 
 const ENTITY_TYPE_PRECEDENCE = [
   'persons',
@@ -160,8 +161,15 @@ function main() {
   }
 
   const persons = buildPersons(path.join(distRun, 'machine'));
+  const assertionsById = buildAssertionsById(distRun, warnings);
+  const assertions = Object.keys(assertionsById)
+    .sort((a, b) => a.localeCompare(b))
+    .map((id) => assertionsById[id]);
+
   if (!args.dryRun) {
     writeJson(path.join(outDir, 'persons.json'), persons);
+    writeJson(path.join(outDir, 'assertions_by_id.json'), assertionsById);
+    writeJson(path.join(outDir, 'assertions.json'), assertions);
   }
 
   const report = {
@@ -181,6 +189,7 @@ function main() {
     },
     counts: {
       persons: Object.keys(persons).length,
+      assertions: Object.keys(assertionsById).length,
     },
     warnings,
     note: 'D1 scaffold complete. Artifact generation pipeline is implemented in later milestones.',
@@ -289,6 +298,128 @@ function buildPersons(machineDir) {
       .sort((a, b) => a.localeCompare(b))
       .map((qid) => [qid, entries.get(qid)]),
   );
+}
+
+function buildAssertionsById(distRun, warnings) {
+  const indexesPath = path.join(distRun, 'indexes', 'assertions_by_id.json');
+  const indexPayload = fs.existsSync(indexesPath) ? parseJsonFile(indexesPath, {}) : {};
+  const hasIndexRows = indexPayload && typeof indexPayload === 'object' && Object.keys(indexPayload).length > 0;
+  if (hasIndexRows) {
+    const normalized = {};
+    for (const [id, row] of Object.entries(indexPayload)) {
+      normalized[String(id)] = normalizeAssertionRow(String(id), row, { defaultLayer: 'canon', warnings });
+    }
+    return normalized;
+  }
+
+  const entityFiles = walkFiles(path.join(distRun, 'entities')).filter((filePath) => {
+    const lower = filePath.toLowerCase();
+    return lower.endsWith('.yml') || lower.endsWith('.yaml');
+  });
+  const out = {};
+  let syntheticCounter = 0;
+  for (const filePath of entityFiles) {
+    const payload = parseYamlFile(filePath);
+    if (payload === null) continue;
+    const rows = extractAssertionRows(payload);
+    for (const row of rows) {
+      syntheticCounter += 1;
+      const rawId = String(row.id ?? row.assertion_id ?? row.aid ?? `assertion:${syntheticCounter}`).trim();
+      const id = rawId || `assertion:${syntheticCounter}`;
+      if (out[id]) {
+        continue;
+      }
+      out[id] = normalizeAssertionRow(id, row, { defaultLayer: 'canon', warnings });
+    }
+  }
+  return Object.fromEntries(Object.keys(out).sort((a, b) => a.localeCompare(b)).map((id) => [id, out[id]]));
+}
+
+function parseYamlFile(filePath) {
+  try {
+    const raw = fs.readFileSync(filePath, 'utf-8');
+    return yaml.load(raw);
+  } catch {
+    return null;
+  }
+}
+
+function extractAssertionRows(value) {
+  const rows = [];
+  walkAssertionCandidates(value, rows);
+  return rows;
+}
+
+function walkAssertionCandidates(node, rows) {
+  if (Array.isArray(node)) {
+    for (const item of node) {
+      walkAssertionCandidates(item, rows);
+    }
+    return;
+  }
+  if (!node || typeof node !== 'object') {
+    return;
+  }
+  for (const [key, value] of Object.entries(node)) {
+    if (Array.isArray(value) && key.toLowerCase().includes('assertion')) {
+      for (const row of value) {
+        if (row && typeof row === 'object') {
+          rows.push(row);
+        }
+      }
+      continue;
+    }
+    walkAssertionCandidates(value, rows);
+  }
+}
+
+function firstNonEmpty(values) {
+  for (const value of values) {
+    const text = String(value ?? '').trim();
+    if (text) return text;
+  }
+  return '';
+}
+
+function normalizeAssertionRow(id, row, context) {
+  const source = row && typeof row === 'object' ? row : {};
+  const subject = firstNonEmpty([source.subject_qid, source.subject, source.subject_id, source.subjectId]) || `unknown:subject:${id}`;
+  const object = firstNonEmpty([source.object_qid, source.object, source.object_id, source.objectId]) || `unknown:object:${id}`;
+  const selectedPredicate =
+    firstNonEmpty([source.relation_mapped, source.predicate_pid, source.predicate_hint]) || 'related_to';
+  const layer = firstNonEmpty([source.layer, source.layer_id, source.narrative_layer, context.defaultLayer]) || 'canon';
+  const provenanceSource = firstNonEmpty([
+    source.source,
+    source.source_id,
+    source.source_ref,
+    source.provenance,
+    source.provenance_source,
+  ]);
+
+  if (subject.startsWith('unknown:subject:') || object.startsWith('unknown:object:')) {
+    context.warnings.push(`Assertion ${id} has missing subject/object and was kept with placeholders.`);
+  }
+
+  const normalized = {
+    id,
+    subject,
+    predicate: selectedPredicate,
+    object,
+    extensions: {
+      psellos: {
+        rel: selectedPredicate,
+        layer,
+        ...(provenanceSource ? { source: provenanceSource } : {}),
+        raw: source,
+      },
+    },
+  };
+
+  const directDate = firstNonEmpty([source.date, source.start_date, source.end_date, source.start, source.end]);
+  if (directDate) {
+    normalized.extensions.psellos.date = directDate;
+  }
+  return normalized;
 }
 
 main();
