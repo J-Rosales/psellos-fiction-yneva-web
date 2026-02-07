@@ -142,30 +142,32 @@ Out of scope:
 
 ## Milestone D3: Assertion Core Mapping (`assertions_by_id.json`, `assertions.json`)
 
-- [ ] Source preference logic:
-  - [ ] use `indexes/assertions_by_id.json` when non-empty
-  - [ ] fallback parse from `entities/**/*.yml|yaml`
-- [ ] Normalize assertion fields:
-  - [ ] `id`
-  - [ ] `subject` (placeholder when missing)
-  - [ ] `object` (placeholder when missing)
-  - [ ] `predicate` via fallback order:
-    - [ ] `relation_mapped`
-    - [ ] `predicate_pid`
-    - [ ] `predicate_hint`
-    - [ ] `related_to`
-  - [ ] `extensions.psellos.rel`
-  - [ ] `extensions.psellos.layer`
-  - [ ] `extensions.psellos.source`
-  - [ ] `extensions.psellos.raw` full payload
-- [ ] Emit `assertions.json` as sorted values of by-id map.
+- [x] Source preference logic:
+  - [x] use `indexes/assertions_by_id.json` when non-empty
+  - [x] fallback parse from `entities/**/*.yml|yaml`
+- [x] Normalize assertion fields:
+  - [x] `id`
+  - [x] `subject` (placeholder when missing)
+  - [x] `object` (placeholder when missing)
+  - [x] `predicate` via fallback order:
+    - [x] `relation_mapped`
+    - [x] `predicate_pid`
+    - [x] `predicate_hint`
+    - [x] `related_to`
+  - [x] `extensions.psellos.rel`
+  - [x] `extensions.psellos.layer`
+  - [x] `extensions.psellos.source`
+  - [x] `extensions.psellos.raw` full payload
+- [x] Emit `assertions.json` as sorted values of by-id map.
 
 ### Exit criteria
-- [ ] Normalized assertions generated deterministically and complete enough for runtime queries.
+- [x] Normalized assertions generated deterministically and complete enough for runtime queries.
 
 ### Verification log (D3)
 - Assertion count:
+  - Fixture import generated expected normalized assertion rows in both `assertions_by_id.json` and `assertions.json`.
 - Missing subject/object placeholder count:
+  - Placeholder path is implemented and warning-backed; zero placeholders in fixture verification run.
 
 ---
 
