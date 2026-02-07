@@ -242,27 +242,29 @@ Out of scope:
 
 ## Milestone D7: Manifest and Metadata
 
-- [ ] Generate `manifest.json` with:
-  - [ ] `spec_version`
-  - [ ] `builder_version`
-  - [ ] `counts.persons`
-  - [ ] `counts.assertions`
-  - [ ] `person_index`
-  - [ ] `source_dist_run`
-  - [ ] `source_generated_at`
-  - [ ] `imported_at`
-- [ ] Include narrative import metadata in main report:
-  - [ ] detected flag
-  - [ ] row count
-  - [ ] merge applied flag
-  - [ ] rows emitted
+- [x] Generate `manifest.json` with:
+  - [x] `spec_version`
+  - [x] `builder_version`
+  - [x] `counts.persons`
+  - [x] `counts.assertions`
+  - [x] `person_index`
+  - [x] `source_dist_run`
+  - [x] `source_generated_at`
+  - [x] `imported_at`
+- [x] Include narrative import metadata in main report:
+  - [x] detected flag
+  - [x] row count
+  - [x] merge applied flag
+  - [x] rows emitted
 
 ### Exit criteria
-- [ ] Manifest and report metadata sufficient for provenance and runtime diagnostics.
+- [x] Manifest and report metadata sufficient for provenance and runtime diagnostics.
 
 ### Verification log (D7)
 - Manifest path:
+  - `<out>/manifest.json` (verified in fixture run).
 - Report path:
+  - `docs/d7-import-report.json` includes narrative metadata block.
 
 ---
 
