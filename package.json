@@ -10,6 +10,8 @@
     "test": "npm run test:unit && npm run test:e2e",
     "test:unit": "vitest run",
     "test:e2e": "playwright test",
+    "import:dry": "node scripts/import-builder-dist-run.mjs --dist-run builder-dist-run --out public/data --dry-run --report docs/importer-inbox-report.json",
+    "import:apply": "node scripts/import-builder-dist-run.mjs --dist-run builder-dist-run --out public/data --report docs/importer-inbox-report.json",
     "api:dev": "tsx backend/src/server.ts",
     "ingest:dry": "node backend/scripts/ingestCompiledArtifacts.mjs --data-dir public/data",
     "ingest:apply": "node backend/scripts/ingestCompiledArtifacts.mjs --data-dir public/data --apply",
