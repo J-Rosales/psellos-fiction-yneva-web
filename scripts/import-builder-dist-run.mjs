@@ -15,6 +15,13 @@ const ENTITY_TYPE_PRECEDENCE = [
   'sources',
   'species',
 ];
+const DEFAULT_SCORE_WEIGHTS = {
+  scalar_field: 1,
+  source: 2,
+  layer: 2,
+  temporal: 3,
+  raw: 3,
+};
 
 function fail(message) {
   console.error(message);
@@ -137,12 +144,7 @@ function main() {
     warnings.push(message);
   }
 
-  if (args.scoreConfig) {
-    const scoreConfigPath = path.resolve(process.cwd(), args.scoreConfig);
-    if (!fs.existsSync(scoreConfigPath)) {
-      fail(`Score config not found: ${scoreConfigPath}`);
-    }
-  }
+  const scoreWeights = loadScoreWeights(args.scoreConfig);
 
   const entityDir = path.join(distRun, 'entities');
   const entityFiles = walkFiles(entityDir).filter((filePath) => {
@@ -161,7 +163,8 @@ function main() {
   }
 
   const persons = buildPersons(path.join(distRun, 'machine'));
-  const assertionsById = buildAssertionsById(distRun, warnings);
+  const assertionsResult = buildAssertionsById(distRun, warnings, scoreWeights);
+  const assertionsById = assertionsResult.assertionsById;
   const assertions = Object.keys(assertionsById)
     .sort((a, b) => a.localeCompare(b))
     .map((id) => assertionsById[id]);
@@ -170,6 +173,11 @@ function main() {
     writeJson(path.join(outDir, 'persons.json'), persons);
     writeJson(path.join(outDir, 'assertions_by_id.json'), assertionsById);
     writeJson(path.join(outDir, 'assertions.json'), assertions);
+  }
+
+  const conflictReportPath = reportPath.replace(/\.json$/i, '.conflicts.json');
+  if (!args.dryRun) {
+    writeJson(conflictReportPath, assertionsResult.conflictReport);
   }
 
   const report = {
@@ -190,6 +198,11 @@ function main() {
     counts: {
       persons: Object.keys(persons).length,
       assertions: Object.keys(assertionsById).length,
+    },
+    duplicate_conflict_summary: {
+      total_conflict_ids: assertionsResult.conflictReport.total_conflict_ids,
+      discarded_rows: assertionsResult.conflictReport.discarded_rows,
+      report_path: conflictReportPath,
     },
     warnings,
     note: 'D1 scaffold complete. Artifact generation pipeline is implemented in later milestones.',
@@ -300,23 +313,35 @@ function buildPersons(machineDir) {
   );
 }
 
-function buildAssertionsById(distRun, warnings) {
+function buildAssertionsById(distRun, warnings, scoreWeights) {
   const indexesPath = path.join(distRun, 'indexes', 'assertions_by_id.json');
   const indexPayload = fs.existsSync(indexesPath) ? parseJsonFile(indexesPath, {}) : {};
   const hasIndexRows = indexPayload && typeof indexPayload === 'object' && Object.keys(indexPayload).length > 0;
   if (hasIndexRows) {
     const normalized = {};
+    const conflicts = [];
     for (const [id, row] of Object.entries(indexPayload)) {
-      normalized[String(id)] = normalizeAssertionRow(String(id), row, { defaultLayer: 'canon', warnings });
+      const resolved = resolveDuplicateSet(
+        String(id),
+        [normalizeAssertionRow(String(id), row, { defaultLayer: 'canon', warnings })],
+        scoreWeights,
+      );
+      normalized[String(id)] = resolved.winner;
+      if (resolved.discarded.length > 0) {
+        conflicts.push(resolved);
+      }
     }
-    return normalized;
+    return {
+      assertionsById: normalized,
+      conflictReport: buildConflictReport(conflicts),
+    };
   }
 
   const entityFiles = walkFiles(path.join(distRun, 'entities')).filter((filePath) => {
     const lower = filePath.toLowerCase();
     return lower.endsWith('.yml') || lower.endsWith('.yaml');
   });
-  const out = {};
+  const candidatesById = new Map();
   let syntheticCounter = 0;
   for (const filePath of entityFiles) {
     const payload = parseYamlFile(filePath);
@@ -326,13 +351,25 @@ function buildAssertionsById(distRun, warnings) {
       syntheticCounter += 1;
       const rawId = String(row.id ?? row.assertion_id ?? row.aid ?? `assertion:${syntheticCounter}`).trim();
       const id = rawId || `assertion:${syntheticCounter}`;
-      if (out[id]) {
-        continue;
-      }
-      out[id] = normalizeAssertionRow(id, row, { defaultLayer: 'canon', warnings });
+      const normalized = normalizeAssertionRow(id, row, { defaultLayer: 'canon', warnings });
+      const existing = candidatesById.get(id) ?? [];
+      existing.push(normalized);
+      candidatesById.set(id, existing);
     }
   }
-  return Object.fromEntries(Object.keys(out).sort((a, b) => a.localeCompare(b)).map((id) => [id, out[id]]));
+  const conflicts = [];
+  const resolved = {};
+  for (const id of Array.from(candidatesById.keys()).sort((a, b) => a.localeCompare(b))) {
+    const selection = resolveDuplicateSet(id, candidatesById.get(id), scoreWeights);
+    resolved[id] = selection.winner;
+    if (selection.discarded.length > 0) {
+      conflicts.push(selection);
+    }
+  }
+  return {
+    assertionsById: resolved,
+    conflictReport: buildConflictReport(conflicts),
+  };
 }
 
 function parseYamlFile(filePath) {
@@ -420,6 +457,110 @@ function normalizeAssertionRow(id, row, context) {
     normalized.extensions.psellos.date = directDate;
   }
   return normalized;
+}
+
+function loadScoreWeights(scoreConfigArg) {
+  if (!scoreConfigArg) {
+    return { ...DEFAULT_SCORE_WEIGHTS };
+  }
+  const configPath = path.resolve(process.cwd(), scoreConfigArg);
+  if (!fs.existsSync(configPath)) {
+    fail(`Score config not found: ${configPath}`);
+  }
+  const payload = parseJsonFile(configPath, null);
+  if (!payload || typeof payload !== 'object') {
+    fail(`Invalid score config JSON: ${configPath}`);
+  }
+  return {
+    scalar_field: Number(payload.scalar_field ?? DEFAULT_SCORE_WEIGHTS.scalar_field),
+    source: Number(payload.source ?? DEFAULT_SCORE_WEIGHTS.source),
+    layer: Number(payload.layer ?? DEFAULT_SCORE_WEIGHTS.layer),
+    temporal: Number(payload.temporal ?? DEFAULT_SCORE_WEIGHTS.temporal),
+    raw: Number(payload.raw ?? DEFAULT_SCORE_WEIGHTS.raw),
+  };
+}
+
+function countScalars(value, pathKey = '') {
+  if (pathKey.endsWith('.raw')) {
+    return 0;
+  }
+  if (value === null || value === undefined) {
+    return 0;
+  }
+  if (typeof value === 'string') {
+    return value.trim() ? 1 : 0;
+  }
+  if (typeof value === 'number' || typeof value === 'boolean') {
+    return 1;
+  }
+  if (Array.isArray(value)) {
+    return value.reduce((sum, item) => sum + countScalars(item, pathKey), 0);
+  }
+  if (typeof value === 'object') {
+    let sum = 0;
+    for (const [key, item] of Object.entries(value)) {
+      const nextPath = pathKey ? `${pathKey}.${key}` : key;
+      sum += countScalars(item, nextPath);
+    }
+    return sum;
+  }
+  return 0;
+}
+
+function hasTemporal(assertion) {
+  const json = JSON.stringify(assertion).toLowerCase();
+  return json.includes('date') || json.includes('start') || json.includes('end') || json.includes('time');
+}
+
+function scoreAssertion(assertion, weights) {
+  let score = countScalars(assertion) * weights.scalar_field;
+  const ps = assertion?.extensions?.psellos ?? {};
+  if (ps.source) score += weights.source;
+  if (ps.layer) score += weights.layer;
+  if (ps.raw) score += weights.raw;
+  if (hasTemporal(assertion)) score += weights.temporal;
+  return score;
+}
+
+function resolveDuplicateSet(id, rows, weights) {
+  const list = Array.isArray(rows) ? rows : [];
+  if (list.length === 0) {
+    return { id, winner: null, discarded: [] };
+  }
+  let winner = list[0];
+  let winnerScore = scoreAssertion(winner, weights);
+  const discarded = [];
+
+  for (let i = 1; i < list.length; i += 1) {
+    const candidate = list[i];
+    const candidateScore = scoreAssertion(candidate, weights);
+    if (candidateScore > winnerScore) {
+      discarded.push({ row: winner, score: winnerScore });
+      winner = candidate;
+      winnerScore = candidateScore;
+    } else {
+      discarded.push({ row: candidate, score: candidateScore });
+    }
+  }
+  return {
+    id,
+    winner,
+    winner_score: winnerScore,
+    discarded,
+  };
+}
+
+function buildConflictReport(conflicts) {
+  return {
+    total_conflict_ids: conflicts.length,
+    discarded_rows: conflicts.reduce((sum, item) => sum + item.discarded.length, 0),
+    conflicts: conflicts.map((item) => ({
+      id: item.id,
+      winner_score: item.winner_score,
+      winner: item.winner,
+      discarded: item.discarded,
+    })),
+  };
 }
 
 main();
