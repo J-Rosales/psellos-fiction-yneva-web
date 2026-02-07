@@ -504,25 +504,40 @@ export function AppShell() {
                       />
                     </FormControl>
                   </Grid>
-                  <Grid size={{ xs: 6, md: 2 }}>
-                    <TextField
-                      fullWidth
-                      size="small"
-                      label="Date from"
-                      value={draftFilters.date_from}
-                      onChange={(event) => updateDraft('date_from', event.target.value)}
-                      disabled={!isSupported('date_from')}
-                    />
-                  </Grid>
-                  <Grid size={{ xs: 6, md: 2 }}>
-                    <TextField
-                      fullWidth
-                      size="small"
-                      label="Date to"
-                      value={draftFilters.date_to}
-                      onChange={(event) => updateDraft('date_to', event.target.value)}
-                      disabled={!isSupported('date_to')}
-                    />
+                  <Grid size={{ xs: 12, md: 4 }}>
+                    <Stack spacing={0.5}>
+                      <Stack direction="row" spacing={0.5} alignItems="center">
+                        <Typography variant="caption" color="text.secondary">
+                          Date range
+                        </Typography>
+                        <Tooltip title="Filters assertion/date metadata in the compiled artifacts. Accepted formats: YYYY, YYYY-MM, YYYY-MM-DD (examples: 1180, 1180-05, 1180-05-12).">
+                          <IconButton size="small" tabIndex={-1} aria-label="Date range format help">
+                            <HelpOutlineIcon fontSize="inherit" />
+                          </IconButton>
+                        </Tooltip>
+                      </Stack>
+                      <Stack direction="row" spacing={0.75} alignItems="center">
+                        <TextField
+                          fullWidth
+                          size="small"
+                          label="From"
+                          value={draftFilters.date_from}
+                          onChange={(event) => updateDraft('date_from', event.target.value)}
+                          disabled={!isSupported('date_from')}
+                        />
+                        <Typography variant="body2" color="text.secondary">
+                          to
+                        </Typography>
+                        <TextField
+                          fullWidth
+                          size="small"
+                          label="To"
+                          value={draftFilters.date_to}
+                          onChange={(event) => updateDraft('date_to', event.target.value)}
+                          disabled={!isSupported('date_to')}
+                        />
+                      </Stack>
+                    </Stack>
                   </Grid>
                   <Grid size={{ xs: 12, md: 2.4 }}>
                     <FormControl fullWidth size="small" disabled={!isSupported('has_geo')}>

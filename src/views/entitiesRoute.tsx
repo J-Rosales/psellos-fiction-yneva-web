@@ -1,8 +1,8 @@
-import { Alert, Box, Card, CardContent, CircularProgress, Stack, Typography } from '@mui/material';
+import { Alert, Box, Button, Card, CardContent, Chip, CircularProgress, Stack, Typography } from '@mui/material';
 import { DataGrid, type GridColDef, type GridPaginationModel } from '@mui/x-data-grid';
 import { useQuery } from '@tanstack/react-query';
 import { useLocation, useNavigate } from '@tanstack/react-router';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { fetchEntities, type EntityRecord } from '../api/client';
 import { parseCoreFilters, toSearchObject } from '../routing/coreFilters';
 import { buildEntitiesPaginationParams } from './entitiesPagination';
@@ -19,11 +19,27 @@ export function EntitiesRouteView() {
   const filters = useMemo(() => parseCoreFilters(window.location.search), [location.href]);
   const page = Number(new URLSearchParams(window.location.search).get('page') ?? '0') || 0;
   const pageSize = Number(new URLSearchParams(window.location.search).get('page_size') ?? '25') || 25;
+  const [typeMode, setTypeMode] = useState<'all' | 'custom'>('all');
+  const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
 
   const query = useQuery({
     queryKey: ['entities', filters, page, pageSize],
     queryFn: () => fetchEntities({ filters, page, pageSize }),
   });
+  const rows = query.data?.items ?? [];
+  const availableTypes = useMemo(() => {
+    const set = new Set<string>();
+    rows.forEach((row) => {
+      const t = String(row.entity_type ?? '').trim().toLowerCase();
+      if (t) set.add(t);
+    });
+    return Array.from(set).sort((a, b) => a.localeCompare(b));
+  }, [rows]);
+  const filteredRows = useMemo(() => {
+    if (typeMode === 'all') return rows;
+    if (selectedTypes.length === 0) return [] as EntityRecord[];
+    return rows.filter((row) => selectedTypes.includes(String(row.entity_type ?? '').trim().toLowerCase()));
+  }, [rows, typeMode, selectedTypes]);
 
   const onPaginationModelChange = (model: GridPaginationModel) => {
     const params = buildEntitiesPaginationParams({
@@ -62,8 +78,11 @@ export function EntitiesRouteView() {
   }
 
   const meta = query.data.meta;
-  const rows = query.data.items;
-  const noRowsLabel = filters.q ? 'No entities match current filters.' : 'No entities found for this layer.';
+  const noRowsLabel = typeMode === 'custom' && selectedTypes.length === 0
+    ? 'No types selected.'
+    : filters.q
+      ? 'No entities match current filters.'
+      : 'No entities found for this layer.';
 
   return (
     <Stack spacing={2}>
@@ -79,18 +98,57 @@ export function EntitiesRouteView() {
           </Typography>
           <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
             Result count: {meta.result_count} (Total: {meta.total_count ?? meta.result_count}) | Mode:{' '}
-            {filters.exact ? 'exact' : 'fuzzy'}
+            {filters.exact ? 'exact' : 'fuzzy'} | Visible after type filter: {filteredRows.length}
           </Typography>
+          <Stack direction={{ xs: 'column', md: 'row' }} spacing={1} sx={{ mb: 1.5 }} alignItems={{ md: 'center' }}>
+            <Stack direction="row" spacing={0.75} useFlexGap flexWrap="wrap" sx={{ minHeight: 34 }}>
+              {availableTypes.map((entityType) => {
+                const active = typeMode === 'custom' && selectedTypes.includes(entityType);
+                return (
+                  <Chip
+                    key={entityType}
+                    label={entityType}
+                    clickable
+                    color={active ? 'primary' : 'default'}
+                    variant={active ? 'filled' : 'outlined'}
+                    onClick={() => {
+                      setTypeMode('custom');
+                      setSelectedTypes((prev) =>
+                        prev.includes(entityType)
+                          ? prev.filter((value) => value !== entityType)
+                          : [...prev, entityType],
+                      );
+                    }}
+                  />
+                );
+              })}
+            </Stack>
+            <Stack direction="row" spacing={1}>
+              <Button size="small" variant={typeMode === 'all' ? 'contained' : 'outlined'} onClick={() => setTypeMode('all')}>
+                All
+              </Button>
+              <Button
+                size="small"
+                variant={typeMode === 'custom' && selectedTypes.length === 0 ? 'contained' : 'outlined'}
+                onClick={() => {
+                  setTypeMode('custom');
+                  setSelectedTypes([]);
+                }}
+              >
+                None
+              </Button>
+            </Stack>
+          </Stack>
           <Box sx={{ height: { xs: 520, md: 'calc(100vh - 290px)' }, minHeight: 460 }}>
             <DataGrid
-              rows={rows}
+              rows={filteredRows}
               columns={COLUMNS}
               getRowId={(row) => row.id}
               disableRowSelectionOnClick
               pagination
               paginationMode="server"
               loading={query.isFetching}
-              rowCount={meta.total_count ?? rows.length}
+              rowCount={typeMode === 'all' ? (meta.total_count ?? rows.length) : filteredRows.length}
               paginationModel={{ page, pageSize }}
               onPaginationModelChange={onPaginationModelChange}
               pageSizeOptions={[10, 25, 50, 100]}

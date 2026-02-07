@@ -61,6 +61,11 @@ export function MapRouteView() {
     queryKey: ['map-features', filters.layer, filters.rel_type, filters.q],
     queryFn: () => fetchMapFeatures({ filters }),
   });
+  const fallbackQuery = useQuery({
+    queryKey: ['map-features-fallback', filters.layer, filters.rel_type],
+    queryFn: () => fetchMapFeatures({ filters: { ...filters, q: '' } }),
+    enabled: Boolean(filters.q.trim()) && (query.data?.groups.length ?? 0) === 0,
+  });
 
   const scaleRadiusKm = useMemo(() => {
     if (scalePreset === 'earth') return 6371;
@@ -69,8 +74,15 @@ export function MapRouteView() {
     return Number.isFinite(parsed) && parsed > 100 ? parsed : 6371;
   }, [scalePreset, customRadiusKm]);
 
+  const activeData = useMemo(() => {
+    if (!query.data) return null;
+    if (query.data.groups.length > 0) return query.data;
+    if (fallbackQuery.data && filters.q.trim()) return fallbackQuery.data;
+    return query.data;
+  }, [query.data, fallbackQuery.data, filters.q]);
+
   useEffect(() => {
-    if (!mapContainerRef.current || !query.data) {
+    if (!mapContainerRef.current || !activeData) {
       return;
     }
     if (!mapRef.current) {
@@ -78,13 +90,26 @@ export function MapRouteView() {
         container: mapContainerRef.current,
         style: {
           version: 8,
-          sources: {},
+          sources: {
+            osm: {
+              type: 'raster',
+              tiles: ['https://tile.openstreetmap.org/{z}/{x}/{y}.png'],
+              tileSize: 256,
+              attribution:
+                '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>',
+            },
+          },
           layers: [
             {
-              id: 'psellos-map-background',
+              id: 'osm-base',
+              type: 'raster',
+              source: 'osm',
+            },
+            {
+              id: 'psellos-map-overlay',
               type: 'background',
               paint: {
-                'background-color': '#dbe3f2',
+                'background-color': 'rgba(219, 227, 242, 0.05)',
               },
             },
           ],
@@ -204,7 +229,7 @@ export function MapRouteView() {
       });
     }
 
-    const markers = extractRenderableMarkers(query.data.features as Array<{
+    const markers = extractRenderableMarkers(activeData.features as Array<{
       geometry: { type?: string; coordinates?: [number, number] } | null;
       properties?: { place_key?: string; place_label?: string; assertion_count?: number };
     }>);
@@ -226,7 +251,7 @@ export function MapRouteView() {
       mapRef.current.fitBounds(bounds, { padding: 64, maxZoom: 7, duration: 500 });
     }
 
-  }, [query.data, scaleRadiusKm]);
+  }, [activeData, scaleRadiusKm]);
 
   useEffect(() => {
     const map = mapRef.current;
@@ -246,7 +271,7 @@ export function MapRouteView() {
     if (map.getLayer(HEATMAP_LAYER_ID)) {
       map.setLayoutProperty(HEATMAP_LAYER_ID, 'visibility', heatmapVisible);
     }
-  }, [densityMode, query.data]);
+  }, [densityMode, activeData]);
 
   useEffect(() => {
     return () => {
@@ -266,7 +291,7 @@ export function MapRouteView() {
     return () => window.removeEventListener('resize', syncViewportHeight);
   }, []);
 
-  const selectedGroup = query.data?.groups.find((group) => group.place_key === selectedPlaceKey) ?? null;
+  const selectedGroup = activeData?.groups.find((group) => group.place_key === selectedPlaceKey) ?? null;
   const stableSelectedGroup = selectedGroup ?? selectedSnapshot;
 
   useEffect(() => {
@@ -280,7 +305,7 @@ export function MapRouteView() {
     });
   }, [selectedGroup]);
 
-  if (query.isLoading) {
+  if (query.isLoading || fallbackQuery.isLoading) {
     return (
       <Card>
         <CardContent>
@@ -295,16 +320,24 @@ export function MapRouteView() {
   if (query.isError) {
     return <Alert severity="error">Map query failed: {query.error.message}</Alert>;
   }
-  if (!query.data) {
+  if (fallbackQuery.isError) {
+    return <Alert severity="error">Map fallback query failed: {fallbackQuery.error.message}</Alert>;
+  }
+  if (!activeData) {
     return <Alert severity="error">Map query returned no payload.</Alert>;
   }
 
-  const unknownGeoCount = Number(query.data.meta.buckets?.unknown_geo_assertion_count ?? 0);
-  const ambiguousPlaceCount = Number(query.data.meta.buckets?.ambiguous_place_group_count ?? 0);
+  const unknownGeoCount = Number(activeData.meta.buckets?.unknown_geo_assertion_count ?? 0);
+  const ambiguousPlaceCount = Number(activeData.meta.buckets?.ambiguous_place_group_count ?? 0);
 
   return (
     <Stack spacing={1.5}>
-      {query.data.meta.warnings?.length ? <Alert severity="warning">{query.data.meta.warnings.join(' ')}</Alert> : null}
+      {activeData.meta.warnings?.length ? <Alert severity="warning">{activeData.meta.warnings.join(' ')}</Alert> : null}
+      {filters.q.trim() && query.data && query.data.groups.length === 0 && fallbackQuery.data ? (
+        <Alert severity="info">
+          No geo matches for current search text. Showing layer-wide map results instead.
+        </Alert>
+      ) : null}
       <Alert severity="info">
         Unknown geo assertions: {unknownGeoCount} | Ambiguous place groups: {ambiguousPlaceCount}
       </Alert>
@@ -319,7 +352,7 @@ export function MapRouteView() {
           <CardContent sx={{ py: 1.25 }}>
             <Stack direction="row" spacing={1} alignItems="center" flexWrap="wrap" useFlexGap>
               <Typography variant="h6">Map</Typography>
-              <Chip label={`Places ${query.data.groups.length}`} />
+              <Chip label={`Places ${activeData.groups.length}`} />
               <Chip label={`${Math.round(scaleRadiusKm)} km`} />
               <Chip label={`Zoom ${cameraInfo.zoom.toFixed(2)}`} />
               <Chip label={`Mode ${densityMode}`} />
@@ -362,7 +395,7 @@ export function MapRouteView() {
                   variant="outlined"
                   onClick={() => {
                     if (!mapRef.current) return;
-                    const markers = extractRenderableMarkers(query.data.features as Array<{
+                    const markers = extractRenderableMarkers(activeData.features as Array<{
                       geometry: { type?: string; coordinates?: [number, number] } | null;
                       properties?: { place_key?: string; place_label?: string; assertion_count?: number };
                     }>);
@@ -424,7 +457,7 @@ export function MapRouteView() {
               Select a place marker or list item.
             </Typography>
             <List dense sx={{ maxHeight: 220, overflow: 'auto', border: '1px solid #e5e7eb', borderRadius: 1, mb: 2 }}>
-              {query.data.groups.map((group) => (
+              {activeData.groups.map((group) => (
                 <ListItemButton
                   key={group.place_key}
                   selected={group.place_key === selectedPlaceKey}

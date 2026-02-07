@@ -1,4 +1,4 @@
-import { Alert, Card, CardContent, CircularProgress, FormControl, Grid, InputLabel, MenuItem, Select, Stack, Typography } from '@mui/material';
+import { Alert, Box, Card, CardContent, CircularProgress, FormControl, Grid, InputLabel, MenuItem, Select, Stack, Typography } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import { useLocation } from '@tanstack/react-router';
 import { useEffect, useMemo, useState } from 'react';
@@ -156,6 +156,11 @@ export function LayersRouteView() {
             <Typography color="text.secondary">No changelog data.</Typography>
           ) : (
             <Stack spacing={1} sx={{ minHeight: { xs: 220, md: 'calc(100vh - 420px)' } }}>
+              {(() => {
+                const added = apiLooksEmptyButLocalHasData ? localDiff.added : apiItem?.added ?? [];
+                const removed = apiLooksEmptyButLocalHasData ? localDiff.removed : apiItem?.removed ?? [];
+                return (
+                  <>
               {apiLooksEmptyButLocalHasData ? (
                 <Alert severity="warning">
                   API diff returned empty, but local compiled index shows differences. Displaying local fallback diff.
@@ -163,20 +168,103 @@ export function LayersRouteView() {
               ) : null}
               <Typography>
                 Added assertions:{' '}
-                {apiLooksEmptyButLocalHasData ? localDiff.added.length : apiItem?.added.length ?? 0}
+                {added.length}
               </Typography>
               <Typography>
                 Removed assertions:{' '}
-                {apiLooksEmptyButLocalHasData ? localDiff.removed.length : apiItem?.removed.length ?? 0}
+                {removed.length}
               </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Added sample:{' '}
-                {(apiLooksEmptyButLocalHasData ? localDiff.added : apiItem?.added ?? []).slice(0, 5).join(', ') || 'none'}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Removed sample:{' '}
-                {(apiLooksEmptyButLocalHasData ? localDiff.removed : apiItem?.removed ?? []).slice(0, 5).join(', ') || 'none'}
-              </Typography>
+                    <Grid container spacing={1.25} sx={{ mt: 0.25 }}>
+                      <Grid size={{ xs: 12, md: 6 }}>
+                        <Box
+                          sx={{
+                            border: '1px solid',
+                            borderColor: 'success.light',
+                            bgcolor: 'success.lighter',
+                            borderRadius: 1,
+                            p: 1,
+                            maxHeight: { xs: 240, md: 360 },
+                            overflow: 'auto',
+                          }}
+                        >
+                          <Typography variant="subtitle2" sx={{ color: 'success.dark', mb: 0.75 }}>
+                            + Added
+                          </Typography>
+                          {added.length === 0 ? (
+                            <Typography variant="body2" color="text.secondary">
+                              none
+                            </Typography>
+                          ) : (
+                            <Stack spacing={0.5}>
+                              {added.map((id) => (
+                                <Typography
+                                  key={`added-${id}`}
+                                  variant="body2"
+                                  sx={{
+                                    fontFamily: 'monospace',
+                                    px: 0.75,
+                                    py: 0.35,
+                                    borderRadius: 0.75,
+                                    bgcolor: 'rgba(22, 163, 74, 0.12)',
+                                    color: 'success.dark',
+                                    border: '1px solid',
+                                    borderColor: 'rgba(22, 163, 74, 0.25)',
+                                  }}
+                                >
+                                  + {id}
+                                </Typography>
+                              ))}
+                            </Stack>
+                          )}
+                        </Box>
+                      </Grid>
+                      <Grid size={{ xs: 12, md: 6 }}>
+                        <Box
+                          sx={{
+                            border: '1px solid',
+                            borderColor: 'error.light',
+                            bgcolor: 'error.lighter',
+                            borderRadius: 1,
+                            p: 1,
+                            maxHeight: { xs: 240, md: 360 },
+                            overflow: 'auto',
+                          }}
+                        >
+                          <Typography variant="subtitle2" sx={{ color: 'error.dark', mb: 0.75 }}>
+                            - Removed
+                          </Typography>
+                          {removed.length === 0 ? (
+                            <Typography variant="body2" color="text.secondary">
+                              none
+                            </Typography>
+                          ) : (
+                            <Stack spacing={0.5}>
+                              {removed.map((id) => (
+                                <Typography
+                                  key={`removed-${id}`}
+                                  variant="body2"
+                                  sx={{
+                                    fontFamily: 'monospace',
+                                    px: 0.75,
+                                    py: 0.35,
+                                    borderRadius: 0.75,
+                                    bgcolor: 'rgba(220, 38, 38, 0.12)',
+                                    color: 'error.dark',
+                                    border: '1px solid',
+                                    borderColor: 'rgba(220, 38, 38, 0.25)',
+                                  }}
+                                >
+                                  - {id}
+                                </Typography>
+                              ))}
+                            </Stack>
+                          )}
+                        </Box>
+                      </Grid>
+                    </Grid>
+                  </>
+                );
+              })()}
             </Stack>
           )}
         </CardContent>

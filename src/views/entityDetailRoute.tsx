@@ -75,7 +75,43 @@ export function EntityDetailRouteView() {
   if (!entityQuery.data || !assertionsQuery.data) return <Alert severity="error">Entity detail query returned no payload.</Alert>;
 
   const entity = entityQuery.data.item;
-  if (!entity) return <Alert severity="warning">Entity `{entityId}` was not found in layer `{filters.layer}`.</Alert>;
+  if (!entity) {
+    return (
+      <Card>
+        <CardContent>
+          <Stack spacing={1}>
+            <Typography variant="h6">Search an entity to view details</Typography>
+            <Typography color="text.secondary">
+              Entity `{entityId}` was not found in layer `{filters.layer}`. Use the search strip and press Update, or open one of these examples.
+            </Typography>
+            <Stack direction="row" spacing={1} useFlexGap flexWrap="wrap">
+              <Button
+                size="small"
+                variant="outlined"
+                onClick={() => void navigate({ to: '/entity/$entityId', params: { entityId: 'Q41600' } })}
+              >
+                Example: Alexios I Komnenos
+              </Button>
+              <Button
+                size="small"
+                variant="outlined"
+                onClick={() => void navigate({ to: '/entity/$entityId', params: { entityId: 'Q517' } })}
+              >
+                Example: Manuel I Komnenos
+              </Button>
+              <Button
+                size="small"
+                variant="outlined"
+                onClick={() => void navigate({ to: '/entities' })}
+              >
+                Browse Entities
+              </Button>
+            </Stack>
+          </Stack>
+        </CardContent>
+      </Card>
+    );
+  }
 
   const allAssertions = assertionsQuery.data.items;
   const effectiveSize = assertionsPageSize === -1 ? allAssertions.length : assertionsPageSize;

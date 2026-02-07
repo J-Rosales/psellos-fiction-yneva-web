@@ -61,4 +61,65 @@ export async function registerDiagnosticsRoutes(
       },
     };
   });
+
+  app.get('/api/diagnostics/aggregate', async (request, reply) => {
+    const parsed = layerQuerySchema.safeParse(request.query);
+    if (!parsed.success) {
+      return reply.status(400).send(buildBadRequestError(request, z.prettifyError(parsed.error)));
+    }
+    const { layer, known, warnings } = resolveLayer(request, repo, parsed.data.layer);
+    if (!known) {
+      return {
+        meta: buildSuccessMeta(layer, 1, warnings),
+        item: {
+          layer,
+          assertion_quality: {
+            entity_total: 0,
+            unknown_label_count: 0,
+            ambiguous_label_count: 0,
+            unknown_entity_type_count: 0,
+            unknown_label_sample_ids: [],
+            unknown_entity_type_sample_ids: [],
+            sample_limited: false,
+          },
+          geo_coverage: {
+            place_groups: 0,
+            unknown_geo_assertion_count: 0,
+            ambiguous_place_group_count: 0,
+          },
+        },
+      };
+    }
+    const entitySummary = repo.listEntities(layer, { page: 0, pageSize: 200 });
+    const map = repo.getMapFeatures(layer);
+    const sampleUnknownLabelIds = entitySummary.items
+      .filter((item) => String(item.label ?? '').trim() === '')
+      .slice(0, 25)
+      .map((item) => String(item.id ?? ''));
+    const sampleUnknownTypeIds = entitySummary.items
+      .filter((item) => String(item.entity_type ?? '').trim() === '')
+      .slice(0, 25)
+      .map((item) => String(item.id ?? ''));
+
+    return {
+      meta: buildSuccessMeta(layer, 1, warnings),
+      item: {
+        layer,
+        assertion_quality: {
+          entity_total: entitySummary.totalCount,
+          unknown_label_count: Number(entitySummary.buckets?.unknown_label_count ?? 0),
+          ambiguous_label_count: Number(entitySummary.buckets?.ambiguous_label_count ?? 0),
+          unknown_entity_type_count: Number(entitySummary.buckets?.unknown_entity_type_count ?? 0),
+          unknown_label_sample_ids: sampleUnknownLabelIds,
+          unknown_entity_type_sample_ids: sampleUnknownTypeIds,
+          sample_limited: entitySummary.totalCount > entitySummary.items.length,
+        },
+        geo_coverage: {
+          place_groups: map.groups.length,
+          unknown_geo_assertion_count: Number(map.buckets?.unknown_geo_assertion_count ?? 0),
+          ambiguous_place_group_count: Number(map.buckets?.ambiguous_place_group_count ?? 0),
+        },
+      },
+    };
+  });
 }

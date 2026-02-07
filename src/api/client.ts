@@ -92,6 +92,27 @@ interface MetricsResponse {
   };
 }
 
+interface DiagnosticsAggregateResponse {
+  meta: ApiMeta;
+  item: {
+    layer: string;
+    assertion_quality: {
+      entity_total: number;
+      unknown_label_count: number;
+      ambiguous_label_count: number;
+      unknown_entity_type_count: number;
+      unknown_label_sample_ids: string[];
+      unknown_entity_type_sample_ids: string[];
+      sample_limited: boolean;
+    };
+    geo_coverage: {
+      place_groups: number;
+      unknown_geo_assertion_count: number;
+      ambiguous_place_group_count: number;
+    };
+  };
+}
+
 function buildQuery(params: Record<string, string | number | boolean | undefined>): string {
   const query = new URLSearchParams();
   Object.entries(params).forEach(([key, value]) => {
@@ -198,5 +219,13 @@ export async function fetchLayerConsistency(input: {
 
 export async function fetchApiMetrics(): Promise<MetricsResponse> {
   return requestJson<MetricsResponse>('/api/diagnostics/metrics', {});
+}
+
+export async function fetchDiagnosticsAggregate(input: {
+  layer: string;
+}): Promise<DiagnosticsAggregateResponse> {
+  return requestJson<DiagnosticsAggregateResponse>('/api/diagnostics/aggregate', {
+    layer: input.layer,
+  });
 }
 

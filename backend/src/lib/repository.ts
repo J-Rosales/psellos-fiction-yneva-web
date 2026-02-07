@@ -574,6 +574,7 @@ export class ArtifactRepository implements Repository {
 
   private buildEntityBuckets(entities: Array<Record<string, unknown>>): Record<string, unknown> {
     const unknown = entities.filter((entity) => String(entity.label ?? '').trim() === '').length;
+    const unknownEntityType = entities.filter((entity) => String(entity.entity_type ?? '').trim() === '').length;
     const labelCounts = new Map<string, number>();
     for (const entity of entities) {
       const label = String(entity.label ?? '').trim().toLowerCase();
@@ -591,6 +592,7 @@ export class ArtifactRepository implements Repository {
     return {
       unknown_label_count: unknown,
       ambiguous_label_count: ambiguous,
+      unknown_entity_type_count: unknownEntityType,
     };
   }
 }
