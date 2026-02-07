@@ -1,0 +1,138 @@
+assertions:
+  -
+    id: "a.wdqs.P1343.000007"
+    object_in_compiled: true
+    object_label: "Meyers Konversations-Lexikon, 4th edition (1885–1890)"
+    object_qid: "Q19219752"
+    predicate_pid: "P1343"
+    provenance:
+      phase: "phase2"
+      query_id: "Q_ASSERT_P1343_described_by_source"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "described_by"
+    status: "candidate"
+    subject_label: "Macedonia"
+    subject_qid: "Q103251"
+  -
+    id: "a.wdqs.P1343.000024"
+    object_in_compiled: true
+    object_label: "Meyers Konversations-Lexikon, 4th edition (1885–1890)"
+    object_qid: "Q19219752"
+    predicate_pid: "P1343"
+    provenance:
+      phase: "phase2"
+      query_id: "Q_ASSERT_P1343_described_by_source"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "described_by"
+    status: "candidate"
+    subject_label: "Byzantine Empire"
+    subject_qid: "Q12544"
+  -
+    id: "a.wdqs.P1343.000058"
+    object_in_compiled: true
+    object_label: "Meyers Konversations-Lexikon, 4th edition (1885–1890)"
+    object_qid: "Q19219752"
+    predicate_pid: "P1343"
+    provenance:
+      phase: "phase2"
+      query_id: "Q_ASSERT_P1343_described_by_source"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "described_by"
+    status: "candidate"
+    subject_label: "Komnenos"
+    subject_qid: "Q163814"
+  -
+    id: "a.wdqs.P1343.000092"
+    object_in_compiled: true
+    object_label: "Meyers Konversations-Lexikon, 4th edition (1885–1890)"
+    object_qid: "Q19219752"
+    predicate_pid: "P1343"
+    provenance:
+      phase: "phase2"
+      query_id: "Q_ASSERT_P1343_described_by_source"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "described_by"
+    status: "candidate"
+    subject_label: "Harran"
+    subject_qid: "Q199547"
+  -
+    id: "a.wdqs.P1343.000144"
+    object_in_compiled: true
+    object_label: "Meyers Konversations-Lexikon, 4th edition (1885–1890)"
+    object_qid: "Q19219752"
+    predicate_pid: "P1343"
+    provenance:
+      phase: "phase2"
+      query_id: "Q_ASSERT_P1343_described_by_source"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "described_by"
+    status: "candidate"
+    subject_label: "Manuel I Komnenos"
+    subject_qid: "Q41610"
+  -
+    id: "a.wdqs.P1343.000153"
+    object_in_compiled: true
+    object_label: "Meyers Konversations-Lexikon, 4th edition (1885–1890)"
+    object_qid: "Q19219752"
+    predicate_pid: "P1343"
+    provenance:
+      phase: "phase2"
+      query_id: "Q_ASSERT_P1343_described_by_source"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "described_by"
+    status: "candidate"
+    subject_label: "Andronikos I Komnenos"
+    subject_qid: "Q41830"
+  -
+    id: "a.wdqs.P1343.000168"
+    object_in_compiled: true
+    object_label: "Meyers Konversations-Lexikon, 4th edition (1885–1890)"
+    object_qid: "Q19219752"
+    predicate_pid: "P1343"
+    provenance:
+      phase: "phase2"
+      query_id: "Q_ASSERT_P1343_described_by_source"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "described_by"
+    status: "candidate"
+    subject_label: "human"
+    subject_qid: "Q5"
+  -
+    id: "a.wdqs.P1343.000187"
+    object_in_compiled: true
+    object_label: "Meyers Konversations-Lexikon, 4th edition (1885–1890)"
+    object_qid: "Q19219752"
+    predicate_pid: "P1343"
+    provenance:
+      phase: "phase2"
+      query_id: "Q_ASSERT_P1343_described_by_source"
+      query_part: "chunk04"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "described_by"
+    status: "candidate"
+    subject_label: "Antalya"
+    subject_qid: "Q6487"
+data:
+  description: "edition of a German language encyclopaedia"
+  label: "Meyers Konversations-Lexikon, 4th edition (1885–1890)"
+  p31_labels: "version, edition or translation"
+  qid: "Q19219752"
+entity_type: "sources"
+id: "e.sources.meyers-konversations-lexikon-4th-edition-1885-1890--q19219752"
+label: "Meyers Konversations-Lexikon, 4th edition (1885–1890)"
+qid: "Q19219752"

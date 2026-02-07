@@ -1,0 +1,42 @@
+assertions:
+  -
+    id: "a.wdqs.P1343.000043"
+    object_in_compiled: true
+    object_label: "Vlastenský slovník historický"
+    object_qid: "Q19538713"
+    predicate_pid: "P1343"
+    provenance:
+      phase: "phase2"
+      query_id: "Q_ASSERT_P1343_described_by_source"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "described_by"
+    status: "candidate"
+    subject_label: "France"
+    subject_qid: "Q142"
+  -
+    id: "a.wdqs.P1343.000145"
+    object_in_compiled: true
+    object_label: "Vlastenský slovník historický"
+    object_qid: "Q19538713"
+    predicate_pid: "P1343"
+    provenance:
+      phase: "phase2"
+      query_id: "Q_ASSERT_P1343_described_by_source"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "described_by"
+    status: "candidate"
+    subject_label: "Manuel I Komnenos"
+    subject_qid: "Q41610"
+data:
+  description: "Czech encyclopedia edition"
+  label: "Vlastenský slovník historický"
+  p31_labels: "version, edition or translation"
+  qid: "Q19538713"
+entity_type: "sources"
+id: "e.sources.vlastensk-slovn-k-historick--q19538713"
+label: "Vlastenský slovník historický"
+qid: "Q19538713"

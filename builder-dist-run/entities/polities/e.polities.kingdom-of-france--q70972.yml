@@ -1,0 +1,74 @@
+assertions:
+  -
+    id: "a.wdqs.P19.000218"
+    object_in_compiled: true
+    object_label: "Kingdom of France"
+    object_qid: "Q70972"
+    predicate_pid: "P19"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P19_birth_place"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "born_in"
+    status: "confirmed"
+    subject_label: "Raynald of Châtillon"
+    subject_qid: "Q316831"
+  -
+    id: "a.wdqs.P27.000670"
+    object_in_compiled: true
+    object_label: "Kingdom of France"
+    object_qid: "Q70972"
+    predicate_pid: "P27"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P27_citizenship"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "citizen_of"
+    status: "candidate"
+    subject_label: "Agnes of France"
+    subject_qid: "Q233631"
+  -
+    id: "a.wdqs.P27.000688"
+    object_in_compiled: true
+    object_label: "Kingdom of France"
+    object_qid: "Q70972"
+    predicate_pid: "P27"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P27_citizenship"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "citizen_of"
+    status: "candidate"
+    subject_label: "Raynald of Châtillon"
+    subject_qid: "Q316831"
+  -
+    id: "a.wdqs.P27.000701"
+    object_in_compiled: true
+    object_label: "Kingdom of France"
+    object_qid: "Q70972"
+    predicate_pid: "P27"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P27_citizenship"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "citizen_of"
+    status: "candidate"
+    subject_label: "Raymond of Poitiers"
+    subject_qid: "Q437271"
+data:
+  description: "kingdom in Western Europe (987–1792; 1815–1848)"
+  label: "Kingdom of France"
+  p31_labels: "historical country"
+  qid: "Q70972"
+entity_type: "polities"
+id: "e.polities.kingdom-of-france--q70972"
+label: "Kingdom of France"
+qid: "Q70972"

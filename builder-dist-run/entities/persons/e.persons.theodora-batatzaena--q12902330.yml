@@ -1,0 +1,74 @@
+assertions:
+  -
+    id: "a.wdqs.P22.000323"
+    object_in_compiled: true
+    object_label: "Theodoros Batatzes"
+    object_qid: "Q12902332"
+    predicate_pid: "P22"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P22_father"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "child_of"
+    status: "confirmed"
+    subject_label: "Theodora Batatzaena"
+    subject_qid: "Q12902330"
+  -
+    id: "a.wdqs.P25.000446"
+    object_in_compiled: true
+    object_label: "Eudokia Komnene"
+    object_qid: "Q12279392"
+    predicate_pid: "P25"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P25_mother"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "child_of"
+    status: "confirmed"
+    subject_label: "Theodora Batatzaena"
+    subject_qid: "Q12902330"
+  -
+    id: "a.wdqs.P40.000810"
+    object_in_compiled: true
+    object_label: "Theodora Batatzaena"
+    object_qid: "Q12902330"
+    predicate_pid: "P40"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P40_child"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "parent_of"
+    status: "confirmed"
+    subject_label: "Eudokia Komnene"
+    subject_qid: "Q12279392"
+  -
+    id: "a.wdqs.P40.000842"
+    object_in_compiled: true
+    object_label: "Theodora Batatzaena"
+    object_qid: "Q12902330"
+    predicate_pid: "P40"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P40_child"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "parent_of"
+    status: "confirmed"
+    subject_label: "Theodoros Batatzes"
+    subject_qid: "Q12902332"
+data:
+  description: null
+  label: "Theodora Batatzaena"
+  p31_labels: "human"
+  qid: "Q12902330"
+entity_type: "persons"
+id: "e.persons.theodora-batatzaena--q12902330"
+label: "Theodora Batatzaena"
+qid: "Q12902330"

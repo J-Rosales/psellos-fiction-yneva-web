@@ -1,0 +1,55 @@
+assertions:
+  -
+    id: "a.wdqs.P276.000742"
+    object_in_compiled: false
+    object_label: "Santi Bonifacio e Alessio"
+    object_qid: "Q1076439"
+    predicate_pid: "P276"
+    provenance:
+      phase: "phase2"
+      query_id: "Q_ASSERT_P276_location"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "located_in"
+    status: "candidate"
+    subject_label: "Madonna di sant'Alessio"
+    subject_qid: "Q24012080"
+  -
+    id: "a.wdqs.P276.000743"
+    object_in_compiled: false
+    object_label: "Rome"
+    object_qid: "Q220"
+    predicate_pid: "P276"
+    provenance:
+      phase: "phase2"
+      query_id: "Q_ASSERT_P276_location"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "located_in"
+    status: "candidate"
+    subject_label: "Madonna di sant'Alessio"
+    subject_qid: "Q24012080"
+data:
+  class_labels:
+    - "icon"
+  confidence: "high"
+  context_labels:
+    - "Byzantine Empire"
+  contexts:
+    - "Q12544"
+  description: "Christian icon"
+  label: "Madonna di sant'Alessio"
+  qid: "Q24012080"
+  reasons:
+    - "linked to Byzantine/Crusader context seed"
+    - "has explicit class typing"
+    - "artifact keyword: icon"
+  score: 5
+  via_properties:
+    - "http://www.wikidata.org/prop/direct/P495"
+entity_type: "artifacts"
+id: "e.artifacts.madonna-di-sant-alessio--q24012080"
+label: "Madonna di sant'Alessio"
+qid: "Q24012080"

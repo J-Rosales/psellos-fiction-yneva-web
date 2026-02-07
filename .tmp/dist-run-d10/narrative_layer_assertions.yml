@@ -1,0 +1,4 @@
+rows:
+  - id: n1
+    linked_assertion_id: a1
+    note: narrative

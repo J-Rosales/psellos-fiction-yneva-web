@@ -21,6 +21,7 @@ import cytoscape from 'cytoscape';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { fetchGraphNeighborhood } from '../api/client';
 import { parseCoreFilters } from '../routing/coreFilters';
+import { computeViewportHeightPx } from './viewportLayout';
 
 type ViewMode = 'dynasty' | 'workplace';
 type ClusterPrecedence = 'confidence' | 'size';
@@ -59,7 +60,9 @@ export function GraphRouteView() {
   const [nodeSemanticMapEnabled, setNodeSemanticMapEnabled] = useState(true);
 
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const viewportRef = useRef<HTMLDivElement | null>(null);
   const cyRef = useRef<cytoscape.Core | null>(null);
+  const [viewportHeight, setViewportHeight] = useState(620);
 
   const relTypeFilter = useMemo(
     () => buildRelationFilter(filters.rel_type, includeRelations, excludeRelations),
@@ -120,6 +123,17 @@ export function GraphRouteView() {
   }, [structureMode, labelScale, confidenceOpacity]);
 
   useEffect(() => {
+    const syncViewportHeight = () => {
+      const topOffset = viewportRef.current?.getBoundingClientRect().top ?? 220;
+      setViewportHeight(computeViewportHeightPx(window.innerHeight, topOffset, 360));
+      cyRef.current?.resize();
+    };
+    syncViewportHeight();
+    window.addEventListener('resize', syncViewportHeight);
+    return () => window.removeEventListener('resize', syncViewportHeight);
+  }, []);
+
+  useEffect(() => {
     const cy = cyRef.current;
     if (!cy) return;
     cy.style(buildStyle(structureMode, labelScale, confidenceOpacity) as any);
@@ -155,47 +169,49 @@ export function GraphRouteView() {
   );
 
   return (
-    <Stack spacing={2}>
+    <Stack spacing={1.5}>
       {query.data?.meta.warnings?.length ? <Alert severity="warning">{query.data.meta.warnings.join(' ')}</Alert> : null}
-      <Card>
-        <CardContent>
-          <Stack spacing={1}>
-            <Stack direction="row" spacing={1} alignItems="center" flexWrap="wrap" useFlexGap>
-              <Typography variant="h5">Graph</Typography>
-              <Chip label={`Depth ${depth}`} />
-              <Chip label={`Structure ${structureMode === 'node' ? 'Node View' : 'Hierarchical View'}`} />
-              <Chip label={`Root ${rootId || selectedId || 'auto'}`} />
-              <Button variant="outlined" onClick={() => setDepth((value) => Math.min(value + 1, 5))}>
-                Expand (+1 depth)
-              </Button>
-              <FormControl size="small" sx={{ minWidth: 185 }}>
-                <InputLabel id="graph-structure-mode-label">Structure mode</InputLabel>
-                <Select
-                  labelId="graph-structure-mode-label"
-                  label="Structure mode"
-                  value={structureMode}
-                  onChange={(event) => setStructureMode(event.target.value as StructureMode)}
-                >
-                  <MenuItem value="node">Node View</MenuItem>
-                  <MenuItem value="hierarchical">Hierarchical View</MenuItem>
-                </Select>
-              </FormControl>
-              <FormControl size="small" sx={{ minWidth: 170 }}>
-                <InputLabel id="graph-view-mode-label">Cluster view</InputLabel>
-                <Select
-                  labelId="graph-view-mode-label"
-                  label="Cluster view"
-                  value={viewMode}
-                  onChange={(event) => setViewMode(event.target.value as ViewMode)}
-                >
-                  <MenuItem value="dynasty">View Dynasty</MenuItem>
-                  <MenuItem value="workplace">View Workplace</MenuItem>
-                </Select>
-              </FormControl>
-              <Button variant="text" onClick={() => setShowAdvanced((value) => !value)}>
-                Advanced options
-              </Button>
-            </Stack>
+      <Box ref={viewportRef} sx={{ position: 'relative', height: viewportHeight, border: '1px solid #e5e7eb', borderRadius: 1, overflow: 'hidden' }}>
+        <Box ref={containerRef} sx={{ width: '100%', height: '100%' }} />
+
+        <Card sx={{ position: 'absolute', top: 12, left: 12, zIndex: 5, width: { xs: 'calc(100% - 24px)', md: 620 }, maxHeight: { xs: 250, md: 320 }, overflow: 'auto' }}>
+          <CardContent sx={{ py: 1.25 }}>
+            <Stack spacing={1}>
+              <Stack direction="row" spacing={1} alignItems="center" flexWrap="wrap" useFlexGap>
+                <Typography variant="h6">Graph</Typography>
+                <Chip label={`Depth ${depth}`} />
+                <Chip label={structureMode === 'node' ? 'Node View' : 'Hierarchical View'} />
+                <Button size="small" variant="outlined" onClick={() => setDepth((value) => Math.min(value + 1, 5))}>
+                  Expand (+1)
+                </Button>
+                <FormControl size="small" sx={{ minWidth: 185 }}>
+                  <InputLabel id="graph-structure-mode-label">Structure mode</InputLabel>
+                  <Select
+                    labelId="graph-structure-mode-label"
+                    label="Structure mode"
+                    value={structureMode}
+                    onChange={(event) => setStructureMode(event.target.value as StructureMode)}
+                  >
+                    <MenuItem value="node">Node View</MenuItem>
+                    <MenuItem value="hierarchical">Hierarchical View</MenuItem>
+                  </Select>
+                </FormControl>
+                <FormControl size="small" sx={{ minWidth: 170 }}>
+                  <InputLabel id="graph-view-mode-label">Cluster view</InputLabel>
+                  <Select
+                    labelId="graph-view-mode-label"
+                    label="Cluster view"
+                    value={viewMode}
+                    onChange={(event) => setViewMode(event.target.value as ViewMode)}
+                  >
+                    <MenuItem value="dynasty">View Dynasty</MenuItem>
+                    <MenuItem value="workplace">View Workplace</MenuItem>
+                  </Select>
+                </FormControl>
+                <Button size="small" variant="text" onClick={() => setShowAdvanced((value) => !value)}>
+                  Advanced options
+                </Button>
+              </Stack>
 
             {showAdvanced ? (
               <Stack direction="row" spacing={2} alignItems="center" flexWrap="wrap" useFlexGap>
@@ -354,24 +370,13 @@ export function GraphRouteView() {
                 </Button>
               </Stack>
             ) : null}
-          </Stack>
-        </CardContent>
-      </Card>
-
-      <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 340px' }, gap: 2 }}>
-        <Card>
-          <CardContent>
-            <Box ref={containerRef} sx={{ width: '100%', height: 620, border: '1px solid #e5e7eb', borderRadius: 1 }} />
-            <Typography variant="caption" color="text.secondary">
-              Topology-driven partial load is active. Use depth expansion to load more neighbors.
-            </Typography>
+            </Stack>
           </CardContent>
         </Card>
-        <Card>
-          <CardContent>
-            <Typography variant="h6" gutterBottom>
-              Node details
-            </Typography>
+
+        <Card sx={{ position: 'absolute', right: 12, top: { xs: 270, md: 12 }, zIndex: 5, width: { xs: 'calc(100% - 24px)', md: 360 }, maxHeight: { xs: 280, md: viewportHeight - 24 }, overflow: 'auto' }}>
+          <CardContent sx={{ py: 1.25 }}>
+            <Typography variant="h6" gutterBottom>Node details</Typography>
             {!selectedNode ? (
               <Typography color="text.secondary">Click a node to inspect details.</Typography>
             ) : (
@@ -552,7 +557,7 @@ function buildStyle(mode: StructureMode, labelScale: number, confidenceOpacity: 
         'font-size': `${8 * labelScale}px`,
         color: '#475569',
         opacity: confidenceOpacity ? 'mapData(confidence, 0, 1, 0.35, 1)' : 1,
-        'font-weight': 'mapData(confidence, 0, 1, 300, 700)',
+        'text-opacity': confidenceOpacity ? 'mapData(confidence, 0, 1, 0.45, 1)' : 1,
         'text-background-color': '#ffffff',
         'text-background-opacity': 0.8,
       },

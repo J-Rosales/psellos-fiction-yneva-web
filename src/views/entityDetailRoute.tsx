@@ -78,10 +78,33 @@ export function EntityDetailRouteView() {
                   {assertionsQuery.data.items.map((assertion) => (
                     <Card key={String(assertion.id ?? `${assertion.subject}-${assertion.object}`)} variant="outlined">
                       <CardContent>
-                        <Typography variant="body2">
-                          {String(assertion.subject ?? 'unknown')} -[{String(assertion.predicate ?? 'related_to')}]-&gt;{' '}
-                          {String(assertion.object ?? 'unknown')}
-                        </Typography>
+                        <Stack spacing={1}>
+                          <Stack direction="row" spacing={1} useFlexGap flexWrap="wrap">
+                            <Chip label={`Assertion ${String(assertion.id ?? 'unknown')}`} size="small" variant="outlined" />
+                            <Chip label={String(assertion.predicate ?? 'related_to')} size="small" color="primary" />
+                          </Stack>
+                          <Stack direction="row" spacing={1} alignItems="center" useFlexGap flexWrap="wrap">
+                            <Stack>
+                              <Typography variant="body2" sx={{ fontWeight: 600 }}>
+                                {displayEntityLabel(assertion, 'subject', entity)}
+                              </Typography>
+                              <Typography variant="caption" color="text.secondary">
+                                {String(assertion.subject ?? 'unknown')}
+                              </Typography>
+                            </Stack>
+                            <Typography variant="body2" color="text.secondary">
+                              →
+                            </Typography>
+                            <Stack>
+                              <Typography variant="body2" sx={{ fontWeight: 600 }}>
+                                {displayEntityLabel(assertion, 'object', entity)}
+                              </Typography>
+                              <Typography variant="caption" color="text.secondary">
+                                {String(assertion.object ?? 'unknown')}
+                              </Typography>
+                            </Stack>
+                          </Stack>
+                        </Stack>
                       </CardContent>
                     </Card>
                   ))}
@@ -93,4 +116,29 @@ export function EntityDetailRouteView() {
       </Grid>
     </Stack>
   );
+}
+
+function displayEntityLabel(
+  assertion: Record<string, unknown>,
+  role: 'subject' | 'object',
+  currentEntity: Record<string, unknown>,
+): string {
+  const id = String(assertion[role] ?? 'unknown');
+  const directLabelKey = role === 'subject' ? 'subject_label' : 'object_label';
+  const directLabel = assertion[directLabelKey];
+  if (typeof directLabel === 'string' && directLabel.trim().length > 0) {
+    return directLabel;
+  }
+
+  const psellos = (assertion.extensions as { psellos?: { raw?: Record<string, unknown> } } | undefined)?.psellos;
+  const rawLabel = psellos?.raw?.[directLabelKey];
+  if (typeof rawLabel === 'string' && rawLabel.trim().length > 0) {
+    return rawLabel;
+  }
+
+  if (String(currentEntity.id ?? '') === id) {
+    return String(currentEntity.label ?? currentEntity.id ?? id);
+  }
+
+  return id;
 }

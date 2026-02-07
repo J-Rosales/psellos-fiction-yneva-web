@@ -1,0 +1,11 @@
+assertions:
+  []
+data:
+  description: "Byzantine aristocratic family"
+  label: "Dalassenos"
+  p31_labels: "family"
+  qid: "Q5210224"
+entity_type: "groups"
+id: "e.groups.dalassenos--q5210224"
+label: "Dalassenos"
+qid: "Q5210224"

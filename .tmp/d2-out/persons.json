@@ -1,0 +1,25 @@
+{
+  "Q1": {
+    "id": "Q1",
+    "qid": "Q1",
+    "label": "Alpha",
+    "entity_types": [
+      "persons"
+    ],
+    "source_entity_ids": [
+      "p1"
+    ],
+    "entity_type": "persons"
+  },
+  "Q2": {
+    "id": "Q2",
+    "qid": "Q2",
+    "label": "Beta",
+    "entity_types": [
+      "groups",
+      "persons"
+    ],
+    "source_entity_ids": [],
+    "entity_type": "persons"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "started_at": "2026-02-07T02:47:11.434Z",
+  "finished_at": "2026-02-07T02:47:11.436Z",
+  "mode": "dry-run",
+  "strict": false,
+  "source": "E:\\Github\\psellos-prosopography\\psellos-fiction-yneva-web\\.tmp\\dist-run-d1-full",
+  "output": "E:\\Github\\psellos-prosopography\\psellos-fiction-yneva-web\\public\\data",
+  "score_config": null,
+  "backup_path": null,
+  "checks": {
+    "required_entries": [
+      "machine",
+      "entities"
+    ],
+    "optional_entries": [
+      "indexes",
+      "reports",
+      "narrative_layer_assertions.yml"
+    ],
+    "missing_optional": [],
+    "entity_yaml_files_count": 0
+  },
+  "warnings": [
+    "No .yml/.yaml entity files detected under entities/"
+  ],
+  "note": "D1 scaffold complete. Artifact generation pipeline is implemented in later milestones."
+}

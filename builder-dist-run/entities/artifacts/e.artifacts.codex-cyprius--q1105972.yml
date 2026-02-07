@@ -1,0 +1,40 @@
+assertions:
+  -
+    id: "a.wdqs.P276.000730"
+    object_in_compiled: false
+    object_label: "Bibliothèque nationale de France"
+    object_qid: "Q193563"
+    predicate_pid: "P276"
+    provenance:
+      phase: "phase2"
+      query_id: "Q_ASSERT_P276_location"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "located_in"
+    status: "candidate"
+    subject_label: "Codex Cyprius"
+    subject_qid: "Q1105972"
+data:
+  class_labels:
+    - "biblical manuscript"
+    - "manuscript"
+  confidence: "high"
+  context_labels:
+    - "Byzantine Empire"
+  contexts:
+    - "Q12544"
+  description: "9th century Greek uncial manuscript of the four Gospels on parchment"
+  label: "Codex Cyprius"
+  qid: "Q1105972"
+  reasons:
+    - "linked to Byzantine/Crusader context seed"
+    - "has explicit class typing"
+    - "artifact keyword: codex"
+  score: 5
+  via_properties:
+    - "http://www.wikidata.org/prop/direct/P495"
+entity_type: "artifacts"
+id: "e.artifacts.codex-cyprius--q1105972"
+label: "Codex Cyprius"
+qid: "Q1105972"

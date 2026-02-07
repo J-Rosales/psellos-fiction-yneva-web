@@ -1,0 +1,122 @@
+assertions:
+  -
+    id: "a.wdqs.P22.000300"
+    object_in_compiled: true
+    object_label: "Volodar of Peremyshl"
+    object_qid: "Q2389427"
+    predicate_pid: "P22"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P22_father"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "child_of"
+    status: "confirmed"
+    subject_label: "Iryna Volodarivna"
+    subject_qid: "Q12074957"
+  -
+    id: "a.wdqs.P25.000431"
+    object_in_compiled: false
+    object_label: "NN von Pommern"
+    object_qid: "Q101247283"
+    predicate_pid: "P25"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P25_mother"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "child_of"
+    status: "confirmed"
+    subject_label: "Iryna Volodarivna"
+    subject_qid: "Q12074957"
+  -
+    id: "a.wdqs.P26.000527"
+    object_in_compiled: true
+    object_label: "Andronikos Komnenos"
+    object_qid: "Q12272034"
+    predicate_pid: "P26"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P26_spouse"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "spouse_of"
+    status: "confirmed"
+    subject_label: "Iryna Volodarivna"
+    subject_qid: "Q12074957"
+  -
+    id: "a.wdqs.P26.000528"
+    object_in_compiled: true
+    object_label: "Isaac Komnenos"
+    object_qid: "Q392653"
+    predicate_pid: "P26"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P26_spouse"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "spouse_of"
+    status: "confirmed"
+    subject_label: "Iryna Volodarivna"
+    subject_qid: "Q12074957"
+  -
+    id: "a.wdqs.P26.000533"
+    object_in_compiled: true
+    object_label: "Iryna Volodarivna"
+    object_qid: "Q12074957"
+    predicate_pid: "P26"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P26_spouse"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "spouse_of"
+    status: "confirmed"
+    subject_label: "Andronikos Komnenos"
+    subject_qid: "Q12272034"
+  -
+    id: "a.wdqs.P26.000600"
+    object_in_compiled: true
+    object_label: "Iryna Volodarivna"
+    object_qid: "Q12074957"
+    predicate_pid: "P26"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P26_spouse"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "spouse_of"
+    status: "confirmed"
+    subject_label: "Isaac Komnenos"
+    subject_qid: "Q392653"
+  -
+    id: "a.wdqs.P40.000888"
+    object_in_compiled: true
+    object_label: "Iryna Volodarivna"
+    object_qid: "Q12074957"
+    predicate_pid: "P40"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P40_child"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "parent_of"
+    status: "confirmed"
+    subject_label: "Volodar of Peremyshl"
+    subject_qid: "Q2389427"
+data:
+  description: null
+  label: "Iryna Volodarivna"
+  p31_labels: "human"
+  qid: "Q12074957"
+entity_type: "persons"
+id: "e.persons.iryna-volodarivna--q12074957"
+label: "Iryna Volodarivna"
+qid: "Q12074957"

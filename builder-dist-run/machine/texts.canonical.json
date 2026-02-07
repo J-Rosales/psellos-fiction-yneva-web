@@ -1,0 +1,42 @@
+{
+  "build": {
+    "generated_at": "2026-02-06T23:42:06.389076+00:00",
+    "input_mode": "compiled",
+    "run_id": "compiled-20260206T234206Z"
+  },
+  "count": 5,
+  "entities": [
+    {
+      "description": "12th-century Byzantine history by Anna Komnene",
+      "label": "Alexiad",
+      "p31_labels": "literary work",
+      "qid": "Q177359"
+    },
+    {
+      "description": "1897 anthology edited by Charles Dudley Warner",
+      "label": "Library of the World's Best Literature",
+      "p31_labels": "literary work",
+      "qid": "Q19098835"
+    },
+    {
+      "description": "book by Zing Tsjeng",
+      "label": "Forgotten Women: The Writers",
+      "p31_labels": "literary work",
+      "qid": "Q66759064"
+    },
+    {
+      "description": "book cover database in Czechia",
+      "label": "Ob\u00e1lky knih",
+      "p31_labels": "web portal",
+      "qid": "Q67311526"
+    },
+    {
+      "description": "book by \u00c9ric Dussert",
+      "label": "Cach\u00e9es par la for\u00eat : 138 femmes de lettres oubli\u00e9es",
+      "p31_labels": "written or drawn work",
+      "qid": "Q96623280"
+    }
+  ],
+  "entity_type": "texts",
+  "schema_version": "v1.compiled"
+}

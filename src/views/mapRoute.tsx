@@ -24,6 +24,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { fetchMapFeatures } from '../api/client';
 import { parseCoreFilters } from '../routing/coreFilters';
 import { extractRenderableMarkers } from './mapUtils';
+import { computeViewportHeightPx } from './viewportLayout';
 
 type ScalePreset = 'earth' | 'yneva' | 'custom';
 
@@ -35,8 +36,10 @@ export function MapRouteView() {
   const [scalePreset, setScalePreset] = useState<ScalePreset>('earth');
   const [customRadiusKm, setCustomRadiusKm] = useState('6371');
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
+  const viewportRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
   const markersRef = useRef<maplibregl.Marker[]>([]);
+  const [viewportHeight, setViewportHeight] = useState(620);
 
   const query = useQuery({
     queryKey: ['map-features', filters.layer, filters.rel_type, filters.q],
@@ -100,6 +103,17 @@ export function MapRouteView() {
     };
   }, []);
 
+  useEffect(() => {
+    const syncViewportHeight = () => {
+      const topOffset = viewportRef.current?.getBoundingClientRect().top ?? 220;
+      setViewportHeight(computeViewportHeightPx(window.innerHeight, topOffset, 360));
+      mapRef.current?.resize();
+    };
+    syncViewportHeight();
+    window.addEventListener('resize', syncViewportHeight);
+    return () => window.removeEventListener('resize', syncViewportHeight);
+  }, []);
+
   if (query.isLoading) {
     return (
       <Card>
@@ -124,49 +138,47 @@ export function MapRouteView() {
   const ambiguousPlaceCount = Number(query.data.meta.buckets?.ambiguous_place_group_count ?? 0);
 
   return (
-    <Stack spacing={2}>
+    <Stack spacing={1.5}>
       {query.data.meta.warnings?.length ? <Alert severity="warning">{query.data.meta.warnings.join(' ')}</Alert> : null}
       <Alert severity="info">
         Unknown geo assertions: {unknownGeoCount} | Ambiguous place groups: {ambiguousPlaceCount}
       </Alert>
-      <Card>
-        <CardContent>
-          <Stack direction="row" spacing={1} alignItems="center" flexWrap="wrap" useFlexGap>
-            <Typography variant="h5">Map</Typography>
-            <Chip label={`Places ${query.data.groups.length}`} />
-            <Chip label={`Scale radius ${Math.round(scaleRadiusKm)} km`} />
-            <FormControl size="small" sx={{ minWidth: 170 }}>
-              <InputLabel id="scale-preset-label">Scale preset</InputLabel>
-              <Select
-                labelId="scale-preset-label"
-                label="Scale preset"
-                value={scalePreset}
-                onChange={(event) => setScalePreset(event.target.value as ScalePreset)}
-              >
-                <MenuItem value="earth">Earth</MenuItem>
-                <MenuItem value="yneva">Yneva-like</MenuItem>
-                <MenuItem value="custom">Custom</MenuItem>
-              </Select>
-            </FormControl>
-            <TextField
-              size="small"
-              label="Radius km"
-              value={customRadiusKm}
-              onChange={(event) => setCustomRadiusKm(event.target.value)}
-              disabled={scalePreset !== 'custom'}
-            />
-          </Stack>
-        </CardContent>
-      </Card>
 
-      <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 360px' }, gap: 2 }}>
-        <Card>
-          <CardContent>
-            <Box ref={mapContainerRef} sx={{ width: '100%', height: 620, border: '1px solid #e5e7eb', borderRadius: 1 }} />
+      <Box ref={viewportRef} sx={{ position: 'relative', height: viewportHeight, border: '1px solid #e5e7eb', borderRadius: 1, overflow: 'hidden' }}>
+        <Box ref={mapContainerRef} sx={{ width: '100%', height: '100%' }} />
+
+        <Card sx={{ position: 'absolute', top: 12, left: 12, zIndex: 5, width: { xs: 'calc(100% - 24px)', md: 540 }, maxHeight: { xs: 220, md: 280 }, overflow: 'auto' }}>
+          <CardContent sx={{ py: 1.25 }}>
+            <Stack direction="row" spacing={1} alignItems="center" flexWrap="wrap" useFlexGap>
+              <Typography variant="h6">Map</Typography>
+              <Chip label={`Places ${query.data.groups.length}`} />
+              <Chip label={`${Math.round(scaleRadiusKm)} km`} />
+              <FormControl size="small" sx={{ minWidth: 170 }}>
+                <InputLabel id="scale-preset-label">Scale preset</InputLabel>
+                <Select
+                  labelId="scale-preset-label"
+                  label="Scale preset"
+                  value={scalePreset}
+                  onChange={(event) => setScalePreset(event.target.value as ScalePreset)}
+                >
+                  <MenuItem value="earth">Earth</MenuItem>
+                  <MenuItem value="yneva">Yneva-like</MenuItem>
+                  <MenuItem value="custom">Custom</MenuItem>
+                </Select>
+              </FormControl>
+              <TextField
+                size="small"
+                label="Radius km"
+                value={customRadiusKm}
+                onChange={(event) => setCustomRadiusKm(event.target.value)}
+                disabled={scalePreset !== 'custom'}
+              />
+            </Stack>
           </CardContent>
         </Card>
-        <Card>
-          <CardContent>
+
+        <Card sx={{ position: 'absolute', right: 12, top: { xs: 240, md: 12 }, zIndex: 5, width: { xs: 'calc(100% - 24px)', md: 380 }, maxHeight: { xs: 320, md: viewportHeight - 24 }, overflow: 'auto' }}>
+          <CardContent sx={{ py: 1.25 }}>
             <Typography variant="h6" gutterBottom>
               Place-first results
             </Typography>

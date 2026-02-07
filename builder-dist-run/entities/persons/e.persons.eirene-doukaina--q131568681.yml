@@ -1,0 +1,106 @@
+assertions:
+  -
+    id: "a.wdqs.P22.000328"
+    object_in_compiled: true
+    object_label: "Nikephoros Bryennios the Younger"
+    object_qid: "Q383003"
+    predicate_pid: "P22"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P22_father"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "child_of"
+    status: "confirmed"
+    subject_label: "Eirene Doukaina"
+    subject_qid: "Q131568681"
+  -
+    id: "a.wdqs.P25.000451"
+    object_in_compiled: true
+    object_label: "Anna Komnene"
+    object_qid: "Q179284"
+    predicate_pid: "P25"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P25_mother"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "child_of"
+    status: "confirmed"
+    subject_label: "Eirene Doukaina"
+    subject_qid: "Q131568681"
+  -
+    id: "a.wdqs.P27.000660"
+    object_in_compiled: true
+    object_label: "Byzantine Empire"
+    object_qid: "Q12544"
+    predicate_pid: "P27"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P27_citizenship"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "citizen_of"
+    status: "candidate"
+    subject_label: "Eirene Doukaina"
+    subject_qid: "Q131568681"
+  -
+    id: "a.wdqs.P40.000847"
+    object_in_compiled: false
+    object_label: "Alexios Doukas"
+    object_qid: "Q131575361"
+    predicate_pid: "P40"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P40_child"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "parent_of"
+    status: "confirmed"
+    subject_label: "Eirene Doukaina"
+    subject_qid: "Q131568681"
+  -
+    id: "a.wdqs.P40.000862"
+    object_in_compiled: true
+    object_label: "Eirene Doukaina"
+    object_qid: "Q131568681"
+    predicate_pid: "P40"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P40_child"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "parent_of"
+    status: "confirmed"
+    subject_label: "Anna Komnene"
+    subject_qid: "Q179284"
+  -
+    id: "a.wdqs.P40.000952"
+    object_in_compiled: true
+    object_label: "Eirene Doukaina"
+    object_qid: "Q131568681"
+    predicate_pid: "P40"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P40_child"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "parent_of"
+    status: "confirmed"
+    subject_label: "Nikephoros Bryennios the Younger"
+    subject_qid: "Q383003"
+data:
+  description: "12th century Byzantine noblewoman"
+  label: "Eirene Doukaina"
+  p31_labels: "human"
+  qid: "Q131568681"
+entity_type: "persons"
+id: "e.persons.eirene-doukaina--q131568681"
+label: "Eirene Doukaina"
+qid: "Q131568681"

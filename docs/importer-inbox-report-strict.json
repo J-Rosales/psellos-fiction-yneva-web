@@ -1,0 +1,56 @@
+{
+  "started_at": "2026-02-07T03:13:45.114Z",
+  "finished_at": "2026-02-07T03:13:45.294Z",
+  "mode": "dry-run",
+  "strict": true,
+  "source": "E:\\Github\\psellos-prosopography\\psellos-fiction-yneva-web\\builder-dist-run",
+  "output": "E:\\Github\\psellos-prosopography\\psellos-fiction-yneva-web\\public\\data",
+  "score_config": null,
+  "backup_path": null,
+  "checks": {
+    "required_entries": [
+      "machine",
+      "entities"
+    ],
+    "optional_entries": [
+      "indexes",
+      "reports",
+      "narrative_layer_assertions.yml"
+    ],
+    "missing_optional": [],
+    "entity_yaml_files_count": 226
+  },
+  "counts": {
+    "persons": 224,
+    "assertions": 1151,
+    "layers": 1,
+    "narrative_rows_emitted": 74
+  },
+  "duplicate_conflict_summary": {
+    "total_conflict_ids": 766,
+    "discarded_rows": 832,
+    "report_path": "E:\\Github\\psellos-prosopography\\psellos-fiction-yneva-web\\docs\\importer-inbox-report-strict.conflicts.json"
+  },
+  "guardrails": {
+    "no_duplicate_ids": true,
+    "assertions_by_layer_subset": true,
+    "assertions_by_person_subset": true,
+    "deterministic_order_by_layer": true,
+    "deterministic_order_by_person": true
+  },
+  "critical_hashes": {
+    "persons.json": "420db83758b71f5b961ef81818e25682bfc229b3b72bb25dc12072b9ad7998af",
+    "assertions_by_id.json": "80f6a4e5bfb4a5b6c0e5e5ab3ebae387cd538f074340f29f35142b3629b30b5a",
+    "assertions_by_layer.json": "f59633bbf45407beb833eddbdb0ff93f668be15a79be0e2634be295e01b86ff6",
+    "layers.json": "28b6182e2146a17ea975c0d27e27117efc696497acb6e3c8d2862fb901be8785",
+    "manifest.json": "75f9f6d61e1e2b82bf53e4f977aaf9d61637cebcd92eeaf73ac9c44e31ac77d0"
+  },
+  "narrative_layer": {
+    "narrative_layer_yaml_detected": true,
+    "narrative_layer_yaml_row_count": 74,
+    "narrative_layer_merge_applied": true,
+    "narrative_layer_rows_emitted": 74
+  },
+  "warnings": [],
+  "note": "D1 scaffold complete. Artifact generation pipeline is implemented in later milestones."
+}

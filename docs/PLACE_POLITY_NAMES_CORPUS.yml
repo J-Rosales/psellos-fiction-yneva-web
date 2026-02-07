@@ -1,0 +1,91 @@
+schema_version: "v1.place-polity-name-corpus"
+source:
+  mode: "compiled-dist-run"
+  extracted_from:
+    - "builder-dist-run/machine/places.canonical.json"
+    - "builder-dist-run/machine/polities.canonical.json"
+  extracted_at: "2026-02-07"
+
+counts:
+  places: 8
+  polities: 7
+  total_raw: 15
+  total_unique_by_qid: 14
+
+places:
+  - qid: "Q103843006"
+    name: "A Biographical Dictionary of the Celebrated Women of Every Age and Country"
+  - qid: "Q12824780"
+    name: "Asia Minor"
+  - qid: "Q16869"
+    name: "Constantinople"
+  - qid: "Q171353"
+    name: "Esztergom"
+  - qid: "Q199547"
+    name: "Harran"
+  - qid: "Q200441"
+    name: "Antioch"
+  - qid: "Q620864"
+    name: "Cilicia"
+  - qid: "Q6487"
+    name: "Antalya"
+
+polities:
+  - qid: "Q103251"
+    name: "Macedonia"
+  - qid: "Q12544"
+    name: "Byzantine Empire"
+  - qid: "Q142"
+    name: "France"
+  - qid: "Q1491574"
+    name: "Thrace"
+  - qid: "Q16869"
+    name: "Constantinople"
+  - qid: "Q18577504"
+    name: "Byzantine emperor"
+  - qid: "Q70972"
+    name: "Kingdom of France"
+
+deduplicated_by_qid:
+  - qid: "Q103843006"
+    name: "A Biographical Dictionary of the Celebrated Women of Every Age and Country"
+    categories: ["places"]
+  - qid: "Q12824780"
+    name: "Asia Minor"
+    categories: ["places"]
+  - qid: "Q16869"
+    name: "Constantinople"
+    categories: ["places", "polities"]
+  - qid: "Q171353"
+    name: "Esztergom"
+    categories: ["places"]
+  - qid: "Q199547"
+    name: "Harran"
+    categories: ["places"]
+  - qid: "Q200441"
+    name: "Antioch"
+    categories: ["places"]
+  - qid: "Q620864"
+    name: "Cilicia"
+    categories: ["places"]
+  - qid: "Q6487"
+    name: "Antalya"
+    categories: ["places"]
+  - qid: "Q103251"
+    name: "Macedonia"
+    categories: ["polities"]
+  - qid: "Q12544"
+    name: "Byzantine Empire"
+    categories: ["polities"]
+  - qid: "Q142"
+    name: "France"
+    categories: ["polities"]
+  - qid: "Q1491574"
+    name: "Thrace"
+    categories: ["polities"]
+  - qid: "Q18577504"
+    name: "Byzantine emperor"
+    categories: ["polities"]
+  - qid: "Q70972"
+    name: "Kingdom of France"
+    categories: ["polities"]

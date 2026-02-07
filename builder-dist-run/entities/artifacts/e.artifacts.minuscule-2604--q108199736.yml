@@ -1,0 +1,42 @@
+assertions:
+  -
+    id: "a.wdqs.P276.000729"
+    object_in_compiled: false
+    object_label: "Chester Beatty Library"
+    object_qid: "Q391976"
+    predicate_pid: "P276"
+    provenance:
+      phase: "phase2"
+      query_id: "Q_ASSERT_P276_location"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "located_in"
+    status: "candidate"
+    subject_label: "Minuscule 2604"
+    subject_qid: "Q108199736"
+data:
+  class_labels:
+    - "biblical manuscript"
+    - "codex"
+    - "illuminated manuscript"
+    - "manuscript"
+  confidence: "high"
+  context_labels:
+    - "Byzantine Empire"
+  contexts:
+    - "Q12544"
+  description: "Byzantine Gospel Book highlighted in the Chester Beatty Library collection"
+  label: "Minuscule 2604"
+  qid: "Q108199736"
+  reasons:
+    - "linked to Byzantine/Crusader context seed"
+    - "has explicit class typing"
+    - "artifact keyword: codex"
+  score: 5
+  via_properties:
+    - "http://www.wikidata.org/prop/direct/P495"
+entity_type: "artifacts"
+id: "e.artifacts.minuscule-2604--q108199736"
+label: "Minuscule 2604"
+qid: "Q108199736"

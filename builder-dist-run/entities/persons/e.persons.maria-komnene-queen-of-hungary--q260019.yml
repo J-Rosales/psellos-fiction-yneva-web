@@ -1,0 +1,90 @@
+assertions:
+  -
+    id: "a.wdqs.P20.000262"
+    object_in_compiled: true
+    object_label: "Constantinople"
+    object_qid: "Q16869"
+    predicate_pid: "P20"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P20_death_place"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "died_in"
+    status: "confirmed"
+    subject_label: "Maria Komnene, Queen of Hungary"
+    subject_qid: "Q260019"
+  -
+    id: "a.wdqs.P22.000352"
+    object_in_compiled: true
+    object_label: "Isaac Komnenos"
+    object_qid: "Q1235662"
+    predicate_pid: "P22"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P22_father"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "child_of"
+    status: "confirmed"
+    subject_label: "Maria Komnene, Queen of Hungary"
+    subject_qid: "Q260019"
+  -
+    id: "a.wdqs.P26.000576"
+    object_in_compiled: false
+    object_label: "Stephen IV of Hungary"
+    object_qid: "Q86946"
+    predicate_pid: "P26"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P26_spouse"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "spouse_of"
+    status: "confirmed"
+    subject_label: "Maria Komnene, Queen of Hungary"
+    subject_qid: "Q260019"
+  -
+    id: "a.wdqs.P27.000677"
+    object_in_compiled: true
+    object_label: "Byzantine Empire"
+    object_qid: "Q12544"
+    predicate_pid: "P27"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P27_citizenship"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "citizen_of"
+    status: "candidate"
+    subject_label: "Maria Komnene, Queen of Hungary"
+    subject_qid: "Q260019"
+  -
+    id: "a.wdqs.P40.000830"
+    object_in_compiled: true
+    object_label: "Maria Komnene, Queen of Hungary"
+    object_qid: "Q260019"
+    predicate_pid: "P40"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P40_child"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "parent_of"
+    status: "confirmed"
+    subject_label: "Isaac Komnenos"
+    subject_qid: "Q1235662"
+data:
+  description: "Queen of Hungary"
+  label: "Maria Komnene, Queen of Hungary"
+  p31_labels: "human"
+  qid: "Q260019"
+entity_type: "persons"
+id: "e.persons.maria-komnene-queen-of-hungary--q260019"
+label: "Maria Komnene, Queen of Hungary"
+qid: "Q260019"

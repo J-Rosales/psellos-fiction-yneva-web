@@ -1,0 +1,90 @@
+assertions:
+  -
+    id: "a.wdqs.P22.000324"
+    object_in_compiled: true
+    object_label: "Manuel Anemas"
+    object_qid: "Q55979351"
+    predicate_pid: "P22"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P22_father"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "child_of"
+    status: "confirmed"
+    subject_label: "NN Anemas"
+    subject_qid: "Q129094314"
+  -
+    id: "a.wdqs.P25.000447"
+    object_in_compiled: true
+    object_label: "Theodora Komnene"
+    object_qid: "Q20498724"
+    predicate_pid: "P25"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P25_mother"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "child_of"
+    status: "confirmed"
+    subject_label: "NN Anemas"
+    subject_qid: "Q129094314"
+  -
+    id: "a.wdqs.P40.000845"
+    object_in_compiled: false
+    object_label: "NN Angelos"
+    object_qid: "Q110715296"
+    predicate_pid: "P40"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P40_child"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "parent_of"
+    status: "confirmed"
+    subject_label: "NN Anemas"
+    subject_qid: "Q129094314"
+  -
+    id: "a.wdqs.P40.000865"
+    object_in_compiled: true
+    object_label: "NN Anemas"
+    object_qid: "Q129094314"
+    predicate_pid: "P40"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P40_child"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "parent_of"
+    status: "confirmed"
+    subject_label: "Theodora Komnene"
+    subject_qid: "Q20498724"
+  -
+    id: "a.wdqs.P40.001010"
+    object_in_compiled: true
+    object_label: "NN Anemas"
+    object_qid: "Q129094314"
+    predicate_pid: "P40"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P40_child"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "parent_of"
+    status: "confirmed"
+    subject_label: "Manuel Anemas"
+    subject_qid: "Q55979351"
+data:
+  description: null
+  label: "NN Anemas"
+  p31_labels: "human"
+  qid: "Q129094314"
+entity_type: "persons"
+id: "e.persons.nn-anemas--q129094314"
+label: "NN Anemas"
+qid: "Q129094314"

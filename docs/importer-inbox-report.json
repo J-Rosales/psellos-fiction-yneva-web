@@ -1,0 +1,56 @@
+{
+  "started_at": "2026-02-07T04:00:07.895Z",
+  "finished_at": "2026-02-07T04:00:09.735Z",
+  "mode": "apply",
+  "strict": false,
+  "source": "E:\\Github\\psellos-prosopography\\psellos-fiction-yneva-web\\builder-dist-run",
+  "output": "E:\\Github\\psellos-prosopography\\psellos-fiction-yneva-web\\public\\data",
+  "score_config": null,
+  "backup_path": "E:\\Github\\psellos-prosopography\\psellos-fiction-yneva-web\\public\\data.bak.2026-02-07T04-00-07-921Z",
+  "checks": {
+    "required_entries": [
+      "machine",
+      "entities"
+    ],
+    "optional_entries": [
+      "indexes",
+      "reports",
+      "narrative_layer_assertions.yml"
+    ],
+    "missing_optional": [],
+    "entity_yaml_files_count": 226
+  },
+  "counts": {
+    "persons": 224,
+    "assertions": 1165,
+    "layers": 7,
+    "narrative_rows_emitted": 74
+  },
+  "duplicate_conflict_summary": {
+    "total_conflict_ids": 756,
+    "discarded_rows": 818,
+    "report_path": "E:\\Github\\psellos-prosopography\\psellos-fiction-yneva-web\\docs\\importer-inbox-report.conflicts.json"
+  },
+  "guardrails": {
+    "no_duplicate_ids": true,
+    "assertions_by_layer_subset": true,
+    "assertions_by_person_subset": true,
+    "deterministic_order_by_layer": true,
+    "deterministic_order_by_person": true
+  },
+  "critical_hashes": {
+    "persons.json": "420db83758b71f5b961ef81818e25682bfc229b3b72bb25dc12072b9ad7998af",
+    "assertions_by_id.json": "7b7a738bfaa09ed59ce1ff99de9d4d8a5c722200c197524ace2f850e396b1eef",
+    "assertions_by_layer.json": "35095eaa2eb2a2bb3ebd0070d70ddb7a3790e8284877814100c9bab07550454d",
+    "layers.json": "50fc970baf6e8af1006ea99c563546e468f4e3a53ccc45945c8b2bca57b7e89a",
+    "manifest.json": "741e26dcf80dbc27c97906e29f6cd9d1a1475eec764f0982af8378fb53e868a2"
+  },
+  "narrative_layer": {
+    "narrative_layer_yaml_detected": true,
+    "narrative_layer_yaml_row_count": 74,
+    "narrative_layer_merge_applied": true,
+    "narrative_layer_rows_emitted": 74
+  },
+  "warnings": [],
+  "note": "D1 scaffold complete. Artifact generation pipeline is implemented in later milestones."
+}

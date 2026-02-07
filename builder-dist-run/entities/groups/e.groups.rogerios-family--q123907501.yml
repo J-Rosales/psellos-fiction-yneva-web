@@ -1,0 +1,11 @@
+assertions:
+  []
+data:
+  description: "Byzantine noble family of Norman origin"
+  label: "Rogerios family"
+  p31_labels: "family"
+  qid: "Q123907501"
+entity_type: "groups"
+id: "e.groups.rogerios-family--q123907501"
+label: "Rogerios family"
+qid: "Q123907501"

@@ -1,0 +1,39 @@
+assertions:
+  -
+    id: "a.wdqs.P276.000734"
+    object_in_compiled: false
+    object_label: "Room 501"
+    object_qid: "Q17309943"
+    predicate_pid: "P276"
+    provenance:
+      phase: "phase2"
+      query_id: "Q_ASSERT_P276_location"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "located_in"
+    status: "candidate"
+    subject_label: "Icon with hetimasia"
+    subject_qid: "Q112189128"
+data:
+  class_labels:
+    - "carving"
+  confidence: "high"
+  context_labels:
+    - "Constantinople"
+  contexts:
+    - "Q16869"
+  description: "carving by artist unknown"
+  label: "Icon with hetimasia"
+  qid: "Q112189128"
+  reasons:
+    - "linked to Byzantine/Crusader context seed"
+    - "has explicit class typing"
+    - "artifact keyword: icon"
+  score: 5
+  via_properties:
+    - "http://www.wikidata.org/prop/direct/P1071"
+entity_type: "artifacts"
+id: "e.artifacts.icon-with-hetimasia--q112189128"
+label: "Icon with hetimasia"
+qid: "Q112189128"

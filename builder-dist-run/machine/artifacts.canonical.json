@@ -1,0 +1,778 @@
+{
+  "build": {
+    "generated_at": "2026-02-06T23:42:06.389076+00:00",
+    "input_mode": "compiled",
+    "run_id": "compiled-20260206T234206Z"
+  },
+  "count": 31,
+  "entities": [
+    {
+      "class_labels": [
+        "biblical manuscript",
+        "codex",
+        "illuminated manuscript",
+        "manuscript"
+      ],
+      "confidence": "high",
+      "context_labels": [
+        "Byzantine Empire"
+      ],
+      "contexts": [
+        "Q12544"
+      ],
+      "description": "Byzantine Gospel Book highlighted in the Chester Beatty Library collection",
+      "label": "Minuscule 2604",
+      "qid": "Q108199736",
+      "reasons": [
+        "linked to Byzantine/Crusader context seed",
+        "has explicit class typing",
+        "artifact keyword: codex"
+      ],
+      "score": 5,
+      "via_properties": [
+        "http://www.wikidata.org/prop/direct/P495"
+      ]
+    },
+    {
+      "class_labels": [
+        "biblical manuscript",
+        "manuscript"
+      ],
+      "confidence": "high",
+      "context_labels": [
+        "Byzantine Empire"
+      ],
+      "contexts": [
+        "Q12544"
+      ],
+      "description": "9th century Greek uncial manuscript of the four Gospels on parchment",
+      "label": "Codex Cyprius",
+      "qid": "Q1105972",
+      "reasons": [
+        "linked to Byzantine/Crusader context seed",
+        "has explicit class typing",
+        "artifact keyword: codex"
+      ],
+      "score": 5,
+      "via_properties": [
+        "http://www.wikidata.org/prop/direct/P495"
+      ]
+    },
+    {
+      "class_labels": [
+        "manuscript"
+      ],
+      "confidence": "high",
+      "context_labels": [
+        "Byzantine Empire"
+      ],
+      "contexts": [
+        "Q12544"
+      ],
+      "description": "6th century illuminated manuscript of the Gospels of Matthew and Mark",
+      "label": "Rossano Gospels",
+      "qid": "Q1106441",
+      "reasons": [
+        "linked to Byzantine/Crusader context seed",
+        "has explicit class typing",
+        "artifact keyword: manuscript"
+      ],
+      "score": 5,
+      "via_properties": [
+        "http://www.wikidata.org/prop/direct/P136",
+        "http://www.wikidata.org/prop/direct/P2348",
+        "http://www.wikidata.org/prop/direct/P2596"
+      ]
+    },
+    {
+      "class_labels": [
+        "icon"
+      ],
+      "confidence": "high",
+      "context_labels": [
+        "Constantinople"
+      ],
+      "contexts": [
+        "Q16869"
+      ],
+      "description": "mosaic by artist unknown",
+      "label": "Transfiguration of Christ",
+      "qid": "Q111822217",
+      "reasons": [
+        "linked to Byzantine/Crusader context seed",
+        "has explicit class typing",
+        "artifact keyword: icon"
+      ],
+      "score": 5,
+      "via_properties": [
+        "http://www.wikidata.org/prop/direct/P1071"
+      ]
+    },
+    {
+      "class_labels": [
+        "carving"
+      ],
+      "confidence": "high",
+      "context_labels": [
+        "Constantinople"
+      ],
+      "contexts": [
+        "Q16869"
+      ],
+      "description": "carving by artist unknown",
+      "label": "Icon with hetimasia",
+      "qid": "Q112189128",
+      "reasons": [
+        "linked to Byzantine/Crusader context seed",
+        "has explicit class typing",
+        "artifact keyword: icon"
+      ],
+      "score": 5,
+      "via_properties": [
+        "http://www.wikidata.org/prop/direct/P1071"
+      ]
+    },
+    {
+      "class_labels": [
+        "codex"
+      ],
+      "confidence": "high",
+      "context_labels": [
+        "Byzantine Empire"
+      ],
+      "contexts": [
+        "Q12544"
+      ],
+      "description": "New Testament manuscript",
+      "label": "Lectionary 150",
+      "qid": "Q11688596",
+      "reasons": [
+        "linked to Byzantine/Crusader context seed",
+        "has explicit class typing",
+        "artifact keyword: codex"
+      ],
+      "score": 5,
+      "via_properties": [
+        "http://www.wikidata.org/prop/direct/P495"
+      ]
+    },
+    {
+      "class_labels": [
+        "manuscript map"
+      ],
+      "confidence": "high",
+      "context_labels": [
+        "Byzantine Empire"
+      ],
+      "contexts": [
+        "Q12544"
+      ],
+      "description": "map by Guillaume Delisle, c. 1720",
+      "label": "Imperii Orientalis et Circumiacentium Regionum sub Constantino Porphyrogenito et eius praedecessoribus Descriptio",
+      "qid": "Q121336399",
+      "reasons": [
+        "linked to Byzantine/Crusader context seed",
+        "has explicit class typing",
+        "artifact keyword: manuscript"
+      ],
+      "score": 5,
+      "via_properties": [
+        "http://www.wikidata.org/prop/direct/P1269"
+      ]
+    },
+    {
+      "class_labels": [
+        "manuscript"
+      ],
+      "confidence": "high",
+      "context_labels": [
+        "Constantinople"
+      ],
+      "contexts": [
+        "Q16869"
+      ],
+      "description": "Greek manuscript of the Psalms and Odes with commentary",
+      "label": "Rahlfs 113",
+      "qid": "Q122984990",
+      "reasons": [
+        "linked to Byzantine/Crusader context seed",
+        "has explicit class typing",
+        "artifact keyword: manuscript"
+      ],
+      "score": 5,
+      "via_properties": [
+        "http://www.wikidata.org/prop/direct/P1071"
+      ]
+    },
+    {
+      "class_labels": [
+        "manuscript"
+      ],
+      "confidence": "high",
+      "context_labels": [
+        "Constantinople"
+      ],
+      "contexts": [
+        "Q16869"
+      ],
+      "description": "Greek New Testament manuscript with catena commentary",
+      "label": "Minuscule 2381",
+      "qid": "Q123161586",
+      "reasons": [
+        "linked to Byzantine/Crusader context seed",
+        "has explicit class typing",
+        "artifact keyword: manuscript"
+      ],
+      "score": 5,
+      "via_properties": [
+        "http://www.wikidata.org/prop/direct/P1071"
+      ]
+    },
+    {
+      "class_labels": [
+        "illuminated manuscript"
+      ],
+      "confidence": "high",
+      "context_labels": [
+        "Constantinople"
+      ],
+      "contexts": [
+        "Q16869"
+      ],
+      "description": null,
+      "label": "Complete Works of St. Dionysius the Areopagite",
+      "qid": "Q16686054",
+      "reasons": [
+        "linked to Byzantine/Crusader context seed",
+        "has explicit class typing",
+        "artifact keyword: manuscript"
+      ],
+      "score": 5,
+      "via_properties": [
+        "http://www.wikidata.org/prop/direct/P1071"
+      ]
+    },
+    {
+      "class_labels": [
+        "illuminated manuscript",
+        "manuscript"
+      ],
+      "confidence": "high",
+      "context_labels": [
+        "Byzantine Empire",
+        "Constantinople"
+      ],
+      "contexts": [
+        "Q12544",
+        "Q16869"
+      ],
+      "description": "illuminated manuscript of the Book of Psalms",
+      "label": "Paris Psalter",
+      "qid": "Q1810000",
+      "reasons": [
+        "linked to Byzantine/Crusader context seed",
+        "has explicit class typing",
+        "artifact keyword: manuscript"
+      ],
+      "score": 5,
+      "via_properties": [
+        "http://www.wikidata.org/prop/direct/P1071",
+        "http://www.wikidata.org/prop/direct/P136",
+        "http://www.wikidata.org/prop/direct/P2348",
+        "http://www.wikidata.org/prop/direct/P2596"
+      ]
+    },
+    {
+      "class_labels": [
+        "illuminated manuscript"
+      ],
+      "confidence": "high",
+      "context_labels": [
+        "Constantinople"
+      ],
+      "contexts": [
+        "Q16869"
+      ],
+      "description": "Byzantine illuminated manuscript",
+      "label": "Menologion of Basil II",
+      "qid": "Q1918574",
+      "reasons": [
+        "linked to Byzantine/Crusader context seed",
+        "has explicit class typing",
+        "artifact keyword: manuscript"
+      ],
+      "score": 5,
+      "via_properties": [
+        "http://www.wikidata.org/prop/direct/P1071"
+      ]
+    },
+    {
+      "class_labels": [
+        "icon"
+      ],
+      "confidence": "high",
+      "context_labels": [
+        "Byzantine Empire"
+      ],
+      "contexts": [
+        "Q12544"
+      ],
+      "description": "Title and icon of the Virgin Mary in Byzantine art",
+      "label": "Nicopeia",
+      "qid": "Q1992012",
+      "reasons": [
+        "linked to Byzantine/Crusader context seed",
+        "has explicit class typing",
+        "artifact keyword: icon"
+      ],
+      "score": 5,
+      "via_properties": [
+        "http://www.wikidata.org/prop/direct/P495"
+      ]
+    },
+    {
+      "class_labels": [
+        "icon"
+      ],
+      "confidence": "high",
+      "context_labels": [
+        "Byzantine Empire"
+      ],
+      "contexts": [
+        "Q12544"
+      ],
+      "description": "Christian icon",
+      "label": "Madonna di sant'Alessio",
+      "qid": "Q24012080",
+      "reasons": [
+        "linked to Byzantine/Crusader context seed",
+        "has explicit class typing",
+        "artifact keyword: icon"
+      ],
+      "score": 5,
+      "via_properties": [
+        "http://www.wikidata.org/prop/direct/P495"
+      ]
+    },
+    {
+      "class_labels": [
+        "icon"
+      ],
+      "confidence": "high",
+      "context_labels": [
+        "Byzantine Empire"
+      ],
+      "contexts": [
+        "Q12544"
+      ],
+      "description": "Iconographic type of the representation of the Holy Mary in Byzantine art (5th to 7th century).",
+      "label": "Agiosoritissa",
+      "qid": "Q4056937",
+      "reasons": [
+        "linked to Byzantine/Crusader context seed",
+        "has explicit class typing",
+        "artifact keyword: icon"
+      ],
+      "score": 5,
+      "via_properties": [
+        "http://www.wikidata.org/prop/direct/P495"
+      ]
+    },
+    {
+      "class_labels": [
+        "icon"
+      ],
+      "confidence": "high",
+      "context_labels": [
+        "Constantinople"
+      ],
+      "contexts": [
+        "Q16869"
+      ],
+      "description": "medieval Byzantine icon",
+      "label": "Theotokos of Vladimir",
+      "qid": "Q546241",
+      "reasons": [
+        "linked to Byzantine/Crusader context seed",
+        "has explicit class typing",
+        "artifact keyword: icon"
+      ],
+      "score": 5,
+      "via_properties": [
+        "http://www.wikidata.org/prop/direct/P1071"
+      ]
+    },
+    {
+      "class_labels": [
+        "manuscript"
+      ],
+      "confidence": "high",
+      "context_labels": [
+        "Byzantine Empire"
+      ],
+      "contexts": [
+        "Q12544"
+      ],
+      "description": "earliest surviving manuscript of many dialogues of Plato",
+      "label": "Clarke Plato",
+      "qid": "Q55342594",
+      "reasons": [
+        "linked to Byzantine/Crusader context seed",
+        "has explicit class typing",
+        "artifact keyword: manuscript"
+      ],
+      "score": 5,
+      "via_properties": [
+        "http://www.wikidata.org/prop/direct/P495"
+      ]
+    },
+    {
+      "class_labels": [
+        "manuscript"
+      ],
+      "confidence": "high",
+      "context_labels": [
+        "Constantinople"
+      ],
+      "contexts": [
+        "Q16869"
+      ],
+      "description": "from the collection of Holy See of Cilicia",
+      "label": "Gospel Book (ms 156)",
+      "qid": "Q56682966",
+      "reasons": [
+        "linked to Byzantine/Crusader context seed",
+        "has explicit class typing",
+        "artifact keyword: manuscript"
+      ],
+      "score": 5,
+      "via_properties": [
+        "http://www.wikidata.org/prop/direct/P740"
+      ]
+    },
+    {
+      "class_labels": [
+        "metalworking"
+      ],
+      "confidence": "high",
+      "context_labels": [
+        "Constantinople"
+      ],
+      "contexts": [
+        "Q16869"
+      ],
+      "description": "from the collection of the museum of Mother See of Holy Etchmiadzin",
+      "label": "Arm Reliquary of Saint Sahak Partev",
+      "qid": "Q56683647",
+      "reasons": [
+        "linked to Byzantine/Crusader context seed",
+        "has explicit class typing",
+        "artifact keyword: reliquary"
+      ],
+      "score": 5,
+      "via_properties": [
+        "http://www.wikidata.org/prop/direct/P1071"
+      ]
+    },
+    {
+      "class_labels": [
+        "manuscript"
+      ],
+      "confidence": "high",
+      "context_labels": [
+        "Constantinople"
+      ],
+      "contexts": [
+        "Q16869"
+      ],
+      "description": "from the collection of Holy See of Cilicia",
+      "label": "Synaxarion (Yaysmawurk')",
+      "qid": "Q56683825",
+      "reasons": [
+        "linked to Byzantine/Crusader context seed",
+        "has explicit class typing",
+        "artifact keyword: manuscript"
+      ],
+      "score": 5,
+      "via_properties": [
+        "http://www.wikidata.org/prop/direct/P1071"
+      ]
+    },
+    {
+      "class_labels": [
+        "manuscript"
+      ],
+      "confidence": "high",
+      "context_labels": [
+        "Constantinople"
+      ],
+      "contexts": [
+        "Q16869"
+      ],
+      "description": "from the collection of Calouste Gulbenkian Museum",
+      "label": "Bible  (L.A. 152)",
+      "qid": "Q56684836",
+      "reasons": [
+        "linked to Byzantine/Crusader context seed",
+        "has explicit class typing",
+        "artifact keyword: manuscript"
+      ],
+      "score": 5,
+      "via_properties": [
+        "http://www.wikidata.org/prop/direct/P1071"
+      ]
+    },
+    {
+      "class_labels": [
+        "icon"
+      ],
+      "confidence": "high",
+      "context_labels": [
+        "Constantinople"
+      ],
+      "contexts": [
+        "Q16869"
+      ],
+      "description": "icon of the Virgin Mary in Poland",
+      "label": "Black Madonna of Czestochowa",
+      "qid": "Q573619",
+      "reasons": [
+        "linked to Byzantine/Crusader context seed",
+        "has explicit class typing",
+        "artifact keyword: icon"
+      ],
+      "score": 5,
+      "via_properties": [
+        "http://www.wikidata.org/prop/direct/P276"
+      ]
+    },
+    {
+      "class_labels": [
+        "manuscript"
+      ],
+      "confidence": "high",
+      "context_labels": [
+        "Constantinople"
+      ],
+      "contexts": [
+        "Q16869"
+      ],
+      "description": "manuscript by unknown artist (1942.152)",
+      "label": "Gospel Book with Commentaries",
+      "qid": "Q60740069",
+      "reasons": [
+        "linked to Byzantine/Crusader context seed",
+        "has explicit class typing",
+        "artifact keyword: manuscript"
+      ],
+      "score": 5,
+      "via_properties": [
+        "http://www.wikidata.org/prop/direct/P1071"
+      ]
+    },
+    {
+      "class_labels": [
+        "Coptic textile",
+        "icon",
+        "tapestry",
+        "textile",
+        "textile artwork"
+      ],
+      "confidence": "high",
+      "context_labels": [
+        "Byzantine Empire"
+      ],
+      "contexts": [
+        "Q12544"
+      ],
+      "description": "textile by unknown artist (1967.144)",
+      "label": "Icon of the Virgin and Child",
+      "qid": "Q60745622",
+      "reasons": [
+        "linked to Byzantine/Crusader context seed",
+        "has explicit class typing",
+        "artifact keyword: icon"
+      ],
+      "score": 5,
+      "via_properties": [
+        "http://www.wikidata.org/prop/direct/P2596"
+      ]
+    },
+    {
+      "class_labels": [
+        "codex"
+      ],
+      "confidence": "high",
+      "context_labels": [
+        "Byzantine Empire"
+      ],
+      "contexts": [
+        "Q12544"
+      ],
+      "description": "manuscript",
+      "label": "Minuscule 104",
+      "qid": "Q6869789",
+      "reasons": [
+        "linked to Byzantine/Crusader context seed",
+        "has explicit class typing",
+        "artifact keyword: codex"
+      ],
+      "score": 5,
+      "via_properties": [
+        "http://www.wikidata.org/prop/direct/P495"
+      ]
+    },
+    {
+      "class_labels": [
+        "codex",
+        "illuminated manuscript",
+        "New Testament manuscript"
+      ],
+      "confidence": "high",
+      "context_labels": [
+        "Byzantine Empire"
+      ],
+      "contexts": [
+        "Q12544"
+      ],
+      "description": "Byzantine Gospel Book in the Chester Beatty Library collection",
+      "label": "Minuscule 106",
+      "qid": "Q6869791",
+      "reasons": [
+        "linked to Byzantine/Crusader context seed",
+        "has explicit class typing",
+        "artifact keyword: codex"
+      ],
+      "score": 5,
+      "via_properties": [
+        "http://www.wikidata.org/prop/direct/P495"
+      ]
+    },
+    {
+      "class_labels": [
+        "manuscript"
+      ],
+      "confidence": "high",
+      "context_labels": [
+        "Byzantine Empire"
+      ],
+      "contexts": [
+        "Q12544"
+      ],
+      "description": "New Testament manuscript",
+      "label": "Minuscule 269",
+      "qid": "Q6870112",
+      "reasons": [
+        "linked to Byzantine/Crusader context seed",
+        "has explicit class typing",
+        "artifact keyword: manuscript"
+      ],
+      "score": 5,
+      "via_properties": [
+        "http://www.wikidata.org/prop/direct/P495"
+      ]
+    },
+    {
+      "class_labels": [
+        "illuminated manuscript",
+        "New Testament manuscript"
+      ],
+      "confidence": "high",
+      "context_labels": [
+        "Byzantine Empire",
+        "Constantinople"
+      ],
+      "contexts": [
+        "Q12544",
+        "Q16869"
+      ],
+      "description": "New Testament manuscript",
+      "label": "Minuscule 699",
+      "qid": "Q6870853",
+      "reasons": [
+        "linked to Byzantine/Crusader context seed",
+        "has explicit class typing",
+        "artifact keyword: manuscript"
+      ],
+      "score": 5,
+      "via_properties": [
+        "http://www.wikidata.org/prop/direct/P1071",
+        "http://www.wikidata.org/prop/direct/P495"
+      ]
+    },
+    {
+      "class_labels": [
+        "illuminated manuscript"
+      ],
+      "confidence": "high",
+      "context_labels": [
+        "Constantinople"
+      ],
+      "contexts": [
+        "Q16869"
+      ],
+      "description": "Byzantine illuminated manuscript",
+      "label": "Joshua Roll",
+      "qid": "Q785039",
+      "reasons": [
+        "linked to Byzantine/Crusader context seed",
+        "has explicit class typing",
+        "artifact keyword: manuscript"
+      ],
+      "score": 5,
+      "via_properties": [
+        "http://www.wikidata.org/prop/direct/P291"
+      ]
+    },
+    {
+      "class_labels": [
+        "manuscript"
+      ],
+      "confidence": "high",
+      "context_labels": [
+        "Byzantine Empire"
+      ],
+      "contexts": [
+        "Q12544"
+      ],
+      "description": "written account of Saint Nicholas from around the 5th century",
+      "label": "Praxis de stratilatis",
+      "qid": "Q81357445",
+      "reasons": [
+        "linked to Byzantine/Crusader context seed",
+        "has explicit class typing",
+        "artifact keyword: manuscript"
+      ],
+      "score": 5,
+      "via_properties": [
+        "http://www.wikidata.org/prop/direct/P495"
+      ]
+    },
+    {
+      "class_labels": [
+        "icon"
+      ],
+      "confidence": "high",
+      "context_labels": [
+        "Constantinople"
+      ],
+      "contexts": [
+        "Q16869"
+      ],
+      "description": null,
+      "label": "Icon with Saint Demetrios",
+      "qid": "Q89888865",
+      "reasons": [
+        "linked to Byzantine/Crusader context seed",
+        "has explicit class typing",
+        "artifact keyword: icon"
+      ],
+      "score": 5,
+      "via_properties": [
+        "http://www.wikidata.org/prop/direct/P1071"
+      ]
+    }
+  ],
+  "entity_type": "artifacts",
+  "schema_version": "v1.compiled"
+}

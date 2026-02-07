@@ -1,0 +1,138 @@
+assertions:
+  -
+    id: "a.wdqs.P1343.000018"
+    object_in_compiled: true
+    object_label: "New International Encyclopedia"
+    object_qid: "Q1029706"
+    predicate_pid: "P1343"
+    provenance:
+      phase: "phase2"
+      query_id: "Q_ASSERT_P1343_described_by_source"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "described_by"
+    status: "candidate"
+    subject_label: "Byzantine Empire"
+    subject_qid: "Q12544"
+  -
+    id: "a.wdqs.P1343.000035"
+    object_in_compiled: true
+    object_label: "New International Encyclopedia"
+    object_qid: "Q1029706"
+    predicate_pid: "P1343"
+    provenance:
+      phase: "phase2"
+      query_id: "Q_ASSERT_P1343_described_by_source"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "described_by"
+    status: "candidate"
+    subject_label: "Louis VII of France"
+    subject_qid: "Q134259"
+  -
+    id: "a.wdqs.P1343.000078"
+    object_in_compiled: true
+    object_label: "New International Encyclopedia"
+    object_qid: "Q1029706"
+    predicate_pid: "P1343"
+    provenance:
+      phase: "phase2"
+      query_id: "Q_ASSERT_P1343_described_by_source"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "described_by"
+    status: "candidate"
+    subject_label: "Anna Komnene"
+    subject_qid: "Q179284"
+  -
+    id: "a.wdqs.P1343.000125"
+    object_in_compiled: true
+    object_label: "New International Encyclopedia"
+    object_qid: "Q1029706"
+    predicate_pid: "P1343"
+    provenance:
+      phase: "phase2"
+      query_id: "Q_ASSERT_P1343_described_by_source"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "described_by"
+    status: "candidate"
+    subject_label: "Alexios I of Trebizond"
+    subject_qid: "Q314442"
+  -
+    id: "a.wdqs.P1343.000134"
+    object_in_compiled: true
+    object_label: "New International Encyclopedia"
+    object_qid: "Q1029706"
+    predicate_pid: "P1343"
+    provenance:
+      phase: "phase2"
+      query_id: "Q_ASSERT_P1343_described_by_source"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "described_by"
+    status: "candidate"
+    subject_label: "Alexios I Komnenos"
+    subject_qid: "Q41600"
+  -
+    id: "a.wdqs.P1343.000142"
+    object_in_compiled: true
+    object_label: "New International Encyclopedia"
+    object_qid: "Q1029706"
+    predicate_pid: "P1343"
+    provenance:
+      phase: "phase2"
+      query_id: "Q_ASSERT_P1343_described_by_source"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "described_by"
+    status: "candidate"
+    subject_label: "Manuel I Komnenos"
+    subject_qid: "Q41610"
+  -
+    id: "a.wdqs.P1343.000148"
+    object_in_compiled: true
+    object_label: "New International Encyclopedia"
+    object_qid: "Q1029706"
+    predicate_pid: "P1343"
+    provenance:
+      phase: "phase2"
+      query_id: "Q_ASSERT_P1343_described_by_source"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "described_by"
+    status: "candidate"
+    subject_label: "John II Komnenos"
+    subject_qid: "Q41628"
+  -
+    id: "a.wdqs.P1343.000160"
+    object_in_compiled: true
+    object_label: "New International Encyclopedia"
+    object_qid: "Q1029706"
+    predicate_pid: "P1343"
+    provenance:
+      phase: "phase2"
+      query_id: "Q_ASSERT_P1343_described_by_source"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "described_by"
+    status: "candidate"
+    subject_label: "Alexios II Komnenos"
+    subject_qid: "Q41849"
+data:
+  description: "American encyclopedia first published in 1902"
+  label: "New International Encyclopedia"
+  p31_labels: "literary work"
+  qid: "Q1029706"
+entity_type: "sources"
+id: "e.sources.new-international-encyclopedia--q1029706"
+label: "New International Encyclopedia"
+qid: "Q1029706"

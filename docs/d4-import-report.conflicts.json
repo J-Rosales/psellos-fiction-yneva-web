@@ -1,0 +1,53 @@
+{
+  "total_conflict_ids": 1,
+  "discarded_rows": 1,
+  "conflicts": [
+    {
+      "id": "dup1",
+      "winner_score": 14,
+      "winner": {
+        "id": "dup1",
+        "subject": "Q1",
+        "predicate": "ally_of",
+        "object": "Q2",
+        "extensions": {
+          "psellos": {
+            "rel": "ally_of",
+            "layer": "canon",
+            "source": "codex",
+            "raw": {
+              "id": "dup1",
+              "subject_qid": "Q1",
+              "object_qid": "Q2",
+              "relation_mapped": "ally_of",
+              "source": "codex"
+            }
+          }
+        }
+      },
+      "discarded": [
+        {
+          "row": {
+            "id": "dup1",
+            "subject": "Q1",
+            "predicate": "ally_of",
+            "object": "Q2",
+            "extensions": {
+              "psellos": {
+                "rel": "ally_of",
+                "layer": "canon",
+                "raw": {
+                  "id": "dup1",
+                  "subject_qid": "Q1",
+                  "object_qid": "Q2",
+                  "predicate_hint": "ally_of"
+                }
+              }
+            }
+          },
+          "score": 11
+        }
+      ]
+    }
+  ]
+}

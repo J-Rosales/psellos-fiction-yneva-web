@@ -1,0 +1,26 @@
+assertions:
+  -
+    id: "a.wdqs.P1343.000082"
+    object_in_compiled: true
+    object_label: "The American Cyclopædia"
+    object_qid: "Q19077875"
+    predicate_pid: "P1343"
+    provenance:
+      phase: "phase2"
+      query_id: "Q_ASSERT_P1343_described_by_source"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "described_by"
+    status: "candidate"
+    subject_label: "Anna Komnene"
+    subject_qid: "Q179284"
+data:
+  description: "1879 encyclopedia"
+  label: "The American Cyclopædia"
+  p31_labels: "version, edition or translation"
+  qid: "Q19077875"
+entity_type: "sources"
+id: "e.sources.the-american-cyclop-dia--q19077875"
+label: "The American Cyclopædia"
+qid: "Q19077875"

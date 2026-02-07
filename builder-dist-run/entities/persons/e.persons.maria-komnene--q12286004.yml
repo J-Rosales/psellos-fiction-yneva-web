@@ -1,0 +1,138 @@
+assertions:
+  -
+    id: "a.wdqs.P19.000202"
+    object_in_compiled: true
+    object_label: "Sidirokastro"
+    object_qid: "Q1018794"
+    predicate_pid: "P19"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P19_birth_place"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "born_in"
+    status: "confirmed"
+    subject_label: "Maria Komnene"
+    subject_qid: "Q12286004"
+  -
+    id: "a.wdqs.P22.000310"
+    object_in_compiled: true
+    object_label: "John II Komnenos"
+    object_qid: "Q41628"
+    predicate_pid: "P22"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P22_father"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "child_of"
+    status: "confirmed"
+    subject_label: "Maria Komnene"
+    subject_qid: "Q12286004"
+  -
+    id: "a.wdqs.P25.000437"
+    object_in_compiled: true
+    object_label: "Irene of Hungary"
+    object_qid: "Q82691"
+    predicate_pid: "P25"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P25_mother"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "child_of"
+    status: "confirmed"
+    subject_label: "Maria Komnene"
+    subject_qid: "Q12286004"
+  -
+    id: "a.wdqs.P26.000538"
+    object_in_compiled: true
+    object_label: "John Rogerios Dalassenos"
+    object_qid: "Q3154047"
+    predicate_pid: "P26"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P26_spouse"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "spouse_of"
+    status: "confirmed"
+    subject_label: "Maria Komnene"
+    subject_qid: "Q12286004"
+  -
+    id: "a.wdqs.P26.000586"
+    object_in_compiled: true
+    object_label: "Maria Komnene"
+    object_qid: "Q12286004"
+    predicate_pid: "P26"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P26_spouse"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "spouse_of"
+    status: "confirmed"
+    subject_label: "John Rogerios Dalassenos"
+    subject_qid: "Q3154047"
+  -
+    id: "a.wdqs.P27.000651"
+    object_in_compiled: true
+    object_label: "Byzantine Empire"
+    object_qid: "Q12544"
+    predicate_pid: "P27"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P27_citizenship"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "citizen_of"
+    status: "candidate"
+    subject_label: "Maria Komnene"
+    subject_qid: "Q12286004"
+  -
+    id: "a.wdqs.P40.000973"
+    object_in_compiled: true
+    object_label: "Maria Komnene"
+    object_qid: "Q12286004"
+    predicate_pid: "P40"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P40_child"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "parent_of"
+    status: "confirmed"
+    subject_label: "John II Komnenos"
+    subject_qid: "Q41628"
+  -
+    id: "a.wdqs.P40.001075"
+    object_in_compiled: true
+    object_label: "Maria Komnene"
+    object_qid: "Q12286004"
+    predicate_pid: "P40"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P40_child"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "parent_of"
+    status: "confirmed"
+    subject_label: "Irene of Hungary"
+    subject_qid: "Q82691"
+data:
+  description: "daughter of John II Komnenos"
+  label: "Maria Komnene"
+  p31_labels: "human"
+  qid: "Q12286004"
+entity_type: "persons"
+id: "e.persons.maria-komnene--q12286004"
+label: "Maria Komnene"
+qid: "Q12286004"

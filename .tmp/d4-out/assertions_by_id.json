@@ -1,0 +1,22 @@
+{
+  "dup1": {
+    "id": "dup1",
+    "subject": "Q1",
+    "predicate": "ally_of",
+    "object": "Q2",
+    "extensions": {
+      "psellos": {
+        "rel": "ally_of",
+        "layer": "canon",
+        "source": "codex",
+        "raw": {
+          "id": "dup1",
+          "subject_qid": "Q1",
+          "object_qid": "Q2",
+          "relation_mapped": "ally_of",
+          "source": "codex"
+        }
+      }
+    }
+  }
+}

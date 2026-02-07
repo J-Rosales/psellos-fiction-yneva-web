@@ -1,0 +1,7 @@
+entity:
+  assertions:
+    - id: a1
+      subject_qid: p1
+      object_qid: p2
+      relation_mapped: allied_with
+      layer: canon

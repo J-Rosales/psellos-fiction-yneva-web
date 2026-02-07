@@ -1,0 +1,44 @@
+{
+  "a1": {
+    "id": "a1",
+    "subject": "p1",
+    "predicate": "allied_with",
+    "object": "p2",
+    "extensions": {
+      "psellos": {
+        "rel": "allied_with",
+        "layer": "canon",
+        "raw": {
+          "id": "a1",
+          "subject_qid": "p1",
+          "object_qid": "p2",
+          "relation_mapped": "allied_with",
+          "layer": "canon"
+        }
+      }
+    }
+  },
+  "n1": {
+    "id": "n1",
+    "subject": "p1",
+    "predicate": "allied_with",
+    "object": "p2",
+    "extensions": {
+      "psellos": {
+        "rel": "allied_with",
+        "layer": "canon",
+        "assertion_class": "narrative_layer",
+        "narrative": {
+          "id": "n1",
+          "linked_assertion_id": "a1",
+          "note": "narrative"
+        },
+        "raw": {
+          "id": "n1",
+          "linked_assertion_id": "a1",
+          "note": "narrative"
+        }
+      }
+    }
+  }
+}

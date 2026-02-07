@@ -1,0 +1,21 @@
+{
+  "build": {
+    "generated_at": "2026-02-06T23:42:06.389076+00:00",
+    "input_mode": "compiled",
+    "run_id": "compiled-20260206T234206Z"
+  },
+  "count": 1,
+  "entities": [
+    {
+      "derived": "domain_default",
+      "description": "human species",
+      "label": "human",
+      "p31_labels": [
+        "species"
+      ],
+      "qid": "Q5"
+    }
+  ],
+  "entity_type": "species",
+  "schema_version": "v1.compiled"
+}

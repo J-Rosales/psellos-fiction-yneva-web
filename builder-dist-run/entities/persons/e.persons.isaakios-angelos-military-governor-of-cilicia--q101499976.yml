@@ -1,0 +1,90 @@
+assertions:
+  -
+    id: "a.wdqs.P22.000291"
+    object_in_compiled: true
+    object_label: "Konstantinos Angelos"
+    object_qid: "Q1247876"
+    predicate_pid: "P22"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P22_father"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "child_of"
+    status: "confirmed"
+    subject_label: "Isaakios Angelos, Military Governor of Cilicia"
+    subject_qid: "Q101499976"
+  -
+    id: "a.wdqs.P25.000422"
+    object_in_compiled: true
+    object_label: "Theodora Komnene Angelina"
+    object_qid: "Q765682"
+    predicate_pid: "P25"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P25_mother"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "child_of"
+    status: "confirmed"
+    subject_label: "Isaakios Angelos, Military Governor of Cilicia"
+    subject_qid: "Q101499976"
+  -
+    id: "a.wdqs.P40.000796"
+    object_in_compiled: false
+    object_label: "NN Angelina"
+    object_qid: "Q101499975"
+    predicate_pid: "P40"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P40_child"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "parent_of"
+    status: "confirmed"
+    subject_label: "Isaakios Angelos, Military Governor of Cilicia"
+    subject_qid: "Q101499976"
+  -
+    id: "a.wdqs.P40.000832"
+    object_in_compiled: true
+    object_label: "Isaakios Angelos, Military Governor of Cilicia"
+    object_qid: "Q101499976"
+    predicate_pid: "P40"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P40_child"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "parent_of"
+    status: "confirmed"
+    subject_label: "Konstantinos Angelos"
+    subject_qid: "Q1247876"
+  -
+    id: "a.wdqs.P40.001048"
+    object_in_compiled: true
+    object_label: "Isaakios Angelos, Military Governor of Cilicia"
+    object_qid: "Q101499976"
+    predicate_pid: "P40"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P40_child"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "parent_of"
+    status: "confirmed"
+    subject_label: "Theodora Komnene Angelina"
+    subject_qid: "Q765682"
+data:
+  description: null
+  label: "Isaakios Angelos, Military Governor of Cilicia"
+  p31_labels: "human"
+  qid: "Q101499976"
+entity_type: "persons"
+id: "e.persons.isaakios-angelos-military-governor-of-cilicia--q101499976"
+label: "Isaakios Angelos, Military Governor of Cilicia"
+qid: "Q101499976"

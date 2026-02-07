@@ -1,0 +1,90 @@
+assertions:
+  -
+    id: "a.wdqs.P19.000205"
+    object_in_compiled: true
+    object_label: "Constantinople"
+    object_qid: "Q16869"
+    predicate_pid: "P19"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P19_birth_place"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "born_in"
+    status: "confirmed"
+    subject_label: "John Komnenos"
+    subject_qid: "Q12900494"
+  -
+    id: "a.wdqs.P20.000250"
+    object_in_compiled: true
+    object_label: "Thrace"
+    object_qid: "Q1491574"
+    predicate_pid: "P20"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P20_death_place"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "died_in"
+    status: "confirmed"
+    subject_label: "John Komnenos"
+    subject_qid: "Q12900494"
+  -
+    id: "a.wdqs.P22.000320"
+    object_in_compiled: true
+    object_label: "Andronikos I Komnenos"
+    object_qid: "Q41830"
+    predicate_pid: "P22"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P22_father"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "child_of"
+    status: "confirmed"
+    subject_label: "John Komnenos"
+    subject_qid: "Q12900494"
+  -
+    id: "a.wdqs.P39.000757"
+    object_in_compiled: true
+    object_label: "Byzantine emperor"
+    object_qid: "Q18577504"
+    predicate_pid: "P39"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P39_position_held"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "holds_office"
+    status: "confirmed"
+    subject_label: "John Komnenos"
+    subject_qid: "Q12900494"
+  -
+    id: "a.wdqs.P40.000982"
+    object_in_compiled: true
+    object_label: "John Komnenos"
+    object_qid: "Q12900494"
+    predicate_pid: "P40"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P40_child"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "parent_of"
+    status: "confirmed"
+    subject_label: "Andronikos I Komnenos"
+    subject_qid: "Q41830"
+data:
+  description: "son of Andronikos I"
+  label: "John Komnenos"
+  p31_labels: "human"
+  qid: "Q12900494"
+entity_type: "persons"
+id: "e.persons.john-komnenos--q12900494"
+label: "John Komnenos"
+qid: "Q12900494"

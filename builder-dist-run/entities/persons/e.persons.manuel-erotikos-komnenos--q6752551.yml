@@ -1,0 +1,138 @@
+assertions:
+  -
+    id: "a.wdqs.P19.000235"
+    object_in_compiled: false
+    object_label: "Paphlagonia"
+    object_qid: "Q622032"
+    predicate_pid: "P19"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P19_birth_place"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "born_in"
+    status: "confirmed"
+    subject_label: "Manuel Erotikos Komnenos"
+    subject_qid: "Q6752551"
+  -
+    id: "a.wdqs.P20.000284"
+    object_in_compiled: true
+    object_label: "Constantinople"
+    object_qid: "Q16869"
+    predicate_pid: "P20"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P20_death_place"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "died_in"
+    status: "confirmed"
+    subject_label: "Manuel Erotikos Komnenos"
+    subject_qid: "Q6752551"
+  -
+    id: "a.wdqs.P22.000372"
+    object_in_compiled: true
+    object_label: "Manuel Erotikos Komnenos"
+    object_qid: "Q6752551"
+    predicate_pid: "P22"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P22_father"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "child_of"
+    status: "confirmed"
+    subject_label: "John Komnenos"
+    subject_qid: "Q3767041"
+  -
+    id: "a.wdqs.P27.000716"
+    object_in_compiled: true
+    object_label: "Byzantine Empire"
+    object_qid: "Q12544"
+    predicate_pid: "P27"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P27_citizenship"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "citizen_of"
+    status: "candidate"
+    subject_label: "Manuel Erotikos Komnenos"
+    subject_qid: "Q6752551"
+  -
+    id: "a.wdqs.P39.000792"
+    object_in_compiled: false
+    object_label: "strategos"
+    object_qid: "Q335954"
+    predicate_pid: "P39"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P39_position_held"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "holds_office"
+    status: "confirmed"
+    subject_label: "Manuel Erotikos Komnenos"
+    subject_qid: "Q6752551"
+  -
+    id: "a.wdqs.P40.001040"
+    object_in_compiled: true
+    object_label: "John Komnenos"
+    object_qid: "Q3767041"
+    predicate_pid: "P40"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P40_child"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "parent_of"
+    status: "confirmed"
+    subject_label: "Manuel Erotikos Komnenos"
+    subject_qid: "Q6752551"
+  -
+    id: "a.wdqs.P40.001041"
+    object_in_compiled: false
+    object_label: "Isaac I Komnenos"
+    object_qid: "Q41643"
+    predicate_pid: "P40"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P40_child"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "parent_of"
+    status: "confirmed"
+    subject_label: "Manuel Erotikos Komnenos"
+    subject_qid: "Q6752551"
+  -
+    id: "a.wdqs.P40.001042"
+    object_in_compiled: false
+    object_label: "unknown daughter of Manuel Erotikos Komnenos"
+    object_qid: "Q90040312"
+    predicate_pid: "P40"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P40_child"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "parent_of"
+    status: "confirmed"
+    subject_label: "Manuel Erotikos Komnenos"
+    subject_qid: "Q6752551"
+data:
+  description: "Byzantine general"
+  label: "Manuel Erotikos Komnenos"
+  p31_labels: "human"
+  qid: "Q6752551"
+entity_type: "persons"
+id: "e.persons.manuel-erotikos-komnenos--q6752551"
+label: "Manuel Erotikos Komnenos"
+qid: "Q6752551"

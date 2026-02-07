@@ -1,0 +1,24 @@
+assertions:
+  []
+data:
+  class_labels:
+    - "metalworking"
+  confidence: "high"
+  context_labels:
+    - "Constantinople"
+  contexts:
+    - "Q16869"
+  description: "from the collection of the museum of Mother See of Holy Etchmiadzin"
+  label: "Arm Reliquary of Saint Sahak Partev"
+  qid: "Q56683647"
+  reasons:
+    - "linked to Byzantine/Crusader context seed"
+    - "has explicit class typing"
+    - "artifact keyword: reliquary"
+  score: 5
+  via_properties:
+    - "http://www.wikidata.org/prop/direct/P1071"
+entity_type: "artifacts"
+id: "e.artifacts.arm-reliquary-of-saint-sahak-partev--q56683647"
+label: "Arm Reliquary of Saint Sahak Partev"
+qid: "Q56683647"

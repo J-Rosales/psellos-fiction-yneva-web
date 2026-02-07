@@ -1,0 +1,28 @@
+assertions:
+  []
+data:
+  class_labels:
+    - "illuminated manuscript"
+    - "New Testament manuscript"
+  confidence: "high"
+  context_labels:
+    - "Byzantine Empire"
+    - "Constantinople"
+  contexts:
+    - "Q12544"
+    - "Q16869"
+  description: "New Testament manuscript"
+  label: "Minuscule 699"
+  qid: "Q6870853"
+  reasons:
+    - "linked to Byzantine/Crusader context seed"
+    - "has explicit class typing"
+    - "artifact keyword: manuscript"
+  score: 5
+  via_properties:
+    - "http://www.wikidata.org/prop/direct/P1071"
+    - "http://www.wikidata.org/prop/direct/P495"
+entity_type: "artifacts"
+id: "e.artifacts.minuscule-699--q6870853"
+label: "Minuscule 699"
+qid: "Q6870853"

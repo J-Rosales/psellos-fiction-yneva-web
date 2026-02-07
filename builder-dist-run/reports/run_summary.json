@@ -1,0 +1,98 @@
+{
+  "counts": {
+    "artifacts": 31,
+    "groups": 6,
+    "institutions": 1,
+    "offices": 5,
+    "persons": 142,
+    "places": 8,
+    "polities": 7,
+    "sources": 20,
+    "species": 1,
+    "texts": 5
+  },
+  "export_summary": {
+    "assertion_count": 0,
+    "integrity": {
+      "assertion_coverage_parity": {
+        "actual": 0,
+        "expected": 0,
+        "ok": true
+      },
+      "entity_count_parity": {
+        "actual": 226,
+        "expected": 226,
+        "ok": true
+      }
+    },
+    "per_type_entity_counts": {
+      "artifacts": 31,
+      "groups": 6,
+      "institutions": 1,
+      "offices": 5,
+      "persons": 142,
+      "places": 8,
+      "polities": 7,
+      "sources": 20,
+      "species": 1,
+      "texts": 5
+    },
+    "unresolved_assertion_refs": 0
+  },
+  "files": {
+    "artifacts_confirmed.json": {
+      "count": 31,
+      "entity_type": "artifacts",
+      "sha256": "c9203ef3b0c3d14a4adf49a040780e31d66a955e586d946f149be38356462790"
+    },
+    "groups_confirmed.json": {
+      "count": 6,
+      "entity_type": "groups",
+      "sha256": "fbf5058f8a06717df770e987d203331931e70f8a5ed353bcf59fa3b51f0238ce"
+    },
+    "institutions_confirmed.json": {
+      "count": 1,
+      "entity_type": "institutions",
+      "sha256": "a6e9cb340ad00202f22fa90490b7394764fb0f1bac8eb58a2437249424023faa"
+    },
+    "offices_confirmed.json": {
+      "count": 5,
+      "entity_type": "offices",
+      "sha256": "9cce57313f659a1207c49f7760ba162010163ad515662973c5efc898ade1a6c0"
+    },
+    "persons_confirmed.json": {
+      "count": 142,
+      "entity_type": "persons",
+      "sha256": "5263667a56b8591891ae7933da5d7fe0ba9e5251a38a6761dfc0bbd20747a701"
+    },
+    "places_confirmed.json": {
+      "count": 8,
+      "entity_type": "places",
+      "sha256": "97ff6251bad3c7ecf67920d6be1120a16cc9f3f08ac1706538e4006fc09b8358"
+    },
+    "polities_confirmed.json": {
+      "count": 7,
+      "entity_type": "polities",
+      "sha256": "baf733b65f1258508788f26759dc3564146c27e5ca798f2ab7736125f54d3bc8"
+    },
+    "sources_confirmed.json": {
+      "count": 20,
+      "entity_type": "sources",
+      "sha256": "146fc20891b8c691db52125b932797148d07c6ab54a764456fe675e2be1ee6bd"
+    },
+    "species_confirmed.json": {
+      "count": 1,
+      "entity_type": "species",
+      "sha256": "a3f9173df6808923d33983b35a34331e758031ae3f0796cdc00550c0678bb736"
+    },
+    "texts_confirmed.json": {
+      "count": 5,
+      "entity_type": "texts",
+      "sha256": "e36c209bd86dd0a5d30c9287b6b9a93edcb9e4044c840b0c9d1cf87b723d740b"
+    }
+  },
+  "generated_at": "2026-02-06T23:42:06.389076+00:00",
+  "input_mode": "compiled",
+  "input_path": "data\\wdqs\\komnenoi\\20260206-100958\\compiled",
+  "run_id": "compiled-20260206T234206Z"
+}

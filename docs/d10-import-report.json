@@ -1,0 +1,56 @@
+{
+  "started_at": "2026-02-07T03:02:37.268Z",
+  "finished_at": "2026-02-07T03:02:37.308Z",
+  "mode": "apply",
+  "strict": false,
+  "source": "E:\\Github\\psellos-prosopography\\psellos-fiction-yneva-web\\.tmp\\dist-run-d10",
+  "output": "E:\\Github\\psellos-prosopography\\psellos-fiction-yneva-web\\public\\data",
+  "score_config": null,
+  "backup_path": "E:\\Github\\psellos-prosopography\\psellos-fiction-yneva-web\\public\\data.bak.2026-02-07T03-02-37-271Z",
+  "checks": {
+    "required_entries": [
+      "machine",
+      "entities"
+    ],
+    "optional_entries": [
+      "indexes",
+      "reports",
+      "narrative_layer_assertions.yml"
+    ],
+    "missing_optional": [],
+    "entity_yaml_files_count": 1
+  },
+  "counts": {
+    "persons": 2,
+    "assertions": 2,
+    "layers": 1,
+    "narrative_rows_emitted": 1
+  },
+  "duplicate_conflict_summary": {
+    "total_conflict_ids": 0,
+    "discarded_rows": 0,
+    "report_path": "E:\\Github\\psellos-prosopography\\psellos-fiction-yneva-web\\docs\\d10-import-report.conflicts.json"
+  },
+  "guardrails": {
+    "no_duplicate_ids": true,
+    "assertions_by_layer_subset": true,
+    "assertions_by_person_subset": true,
+    "deterministic_order_by_layer": true,
+    "deterministic_order_by_person": true
+  },
+  "critical_hashes": {
+    "persons.json": "251af313352fcd8694ef26376e7bf8fdd14e94b8642f97b01041a66f21efede7",
+    "assertions_by_id.json": "8eb37ac3789fda39409632a2677df404c642f8d2153c2667fbc930e26eb030a9",
+    "assertions_by_layer.json": "647ae2962ed8e1117711aca4febc8c3181ab01b227e2c2bffc384fedf8509942",
+    "layers.json": "28b6182e2146a17ea975c0d27e27117efc696497acb6e3c8d2862fb901be8785",
+    "manifest.json": "0173bf65667f7c4d3eb3fd90257b3380066cab6605917cabddf79f5221833427"
+  },
+  "narrative_layer": {
+    "narrative_layer_yaml_detected": true,
+    "narrative_layer_yaml_row_count": 1,
+    "narrative_layer_merge_applied": true,
+    "narrative_layer_rows_emitted": 1
+  },
+  "warnings": [],
+  "note": "D1 scaffold complete. Artifact generation pipeline is implemented in later milestones."
+}

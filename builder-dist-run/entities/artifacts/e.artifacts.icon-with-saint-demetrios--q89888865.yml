@@ -1,0 +1,39 @@
+assertions:
+  -
+    id: "a.wdqs.P276.000752"
+    object_in_compiled: false
+    object_label: "Room 501"
+    object_qid: "Q17309943"
+    predicate_pid: "P276"
+    provenance:
+      phase: "phase2"
+      query_id: "Q_ASSERT_P276_location"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "located_in"
+    status: "candidate"
+    subject_label: "Icon with Saint Demetrios"
+    subject_qid: "Q89888865"
+data:
+  class_labels:
+    - "icon"
+  confidence: "high"
+  context_labels:
+    - "Constantinople"
+  contexts:
+    - "Q16869"
+  description: null
+  label: "Icon with Saint Demetrios"
+  qid: "Q89888865"
+  reasons:
+    - "linked to Byzantine/Crusader context seed"
+    - "has explicit class typing"
+    - "artifact keyword: icon"
+  score: 5
+  via_properties:
+    - "http://www.wikidata.org/prop/direct/P1071"
+entity_type: "artifacts"
+id: "e.artifacts.icon-with-saint-demetrios--q89888865"
+label: "Icon with Saint Demetrios"
+qid: "Q89888865"

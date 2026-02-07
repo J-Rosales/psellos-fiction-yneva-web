@@ -1,0 +1,74 @@
+assertions:
+  -
+    id: "a.wdqs.P22.000319"
+    object_in_compiled: true
+    object_label: "Theodoros Batatzes"
+    object_qid: "Q12902332"
+    predicate_pid: "P22"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P22_father"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "child_of"
+    status: "confirmed"
+    subject_label: "Andronicus Comnenus Batatzes"
+    subject_qid: "Q12898718"
+  -
+    id: "a.wdqs.P25.000443"
+    object_in_compiled: true
+    object_label: "Eudokia Komnene"
+    object_qid: "Q12279392"
+    predicate_pid: "P25"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P25_mother"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "child_of"
+    status: "confirmed"
+    subject_label: "Andronicus Comnenus Batatzes"
+    subject_qid: "Q12898718"
+  -
+    id: "a.wdqs.P40.000809"
+    object_in_compiled: true
+    object_label: "Andronicus Comnenus Batatzes"
+    object_qid: "Q12898718"
+    predicate_pid: "P40"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P40_child"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "parent_of"
+    status: "confirmed"
+    subject_label: "Eudokia Komnene"
+    subject_qid: "Q12279392"
+  -
+    id: "a.wdqs.P40.000841"
+    object_in_compiled: true
+    object_label: "Andronicus Comnenus Batatzes"
+    object_qid: "Q12898718"
+    predicate_pid: "P40"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P40_child"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "parent_of"
+    status: "confirmed"
+    subject_label: "Theodoros Batatzes"
+    subject_qid: "Q12902332"
+data:
+  description: "Byzantine military chief from 12 century"
+  label: "Andronicus Comnenus Batatzes"
+  p31_labels: "human"
+  qid: "Q12898718"
+entity_type: "persons"
+id: "e.persons.andronicus-comnenus-batatzes--q12898718"
+label: "Andronicus Comnenus Batatzes"
+qid: "Q12898718"

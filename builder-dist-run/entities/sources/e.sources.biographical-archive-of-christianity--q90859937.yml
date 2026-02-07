@@ -1,0 +1,26 @@
+assertions:
+  -
+    id: "a.wdqs.P1343.000193"
+    object_in_compiled: true
+    object_label: "Biographical Archive of Christianity"
+    object_qid: "Q90859937"
+    predicate_pid: "P1343"
+    provenance:
+      phase: "phase2"
+      query_id: "Q_ASSERT_P1343_described_by_source"
+      query_part: "chunk04"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "described_by"
+    status: "candidate"
+    subject_label: "Irene of Hungary"
+    subject_qid: "Q82691"
+data:
+  description: "biographical dictionary"
+  label: "Biographical Archive of Christianity"
+  p31_labels: "biographical dictionary"
+  qid: "Q90859937"
+entity_type: "sources"
+id: "e.sources.biographical-archive-of-christianity--q90859937"
+label: "Biographical Archive of Christianity"
+qid: "Q90859937"

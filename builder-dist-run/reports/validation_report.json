@@ -1,0 +1,82 @@
+{
+  "duplicate_policy": "deterministic_dedupe_keep_first",
+  "per_type": {
+    "artifacts": {
+      "declared_type": "artifacts",
+      "duplicates_dropped": 0,
+      "entity_count_input": 31,
+      "entity_count_output": 31,
+      "entity_type": "artifacts"
+    },
+    "groups": {
+      "declared_type": "groups",
+      "duplicates_dropped": 0,
+      "entity_count_input": 6,
+      "entity_count_output": 6,
+      "entity_type": "groups"
+    },
+    "institutions": {
+      "declared_type": "institutions",
+      "duplicates_dropped": 0,
+      "entity_count_input": 1,
+      "entity_count_output": 1,
+      "entity_type": "institutions"
+    },
+    "offices": {
+      "declared_type": "offices",
+      "duplicates_dropped": 0,
+      "entity_count_input": 5,
+      "entity_count_output": 5,
+      "entity_type": "offices"
+    },
+    "persons": {
+      "declared_type": "persons",
+      "duplicates_dropped": 0,
+      "entity_count_input": 142,
+      "entity_count_output": 142,
+      "entity_type": "persons"
+    },
+    "places": {
+      "declared_type": "places",
+      "duplicates_dropped": 0,
+      "entity_count_input": 8,
+      "entity_count_output": 8,
+      "entity_type": "places"
+    },
+    "polities": {
+      "declared_type": "polities",
+      "duplicates_dropped": 0,
+      "entity_count_input": 7,
+      "entity_count_output": 7,
+      "entity_type": "polities"
+    },
+    "sources": {
+      "declared_type": "sources",
+      "duplicates_dropped": 0,
+      "entity_count_input": 20,
+      "entity_count_output": 20,
+      "entity_type": "sources"
+    },
+    "species": {
+      "declared_type": "species",
+      "duplicates_dropped": 0,
+      "entity_count_input": 1,
+      "entity_count_output": 1,
+      "entity_type": "species"
+    },
+    "texts": {
+      "declared_type": "texts",
+      "duplicates_dropped": 0,
+      "entity_count_input": 5,
+      "entity_count_output": 5,
+      "entity_type": "texts"
+    }
+  },
+  "status": "ok",
+  "totals": {
+    "duplicate_qid_dropped": 0,
+    "entities_after_dedupe": 226,
+    "entities_before_dedupe": 226,
+    "types": 10
+  }
+}

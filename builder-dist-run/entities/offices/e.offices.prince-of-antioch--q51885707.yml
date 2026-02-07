@@ -1,0 +1,30 @@
+assertions:
+  -
+    id: "a.wdqs.P39.000788"
+    object_in_compiled: true
+    object_label: "prince of Antioch"
+    object_qid: "Q51885707"
+    predicate_pid: "P39"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P39_position_held"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "holds_office"
+    status: "confirmed"
+    subject_label: "Raymond of Poitiers"
+    subject_qid: "Q437271"
+data:
+  description: "Crusader sovereignty title (from WDQS audit match on confirmed person)"
+  evidence_property: "P39"
+  label: "prince of Antioch"
+  provenance: "wdqs_live_audit_backfill"
+  qid: "Q51885707"
+  source_count: 1
+  source_qids:
+    - "Q437271"
+entity_type: "offices"
+id: "e.offices.prince-of-antioch--q51885707"
+label: "prince of Antioch"
+qid: "Q51885707"

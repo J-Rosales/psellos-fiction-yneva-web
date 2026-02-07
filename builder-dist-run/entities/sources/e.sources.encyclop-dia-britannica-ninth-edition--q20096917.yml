@@ -1,0 +1,58 @@
+assertions:
+  -
+    id: "a.wdqs.P1343.000072"
+    object_in_compiled: true
+    object_label: "Encyclopædia Britannica Ninth Edition"
+    object_qid: "Q20096917"
+    predicate_pid: "P1343"
+    provenance:
+      phase: "phase2"
+      query_id: "Q_ASSERT_P1343_described_by_source"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "described_by"
+    status: "candidate"
+    subject_label: "Esztergom"
+    subject_qid: "Q171353"
+  -
+    id: "a.wdqs.P1343.000085"
+    object_in_compiled: true
+    object_label: "Encyclopædia Britannica Ninth Edition"
+    object_qid: "Q20096917"
+    predicate_pid: "P1343"
+    provenance:
+      phase: "phase2"
+      query_id: "Q_ASSERT_P1343_described_by_source"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "described_by"
+    status: "candidate"
+    subject_label: "Anna Komnene"
+    subject_qid: "Q179284"
+  -
+    id: "a.wdqs.P1343.000154"
+    object_in_compiled: true
+    object_label: "Encyclopædia Britannica Ninth Edition"
+    object_qid: "Q20096917"
+    predicate_pid: "P1343"
+    provenance:
+      phase: "phase2"
+      query_id: "Q_ASSERT_P1343_described_by_source"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "described_by"
+    status: "candidate"
+    subject_label: "Andronikos I Komnenos"
+    subject_qid: "Q41830"
+data:
+  description: "1875 edition of Encyclopædia Britannica"
+  label: "Encyclopædia Britannica Ninth Edition"
+  p31_labels: "version, edition or translation"
+  qid: "Q20096917"
+entity_type: "sources"
+id: "e.sources.encyclop-dia-britannica-ninth-edition--q20096917"
+label: "Encyclopædia Britannica Ninth Edition"
+qid: "Q20096917"

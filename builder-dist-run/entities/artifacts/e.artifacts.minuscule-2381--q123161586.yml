@@ -1,0 +1,39 @@
+assertions:
+  -
+    id: "a.wdqs.P276.000736"
+    object_in_compiled: false
+    object_label: "Cleveland Museum of Art"
+    object_qid: "Q657415"
+    predicate_pid: "P276"
+    provenance:
+      phase: "phase2"
+      query_id: "Q_ASSERT_P276_location"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "located_in"
+    status: "candidate"
+    subject_label: "Minuscule 2381"
+    subject_qid: "Q123161586"
+data:
+  class_labels:
+    - "manuscript"
+  confidence: "high"
+  context_labels:
+    - "Constantinople"
+  contexts:
+    - "Q16869"
+  description: "Greek New Testament manuscript with catena commentary"
+  label: "Minuscule 2381"
+  qid: "Q123161586"
+  reasons:
+    - "linked to Byzantine/Crusader context seed"
+    - "has explicit class typing"
+    - "artifact keyword: manuscript"
+  score: 5
+  via_properties:
+    - "http://www.wikidata.org/prop/direct/P1071"
+entity_type: "artifacts"
+id: "e.artifacts.minuscule-2381--q123161586"
+label: "Minuscule 2381"
+qid: "Q123161586"

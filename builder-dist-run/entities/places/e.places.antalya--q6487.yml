@@ -1,0 +1,157 @@
+assertions:
+  -
+    id: "a.wdqs.P131.000004"
+    object_in_compiled: false
+    object_label: "Antalya Province"
+    object_qid: "Q40249"
+    predicate_pid: "P131"
+    provenance:
+      phase: "phase2"
+      query_id: "Q_ASSERT_P131_place_located_in"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "located_in_admin"
+    status: "candidate"
+    subject_label: "Antalya"
+    subject_qid: "Q6487"
+  -
+    id: "a.wdqs.P1343.000186"
+    object_in_compiled: true
+    object_label: "Small Brockhaus and Efron Encyclopedic Dictionary"
+    object_qid: "Q19180675"
+    predicate_pid: "P1343"
+    provenance:
+      phase: "phase2"
+      query_id: "Q_ASSERT_P1343_described_by_source"
+      query_part: "chunk04"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "described_by"
+    status: "candidate"
+    subject_label: "Antalya"
+    subject_qid: "Q6487"
+  -
+    id: "a.wdqs.P1343.000187"
+    object_in_compiled: true
+    object_label: "Meyers Konversations-Lexikon, 4th edition (1885–1890)"
+    object_qid: "Q19219752"
+    predicate_pid: "P1343"
+    provenance:
+      phase: "phase2"
+      query_id: "Q_ASSERT_P1343_described_by_source"
+      query_part: "chunk04"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "described_by"
+    status: "candidate"
+    subject_label: "Antalya"
+    subject_qid: "Q6487"
+  -
+    id: "a.wdqs.P1343.000188"
+    object_in_compiled: true
+    object_label: "Great Soviet Encyclopedia (1926–1947)"
+    object_qid: "Q20078554"
+    predicate_pid: "P1343"
+    provenance:
+      phase: "phase2"
+      query_id: "Q_ASSERT_P1343_described_by_source"
+      query_part: "chunk04"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "described_by"
+    status: "candidate"
+    subject_label: "Antalya"
+    subject_qid: "Q6487"
+  -
+    id: "a.wdqs.P1343.000189"
+    object_in_compiled: true
+    object_label: "The Nuttall Encyclopædia"
+    object_qid: "Q3181656"
+    predicate_pid: "P1343"
+    provenance:
+      phase: "phase2"
+      query_id: "Q_ASSERT_P1343_described_by_source"
+      query_part: "chunk04"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "described_by"
+    status: "candidate"
+    subject_label: "Antalya"
+    subject_qid: "Q6487"
+  -
+    id: "a.wdqs.P1343.000190"
+    object_in_compiled: false
+    object_label: "Oxford Classical Dictionary"
+    object_qid: "Q430486"
+    predicate_pid: "P1343"
+    provenance:
+      phase: "phase2"
+      query_id: "Q_ASSERT_P1343_described_by_source"
+      query_part: "chunk04"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "described_by"
+    status: "candidate"
+    subject_label: "Antalya"
+    subject_qid: "Q6487"
+  -
+    id: "a.wdqs.P1343.000191"
+    object_in_compiled: true
+    object_label: "Brockhaus and Efron Encyclopedic Dictionary"
+    object_qid: "Q602358"
+    predicate_pid: "P1343"
+    provenance:
+      phase: "phase2"
+      query_id: "Q_ASSERT_P1343_described_by_source"
+      query_part: "chunk04"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "described_by"
+    status: "candidate"
+    subject_label: "Antalya"
+    subject_qid: "Q6487"
+  -
+    id: "a.wdqs.P1343.000192"
+    object_in_compiled: true
+    object_label: "Encyclopædia Britannica 11th edition"
+    object_qid: "Q867541"
+    predicate_pid: "P1343"
+    provenance:
+      phase: "phase2"
+      query_id: "Q_ASSERT_P1343_described_by_source"
+      query_part: "chunk04"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "described_by"
+    status: "candidate"
+    subject_label: "Antalya"
+    subject_qid: "Q6487"
+  -
+    id: "a.wdqs.P20.000245"
+    object_in_compiled: true
+    object_label: "Antalya"
+    object_qid: "Q6487"
+    predicate_pid: "P20"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P20_death_place"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "died_in"
+    status: "confirmed"
+    subject_label: "Alexios Komnenos"
+    subject_qid: "Q1226606"
+data:
+  description: "city in Turkey"
+  label: "Antalya"
+  p31_labels:
+    - "big city"
+    - "city"
+    - "metropolitan municipality in Turkey"
+  qid: "Q6487"
+entity_type: "places"
+id: "e.places.antalya--q6487"
+label: "Antalya"
+qid: "Q6487"

@@ -1,0 +1,71 @@
+{
+  "version": "v1.location-canonical-shape",
+  "items": [
+    {
+      "qid": "Q200441",
+      "name": "Antioch",
+      "lat": 36.20472222222222,
+      "lon": 36.181666666666665
+    },
+    {
+      "qid": "Q6487",
+      "name": "Antalya",
+      "lat": 36.90812,
+      "lon": 30.69556
+    },
+    {
+      "qid": "Q620864",
+      "name": "Cilicia",
+      "lat": 36.985,
+      "lon": 35.12
+    },
+    {
+      "qid": "Q16869",
+      "name": "Constantinople",
+      "lat": 41.0125,
+      "lon": 28.98
+    },
+    {
+      "qid": "Q171353",
+      "name": "Esztergom",
+      "lat": 47.785555555556,
+      "lon": 18.740277777778
+    },
+    {
+      "qid": "Q199547",
+      "name": "Harran",
+      "lat": 36.87083333333333,
+      "lon": 39.025
+    },
+    {
+      "qid": "Q12824780",
+      "name": "Asia Minor",
+      "lat": 39,
+      "lon": 34
+    },
+    {
+      "qid": "Q103251",
+      "name": "Macedonia",
+      "lat": 41.32925475068105,
+      "lon": 22.5086210752146
+    },
+    {
+      "qid": "Q1491574",
+      "name": "Thrace",
+      "lat": 42.5,
+      "lon": 27.5
+    },
+    {
+      "qid": "Q142",
+      "name": "France",
+      "lat": 47,
+      "lon": 2
+    },
+    {
+      "qid": "Q12544",
+      "name": "Byzantine Empire",
+      "lat": 41.0125,
+      "lon": 28.98
+    }
+  ]
+}
