@@ -172,6 +172,15 @@ function main() {
   const layers = Object.keys(assertionsByLayer).sort((a, b) => a.localeCompare(b));
   const assertionsByPerson = buildAssertionsByPerson(assertionsById);
   const assertionsByPersonByLayer = buildAssertionsByPersonByLayer(assertionsById);
+  const runSummaryPath = path.join(distRun, 'reports', 'run_summary.json');
+  const runSummary = fs.existsSync(runSummaryPath) ? parseJsonFile(runSummaryPath, {}) : {};
+  const manifest = buildManifest({
+    persons,
+    assertionsById,
+    distRun,
+    runSummary,
+    importedAt: new Date().toISOString(),
+  });
 
   if (!args.dryRun) {
     writeJson(path.join(outDir, 'persons.json'), persons);
@@ -181,6 +190,7 @@ function main() {
     writeJson(path.join(outDir, 'layers.json'), layers);
     writeJson(path.join(outDir, 'assertions_by_person.json'), assertionsByPerson);
     writeJson(path.join(outDir, 'assertions_by_person_by_layer.json'), assertionsByPersonByLayer);
+    writeJson(path.join(outDir, 'manifest.json'), manifest);
   }
 
   const conflictReportPath = reportPath.replace(/\.json$/i, '.conflicts.json');
@@ -755,6 +765,26 @@ function buildAssertionsByPersonByLayer(assertionsById) {
         ),
       ]),
   );
+}
+
+function buildManifest({ persons, assertionsById, distRun, runSummary, importedAt }) {
+  const personIndex = Object.fromEntries(
+    Object.keys(persons)
+      .sort((a, b) => a.localeCompare(b))
+      .map((id) => [id, String(persons[id]?.label ?? id)]),
+  );
+  return {
+    spec_version: 'compiled-dist-run.v1',
+    builder_version: String(runSummary?.builder_version ?? runSummary?.version ?? 'unknown'),
+    counts: {
+      persons: Object.keys(persons).length,
+      assertions: Object.keys(assertionsById).length,
+    },
+    person_index: personIndex,
+    source_dist_run: distRun,
+    source_generated_at: String(runSummary?.generated_at ?? runSummary?.timestamp ?? ''),
+    imported_at: importedAt,
+  };
 }
 
 main();
