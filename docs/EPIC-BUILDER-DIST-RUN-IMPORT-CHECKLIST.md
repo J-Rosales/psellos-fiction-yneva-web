@@ -192,29 +192,32 @@ Out of scope:
 
 ## Milestone D5: Narrative-Layer First Pass Integration
 
-- [ ] Parse `narrative_layer_assertions.yml` when present.
-- [ ] Normalize narrative rows with class marker:
-  - [ ] `extensions.psellos.assertion_class = "narrative_layer"`
-  - [ ] preserve full raw row
-  - [ ] preserve narrative fields under `extensions.psellos.narrative`
-- [ ] Layer association policy:
-  - [ ] derive narrative layer from linked assertion id context
-- [ ] Include narrative rows in:
-  - [ ] `assertions_by_id.json`
-  - [ ] `assertions.json`
-  - [ ] `assertions_by_layer.json`
-  - [ ] `layers.json`
-- [ ] Exclude narrative rows from:
-  - [ ] `assertions_by_person.json`
-  - [ ] `assertions_by_person_by_layer.json`
+- [x] Parse `narrative_layer_assertions.yml` when present.
+- [x] Normalize narrative rows with class marker:
+  - [x] `extensions.psellos.assertion_class = "narrative_layer"`
+  - [x] preserve full raw row
+  - [x] preserve narrative fields under `extensions.psellos.narrative`
+- [x] Layer association policy:
+  - [x] derive narrative layer from linked assertion id context
+- [x] Include narrative rows in:
+  - [x] `assertions_by_id.json`
+  - [x] `assertions.json`
+  - [x] `assertions_by_layer.json`
+  - [x] `layers.json`
+- [x] Exclude narrative rows from:
+  - [x] `assertions_by_person.json`
+  - [x] `assertions_by_person_by_layer.json`
 
 ### Exit criteria
-- [ ] Narrative-layer rows are ingestible, typed, queryable by layer, and visibly preserved.
+- [x] Narrative-layer rows are ingestible, typed, queryable by layer, and visibly preserved.
 
 ### Verification log (D5)
 - Narrative detected:
+  - Fixture run detected `narrative_layer_assertions.yml` and applied merge.
 - Narrative rows emitted:
+  - Narrative rows emitted into `assertions_by_id`/`assertions` with class marker.
 - Exclusion checks (`assertions_by_person*`):
+  - Narrative rows excluded from person indexes while canonical rows remain indexed.
 
 ---
 
@@ -231,7 +234,9 @@ Out of scope:
 
 ### Verification log (D6)
 - Layers count:
+  - (pending milestone completion)
 - Canon layer present:
+  - (pending milestone completion)
 
 ---
 
