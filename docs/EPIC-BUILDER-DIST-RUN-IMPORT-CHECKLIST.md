@@ -83,32 +83,36 @@ Out of scope:
 
 ## Milestone D1: Import Adapter CLI
 
-- [ ] Add `scripts/import-builder-dist-run.mjs`.
-- [ ] Add CLI options:
-  - [ ] `--dist-run <path>` (required)
-  - [ ] `--out <path>` (default `public/data`)
-  - [ ] `--strict`
-  - [ ] `--dry-run`
-  - [ ] `--report <path>`
-  - [ ] `--score-config <path>` (external scoring weights)
-- [ ] Implement extension handling for entity files:
-  - [ ] `.yml`
-  - [ ] `.yaml`
-- [ ] Required-layout enforcement:
-  - [ ] fail when required dirs missing
-  - [ ] optional dirs warn unless strict mode
-- [ ] Add write-mode safeguards:
-  - [ ] timestamped backup before write
-  - [ ] clear output target before write
-  - [ ] skip all writes in dry-run mode
+- [x] Add `scripts/import-builder-dist-run.mjs`.
+- [x] Add CLI options:
+  - [x] `--dist-run <path>` (required)
+  - [x] `--out <path>` (default `public/data`)
+  - [x] `--strict`
+  - [x] `--dry-run`
+  - [x] `--report <path>`
+  - [x] `--score-config <path>` (external scoring weights)
+- [x] Implement extension handling for entity files:
+  - [x] `.yml`
+  - [x] `.yaml`
+- [x] Required-layout enforcement:
+  - [x] fail when required dirs missing
+  - [x] optional dirs warn unless strict mode
+- [x] Add write-mode safeguards:
+  - [x] timestamped backup before write
+  - [x] clear output target before write
+  - [x] skip all writes in dry-run mode
 
 ### Exit criteria
-- [ ] CLI works end-to-end and enforces required/optional policies correctly.
+- [x] CLI works end-to-end and enforces required/optional policies correctly.
 
 ### Verification log (D1)
 - Commands run:
+  - `node scripts/import-builder-dist-run.mjs --dist-run .tmp/dist-run-d1 --dry-run --report docs/d1-import-report.json`
+  - `node scripts/import-builder-dist-run.mjs --dist-run .tmp/dist-run-d1-full --out .tmp/out-d1 --report docs/d1-import-report-apply.json`
 - Strict-mode checks:
+  - `node scripts/import-builder-dist-run.mjs --dist-run .tmp/dist-run-d1 --strict --dry-run --report docs/d1-import-report-strict.json` failed as expected on missing optional dirs.
 - Dry-run checks:
+  - Dry-run writes report only and performs no output mutation.
 
 ---
 
