@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import fs from 'node:fs';
 import path from 'node:path';
+import crypto from 'node:crypto';
 import yaml from 'js-yaml';
 
 const ENTITY_TYPE_PRECEDENCE = [
@@ -198,6 +199,20 @@ function main() {
     writeJson(conflictReportPath, assertionsResult.conflictReport);
   }
 
+  const guardrails = runGuardrails({
+    assertionsById,
+    assertionsByLayer,
+    assertionsByPerson,
+    warnings,
+  });
+  const criticalHashes = buildCriticalHashes({
+    persons,
+    assertionsById,
+    assertionsByLayer,
+    layers,
+    manifest,
+  });
+
   const report = {
     started_at: startedAt,
     finished_at: new Date().toISOString(),
@@ -224,6 +239,8 @@ function main() {
       discarded_rows: assertionsResult.conflictReport.discarded_rows,
       report_path: conflictReportPath,
     },
+    guardrails,
+    critical_hashes: criticalHashes,
     narrative_layer: {
       narrative_layer_yaml_detected: assertionsResult.narrativeLayerDetected,
       narrative_layer_yaml_row_count: assertionsResult.narrativeLayerYamlRowCount,
@@ -784,6 +801,53 @@ function buildManifest({ persons, assertionsById, distRun, runSummary, importedA
     source_dist_run: distRun,
     source_generated_at: String(runSummary?.generated_at ?? runSummary?.timestamp ?? ''),
     imported_at: importedAt,
+  };
+}
+
+function runGuardrails({ assertionsById, assertionsByLayer, assertionsByPerson, warnings }) {
+  const assertionIds = new Set(Object.keys(assertionsById));
+  const byLayerIds = new Set(Object.values(assertionsByLayer).flat());
+  const byPersonIds = new Set(Object.values(assertionsByPerson).flat());
+  const layerSubsetOk = Array.from(byLayerIds).every((id) => assertionIds.has(id));
+  const personSubsetOk = Array.from(byPersonIds).every((id) => assertionIds.has(id));
+  const noDuplicateIds = assertionIds.size === Object.keys(assertionsById).length;
+  const deterministicOrderByLayer = Object.values(assertionsByLayer).every((arr) => isSorted(arr));
+  const deterministicOrderByPerson = Object.values(assertionsByPerson).every((arr) => isSorted(arr));
+
+  if (!layerSubsetOk) warnings.push('Guardrail failed: assertions_by_layer contains IDs not present in assertions_by_id.');
+  if (!personSubsetOk) warnings.push('Guardrail failed: assertions_by_person contains IDs not present in assertions_by_id.');
+  if (!deterministicOrderByLayer) warnings.push('Guardrail failed: assertions_by_layer arrays are not sorted.');
+  if (!deterministicOrderByPerson) warnings.push('Guardrail failed: assertions_by_person arrays are not sorted.');
+
+  return {
+    no_duplicate_ids: noDuplicateIds,
+    assertions_by_layer_subset: layerSubsetOk,
+    assertions_by_person_subset: personSubsetOk,
+    deterministic_order_by_layer: deterministicOrderByLayer,
+    deterministic_order_by_person: deterministicOrderByPerson,
+  };
+}
+
+function isSorted(arr) {
+  for (let i = 1; i < arr.length; i += 1) {
+    if (String(arr[i - 1]).localeCompare(String(arr[i])) > 0) {
+      return false;
+    }
+  }
+  return true;
+}
+
+function hashJson(value) {
+  return crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex');
+}
+
+function buildCriticalHashes({ persons, assertionsById, assertionsByLayer, layers, manifest }) {
+  return {
+    'persons.json': hashJson(persons),
+    'assertions_by_id.json': hashJson(assertionsById),
+    'assertions_by_layer.json': hashJson(assertionsByLayer),
+    'layers.json': hashJson(layers),
+    'manifest.json': hashJson(manifest),
   };
 }
 

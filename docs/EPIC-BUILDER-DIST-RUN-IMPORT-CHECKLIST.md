@@ -270,24 +270,30 @@ Out of scope:
 
 ## Milestone D8: Validation and Guardrails
 
-- [ ] Add/extend checks:
-  - [ ] deterministic ordering on externally consumed artifacts
-  - [ ] no duplicate IDs in final by-id map
-  - [ ] `assertions_by_layer` IDs subset of `assertions_by_id`
-  - [ ] `assertions_by_person` IDs subset of `assertions_by_id`
-- [ ] Add critical-file deterministic hash regression check:
-  - [ ] `persons.json`
-  - [ ] `assertions_by_id.json`
-  - [ ] `assertions_by_layer.json`
-  - [ ] `layers.json`
-  - [ ] `manifest.json`
+- [x] Add/extend checks:
+  - [x] deterministic ordering on externally consumed artifacts
+  - [x] no duplicate IDs in final by-id map
+  - [x] `assertions_by_layer` IDs subset of `assertions_by_id`
+  - [x] `assertions_by_person` IDs subset of `assertions_by_id`
+- [x] Add critical-file deterministic hash regression check:
+  - [x] `persons.json`
+  - [x] `assertions_by_id.json`
+  - [x] `assertions_by_layer.json`
+  - [x] `layers.json`
+  - [x] `manifest.json`
 
 ### Exit criteria
-- [ ] Contract guardrails catch structural drift and nondeterminism.
+- [x] Contract guardrails catch structural drift and nondeterminism.
 
 ### Verification log (D8)
 - Guardrail results:
+  - `no_duplicate_ids: true`
+  - `assertions_by_layer_subset: true`
+  - `assertions_by_person_subset: true`
+  - `deterministic_order_by_layer: true`
+  - `deterministic_order_by_person: true`
 - Hash regression results:
+  - Verified `critical_hashes` emitted for `persons.json`, `assertions_by_id.json`, `assertions_by_layer.json`, `layers.json`, `manifest.json` in `docs/d8-import-report.json`.
 
 ---
 
