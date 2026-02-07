@@ -353,18 +353,21 @@ Out of scope:
 
 ## Milestone D11: Documentation and Freeze Decision
 
-- [ ] Publish importer usage docs and examples.
-- [ ] Publish duplicate conflict report schema.
-- [ ] Publish narrative first-pass semantics note.
-- [ ] Decide contract freeze point after successful gate.
-- [ ] Add release note entry for importer pipeline milestone.
+- [x] Publish importer usage docs and examples.
+- [x] Publish duplicate conflict report schema.
+- [x] Publish narrative first-pass semantics note.
+- [x] Decide contract freeze point after successful gate.
+- [x] Add release note entry for importer pipeline milestone.
 
 ### Exit criteria
-- [ ] Team can run importer and understand semantics without code-reading.
+- [x] Team can run importer and understand semantics without code-reading.
 
 ### Verification log (D11)
 - Docs updated:
+  - `docs/IMPORTER_PIPELINE_GUIDE.md` (CLI, artifacts, duplicate/conflict schema, narrative semantics, guardrails).
+  - `docs/RELEASE_NOTES_DESKTOP_STABLE.md` (importer pipeline follow-up entry).
 - Freeze decision note:
+  - Importer output contract marked `frozen for importer v1` with additive-only extension policy.
 
 ---
 
