@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from '@tanstack/react-router';
 import { useMemo } from 'react';
 import { fetchEntities, type EntityRecord } from '../api/client';
 import { parseCoreFilters, toSearchObject } from '../routing/coreFilters';
+import { buildEntitiesPaginationParams } from './entitiesPagination';
 
 const COLUMNS: GridColDef<EntityRecord>[] = [
   { field: 'id', headerName: 'ID', minWidth: 160, flex: 1 },
@@ -25,9 +26,11 @@ export function EntitiesRouteView() {
   });
 
   const onPaginationModelChange = (model: GridPaginationModel) => {
-    const params = new URLSearchParams(window.location.search);
-    params.set('page', String(model.page));
-    params.set('page_size', String(model.pageSize));
+    const params = buildEntitiesPaginationParams({
+      currentSearch: window.location.search,
+      currentModel: { page, pageSize },
+      nextModel: model,
+    });
     void navigate({ to: '/entities', search: toSearchObject(params) });
   };
 
@@ -77,7 +80,9 @@ export function EntitiesRouteView() {
               columns={COLUMNS}
               getRowId={(row) => row.id}
               disableRowSelectionOnClick
+              pagination
               paginationMode="server"
+              loading={query.isFetching}
               rowCount={meta.total_count ?? rows.length}
               paginationModel={{ page, pageSize }}
               onPaginationModelChange={onPaginationModelChange}
