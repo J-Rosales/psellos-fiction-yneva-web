@@ -173,18 +173,20 @@ Out of scope:
 
 ## Milestone D4: Duplicate Resolution and Reporting
 
-- [ ] Implement info-score resolution for duplicate assertion IDs.
-- [ ] Load scoring weights from external config file.
-- [ ] Tie-break rule: keep first deterministic encounter.
-- [ ] Emit separate conflict report file with full kept/discarded rows.
-- [ ] Emit conflict summary in main import report.
+- [x] Implement info-score resolution for duplicate assertion IDs.
+- [x] Load scoring weights from external config file.
+- [x] Tie-break rule: keep first deterministic encounter.
+- [x] Emit separate conflict report file with full kept/discarded rows.
+- [x] Emit conflict summary in main import report.
 
 ### Exit criteria
-- [ ] Duplicate conflicts resolved deterministically with traceable report output.
+- [x] Duplicate conflicts resolved deterministically with traceable report output.
 
 ### Verification log (D4)
 - Conflict count:
+  - Fixture run produced `1` conflict id and `1` discarded row with score rationale.
 - Conflict report path:
+  - `<report>.conflicts.json` (verified via `docs/d4-import-report.conflicts.json`).
 
 ---
 
