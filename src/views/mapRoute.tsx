@@ -211,13 +211,15 @@ export function MapRouteView() {
     const sourcePayload = buildPointFeatureCollection(markers);
     const map = mapRef.current;
     const pushSourceData = () => {
-      if (!map?.getSource(SOURCE_ID)) {
-        window.setTimeout(pushSourceData, 40);
-        return;
-      }
+      if (!map) return;
+      if (!map.getStyle() || !map.getSource(SOURCE_ID)) return;
       (map.getSource(SOURCE_ID) as maplibregl.GeoJSONSource).setData(sourcePayload);
     };
-    pushSourceData();
+    if (map?.loaded()) {
+      pushSourceData();
+    } else if (map) {
+      map.once('load', pushSourceData);
+    }
     if (markers.length > 0 && mapRef.current) {
       const bounds = new maplibregl.LngLatBounds();
       markers.forEach((item) => bounds.extend([item.lng, item.lat]));

@@ -28,8 +28,8 @@ This checklist implements the full Map quality-of-life pass for navigation, rend
 
 ## Milestone 4 - Validation, Documentation, and Release Readiness
 
-- [ ] Run build and targeted unit tests after map refactor.
-- [ ] Run full E2E suite and resolve regressions.
-- [ ] Document map controls and density modes in docs for operator workflow.
-- [ ] Confirm route compatibility with global filter strip behavior.
-- [ ] Finalize checklist completion state.
+- [x] Run build and targeted unit tests after map refactor.
+- [x] Run full E2E suite and resolve regressions.
+- [x] Document map controls and density modes in docs for operator workflow.
+- [x] Confirm route compatibility with global filter strip behavior.
+- [x] Finalize checklist completion state.
