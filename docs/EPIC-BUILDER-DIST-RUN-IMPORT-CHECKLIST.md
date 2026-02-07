@@ -53,27 +53,31 @@ Out of scope:
 
 ## Milestone D0: Baseline and Contracts
 
-- [ ] Confirm required source layout assumptions for import adapter:
-  - [ ] required: `machine/`, `entities/`
-  - [ ] optional: `indexes/`, `reports/`, `narrative_layer_assertions.yml`
-- [ ] Confirm current web-consumed artifact contract list:
-  - [ ] `manifest.json`
-  - [ ] `persons.json`
-  - [ ] `assertions.json`
-  - [ ] `assertions_by_id.json`
-  - [ ] `assertions_by_layer.json`
-  - [ ] `assertions_by_person.json`
-  - [ ] `assertions_by_person_by_layer.json`
-  - [ ] `layers.json`
-  - [ ] optional `layer_stats.json`, `layers_meta.json`
-- [ ] Add implementation note: additive fields are allowed during importer landing; freeze later.
+- [x] Confirm required source layout assumptions for import adapter:
+  - [x] required: `machine/`, `entities/`
+  - [x] optional: `indexes/`, `reports/`, `narrative_layer_assertions.yml`
+- [x] Confirm current web-consumed artifact contract list:
+  - [x] `manifest.json`
+  - [x] `persons.json`
+  - [x] `assertions.json`
+  - [x] `assertions_by_id.json`
+  - [x] `assertions_by_layer.json`
+  - [x] `assertions_by_person.json`
+  - [x] `assertions_by_person_by_layer.json`
+  - [x] `layers.json`
+  - [x] optional `layer_stats.json`, `layers_meta.json`
+- [x] Add implementation note: additive fields are allowed during importer landing; freeze later.
 
 ### Exit criteria
-- [ ] Source/target contract assumptions documented and unambiguous.
+- [x] Source/target contract assumptions documented and unambiguous.
 
 ### Verification log (D0)
 - Notes:
+  - Baseline confirmed against `README.md`, `backend/src/lib/repository.ts`, and loader files in `src/data/*`.
+  - Additive-field allowance retained during importer landing phase.
 - Contract snapshot:
+  - Target runtime files: `manifest.json`, `persons.json`, `assertions.json`, `assertions_by_id.json`, `assertions_by_layer.json`, `assertions_by_person.json`, `assertions_by_person_by_layer.json`, `layers.json`.
+  - Optional runtime files remain supported: `layer_stats.json`, `layers_meta.json`.
 
 ---
 
