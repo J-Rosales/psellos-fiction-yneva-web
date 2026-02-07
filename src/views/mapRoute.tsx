@@ -15,6 +15,7 @@ import {
   Select,
   Stack,
   TextField,
+  Tooltip,
   Typography,
 } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
@@ -40,6 +41,7 @@ export function MapRouteView() {
   const mapRef = useRef<maplibregl.Map | null>(null);
   const markersRef = useRef<maplibregl.Marker[]>([]);
   const [viewportHeight, setViewportHeight] = useState(620);
+  const [cameraInfo, setCameraInfo] = useState({ zoom: 2, center: [23.7, 37.97] as [number, number] });
 
   const query = useQuery({
     queryKey: ['map-features', filters.layer, filters.rel_type, filters.q],
@@ -63,6 +65,15 @@ export function MapRouteView() {
         style: 'https://demotiles.maplibre.org/style.json',
         center: [23.7, 37.97],
         zoom: 2,
+      });
+      mapRef.current.addControl(new maplibregl.NavigationControl({ showCompass: true, showZoom: true }), 'top-right');
+      mapRef.current.on('moveend', () => {
+        if (!mapRef.current) return;
+        const center = mapRef.current.getCenter();
+        setCameraInfo({
+          zoom: Number(mapRef.current.getZoom().toFixed(2)),
+          center: [Number(center.lng.toFixed(4)), Number(center.lat.toFixed(4))],
+        });
       });
     }
 
@@ -89,6 +100,11 @@ export function MapRouteView() {
       });
       markersRef.current.push(marker);
     });
+    if (markers.length > 0 && mapRef.current) {
+      const bounds = new maplibregl.LngLatBounds();
+      markers.forEach((item) => bounds.extend([item.lng, item.lat]));
+      mapRef.current.fitBounds(bounds, { padding: 64, maxZoom: 7, duration: 500 });
+    }
 
     return () => {
       markersRef.current.forEach((marker) => marker.remove());
@@ -137,6 +153,16 @@ export function MapRouteView() {
   const unknownGeoCount = Number(query.data.meta.buckets?.unknown_geo_assertion_count ?? 0);
   const ambiguousPlaceCount = Number(query.data.meta.buckets?.ambiguous_place_group_count ?? 0);
 
+  useEffect(() => {
+    if (!selectedGroup || !selectedGroup.coordinates || !mapRef.current) return;
+    mapRef.current.flyTo({
+      center: [selectedGroup.coordinates[0], selectedGroup.coordinates[1]],
+      zoom: Math.max(5, mapRef.current.getZoom()),
+      duration: 500,
+      essential: true,
+    });
+  }, [selectedGroup]);
+
   return (
     <Stack spacing={1.5}>
       {query.data.meta.warnings?.length ? <Alert severity="warning">{query.data.meta.warnings.join(' ')}</Alert> : null}
@@ -153,6 +179,7 @@ export function MapRouteView() {
               <Typography variant="h6">Map</Typography>
               <Chip label={`Places ${query.data.groups.length}`} />
               <Chip label={`${Math.round(scaleRadiusKm)} km`} />
+              <Chip label={`Zoom ${cameraInfo.zoom.toFixed(2)}`} />
               <FormControl size="small" sx={{ minWidth: 170 }}>
                 <InputLabel id="scale-preset-label">Scale preset</InputLabel>
                 <Select
@@ -173,6 +200,61 @@ export function MapRouteView() {
                 onChange={(event) => setCustomRadiusKm(event.target.value)}
                 disabled={scalePreset !== 'custom'}
               />
+              <Tooltip title="Fit map to currently loaded places">
+                <Button
+                  size="small"
+                  variant="outlined"
+                  onClick={() => {
+                    if (!mapRef.current) return;
+                    const markers = extractRenderableMarkers(query.data.features as Array<{
+                      geometry: { type?: string; coordinates?: [number, number] } | null;
+                      properties?: { place_key?: string; place_label?: string; assertion_count?: number };
+                    }>);
+                    if (markers.length === 0) {
+                      mapRef.current.flyTo({ center: [23.7, 37.97], zoom: 2, duration: 400 });
+                      return;
+                    }
+                    const bounds = new maplibregl.LngLatBounds();
+                    markers.forEach((item) => bounds.extend([item.lng, item.lat]));
+                    mapRef.current.fitBounds(bounds, { padding: 64, maxZoom: 7, duration: 500 });
+                  }}
+                >
+                  Fit results
+                </Button>
+              </Tooltip>
+              <Button
+                size="small"
+                variant="outlined"
+                onClick={() => {
+                  const map = mapRef.current;
+                  if (!map) return;
+                  map.zoomTo(map.getZoom() + 0.5, { duration: 220 });
+                }}
+              >
+                Zoom +
+              </Button>
+              <Button
+                size="small"
+                variant="outlined"
+                onClick={() => {
+                  const map = mapRef.current;
+                  if (!map) return;
+                  map.zoomTo(map.getZoom() - 0.5, { duration: 220 });
+                }}
+              >
+                Zoom -
+              </Button>
+              <Button
+                size="small"
+                variant="outlined"
+                onClick={() => {
+                  const map = mapRef.current;
+                  if (!map) return;
+                  map.easeTo({ bearing: 0, pitch: 0, duration: 260 });
+                }}
+              >
+                Reset view
+              </Button>
             </Stack>
           </CardContent>
         </Card>
