@@ -2,7 +2,7 @@ import { Alert, Button, Card, CardContent, CircularProgress, Grid, Stack, Typogr
 import { useQuery } from '@tanstack/react-query';
 import { useLocation } from '@tanstack/react-router';
 import { useMemo } from 'react';
-import { fetchApiMetrics, fetchEntities, fetchLayerConsistency, fetchMapFeatures } from '../api/client';
+import { fetchApiMetrics, fetchDiagnosticsAggregate, fetchLayerConsistency } from '../api/client';
 import { parseCoreFilters } from '../routing/coreFilters';
 
 export function DiagnosticsRouteView() {
@@ -17,16 +17,12 @@ export function DiagnosticsRouteView() {
     queryKey: ['diagnostics-metrics'],
     queryFn: () => fetchApiMetrics(),
   });
-  const entitiesQuery = useQuery({
-    queryKey: ['diagnostics-entities', filters.layer],
-    queryFn: () => fetchEntities({ filters, page: 0, pageSize: 1000 }),
-  });
-  const mapQuery = useQuery({
-    queryKey: ['diagnostics-map', filters.layer],
-    queryFn: () => fetchMapFeatures({ filters }),
+  const aggregateQuery = useQuery({
+    queryKey: ['diagnostics-aggregate', filters.layer],
+    queryFn: () => fetchDiagnosticsAggregate({ layer: filters.layer }),
   });
 
-  if (consistencyQuery.isLoading || metricsQuery.isLoading || entitiesQuery.isLoading || mapQuery.isLoading) {
+  if (consistencyQuery.isLoading || metricsQuery.isLoading || aggregateQuery.isLoading) {
     return (
       <Card>
         <CardContent>
@@ -45,15 +41,26 @@ export function DiagnosticsRouteView() {
   if (metricsQuery.isError) {
     return <Alert severity="error">Failed to load API metrics: {metricsQuery.error.message}</Alert>;
   }
-  if (!consistencyQuery.data || !metricsQuery.data || !entitiesQuery.data || !mapQuery.data) {
-    return <Alert severity="error">Diagnostics payload missing.</Alert>;
+  if (aggregateQuery.isError) {
+    return <Alert severity="error">Failed to load diagnostics aggregate: {aggregateQuery.error.message}</Alert>;
+  }
+  if (!consistencyQuery.data || !metricsQuery.data || !aggregateQuery.data) {
+    const missing: string[] = [];
+    if (!consistencyQuery.data) missing.push('layer-consistency');
+    if (!metricsQuery.data) missing.push('api-metrics');
+    if (!aggregateQuery.data) missing.push('diagnostics-aggregate');
+    return <Alert severity="error">Diagnostics payload missing: {missing.join(', ') || 'unknown'}.</Alert>;
   }
 
-  const entities = entitiesQuery.data.items;
+  const aggregate = aggregateQuery.data.item;
   const assertionQuality = {
-    missing_label_entities: entities.filter((item) => !String(item.label ?? '').trim()).map((item) => item.id),
-    unknown_entity_type_entities: entities.filter((item) => !String(item.entity_type ?? '').trim()).map((item) => item.id),
-    entity_total: entities.length,
+    entity_total: aggregate.assertion_quality.entity_total,
+    unknown_label_count: aggregate.assertion_quality.unknown_label_count,
+    ambiguous_label_count: aggregate.assertion_quality.ambiguous_label_count,
+    unknown_entity_type_count: aggregate.assertion_quality.unknown_entity_type_count,
+    missing_label_entities_sample: aggregate.assertion_quality.unknown_label_sample_ids,
+    unknown_entity_type_entities_sample: aggregate.assertion_quality.unknown_entity_type_sample_ids,
+    sample_limited: aggregate.assertion_quality.sample_limited,
   };
   const layerDrift = {
     layer: filters.layer,
@@ -70,9 +77,9 @@ export function DiagnosticsRouteView() {
   };
   const geoCoverage = {
     layer: filters.layer,
-    place_groups: mapQuery.data.groups.length,
-    unknown_geo_assertion_count: Number(mapQuery.data.meta.buckets?.unknown_geo_assertion_count ?? 0),
-    ambiguous_place_group_count: Number(mapQuery.data.meta.buckets?.ambiguous_place_group_count ?? 0),
+    place_groups: aggregate.geo_coverage.place_groups,
+    unknown_geo_assertion_count: aggregate.geo_coverage.unknown_geo_assertion_count,
+    ambiguous_place_group_count: aggregate.geo_coverage.ambiguous_place_group_count,
   };
 
   const downloadReport = (fileName: string, payload: unknown) => {

@@ -25,7 +25,7 @@ import { computeViewportHeightPx } from './viewportLayout';
 
 type ViewMode = 'dynasty' | 'workplace';
 type ClusterPrecedence = 'confidence' | 'size';
-type StructureMode = 'node' | 'hierarchical';
+type LayoutView = 'node' | 'directional';
 
 type GraphPayload = {
   nodes: Array<Record<string, unknown>>;
@@ -45,7 +45,7 @@ export function GraphRouteView() {
   const [separation, setSeparation] = useState(2.4);
   const [viewMode, setViewMode] = useState<ViewMode>('dynasty');
   const [clusterPrecedence, setClusterPrecedence] = useState<ClusterPrecedence>('confidence');
-  const [structureMode, setStructureMode] = useState<StructureMode>((search.get('g_mode') as StructureMode) || 'node');
+  const [layoutView, setLayoutView] = useState<LayoutView>((search.get('g_mode') as LayoutView) || 'node');
   const [expanded, setExpanded] = useState(false);
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [labelScale, setLabelScale] = useState(1);
@@ -55,10 +55,10 @@ export function GraphRouteView() {
   const [jumpTo, setJumpTo] = useState('');
   const [includeRelations, setIncludeRelations] = useState<string[]>([]);
   const [excludeRelations, setExcludeRelations] = useState<string[]>([]);
+  const [relationCatalog, setRelationCatalog] = useState<string[]>([]);
   const [confidenceOpacity, setConfidenceOpacity] = useState(true);
   const [timeFrom, setTimeFrom] = useState(0);
   const [timeTo, setTimeTo] = useState(3000);
-  const [rootId, setRootId] = useState('');
   const [collapsedRoots, setCollapsedRoots] = useState<string[]>([]);
   const [nodeSemanticMapEnabled, setNodeSemanticMapEnabled] = useState(true);
   const [pinLayout, setPinLayout] = useState(false);
@@ -68,7 +68,9 @@ export function GraphRouteView() {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const viewportRef = useRef<HTMLDivElement | null>(null);
   const cyRef = useRef<cytoscape.Core | null>(null);
+  const [cyReady, setCyReady] = useState(false);
   const previousGraphContextRef = useRef('');
+  const previousRelationCatalogContextRef = useRef('');
   const [viewportHeight, setViewportHeight] = useState(620);
   const [metrics, setMetrics] = useState<{
     nodes: number;
@@ -78,6 +80,16 @@ export function GraphRouteView() {
     runtimeMs: number;
     zoom: number;
   }>({ nodes: 0, edges: 0, avgDegree: 0, densePairs: 0, runtimeMs: 0, zoom: 1 });
+
+  useEffect(() => {
+    (window as Window & { __psellosGraphDebug?: unknown }).__psellosGraphDebug = {
+      getMetrics: () => metrics,
+      setSeparation: (value: number) => setSeparation(Math.max(1.2, Math.min(6, value))),
+    };
+    return () => {
+      delete (window as Window & { __psellosGraphDebug?: unknown }).__psellosGraphDebug;
+    };
+  }, [metrics]);
 
   const relTypeFilter = useMemo(
     () => buildRelationFilter(filters.rel_type, includeRelations, excludeRelations),
@@ -89,6 +101,7 @@ export function GraphRouteView() {
     queryFn: async () => {
       const trimmed = activeSeed.trim();
       if (!trimmed) return '';
+      if (/^Q\d+$/i.test(trimmed)) return trimmed.toUpperCase();
       const exactHit = await fetchEntities({
         filters: { ...filters, q: trimmed, exact: true, rel_type: '', entity_type: '', has_geo: 'any', date_from: '', date_to: '' },
         page: 0,
@@ -125,19 +138,18 @@ export function GraphRouteView() {
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    params.set('g_mode', structureMode);
+    params.set('g_mode', layoutView);
     params.set('g_depth', String(depth));
     if (resolvedSeedId || activeSeed) params.set('entity_id', resolvedSeedId || activeSeed);
     navigate({ to: '/graph', search: Object.fromEntries(params.entries()), replace: true });
-  }, [navigate, structureMode, depth, activeSeed, resolvedSeedId]);
+  }, [navigate, layoutView, depth, activeSeed, resolvedSeedId]);
 
   useEffect(() => {
     const q = filters.q.trim();
     if (!q || q === seedId) return;
     setSeedId(q);
-    setSelectedId(q);
+    // Preserve current graph while new seed resolves to avoid blink/reload feeling.
     setDepth(1);
-    setData({ nodes: [], edges: [] });
   }, [filters.q, seedId]);
 
   useEffect(() => {
@@ -157,38 +169,64 @@ export function GraphRouteView() {
     const previousContext = previousGraphContextRef.current;
     previousGraphContextRef.current = contextKey;
     setData((prev) => (previousContext && previousContext === contextKey ? mergeGraphData(prev, query.data) : query.data));
+    const discovered = query.data.edges
+      .map((edge) => String(edge.predicate ?? 'related_to').trim())
+      .filter(Boolean);
+    if (discovered.length > 0) {
+      setRelationCatalog((prev) => Array.from(new Set([...prev, ...discovered])).sort((a, b) => a.localeCompare(b)));
+    }
   }, [query.data, filters.layer, relTypeFilter, activeSeed]);
+
+  useEffect(() => {
+    const catalogContext = `${filters.layer}::${resolvedSeedId || activeSeed}`;
+    if (previousRelationCatalogContextRef.current === catalogContext) return;
+    previousRelationCatalogContextRef.current = catalogContext;
+    setRelationCatalog([]);
+    setIncludeRelations([]);
+    setExcludeRelations([]);
+  }, [filters.layer, resolvedSeedId, activeSeed]);
 
   useEffect(() => {
     if (!containerRef.current || cyRef.current) return;
     const cy = cytoscape({
       container: containerRef.current,
       elements: [],
-      style: buildStyle(structureMode, labelScale, confidenceOpacity) as any,
+      style: buildStyle(labelScale, confidenceOpacity, layoutView) as any,
       layout: { name: 'grid', animate: false },
     });
     cy.on('tap', 'node', (event) => {
       const id = String(event.target.id());
+      const rawLabel = String(event.target.data('fullLabel') ?? event.target.data('nodeLabel') ?? id);
+      const normalizedLabel = rawLabel.replace(/^L\d+\s+/, '').trim() || id;
       setExpanded(false);
       setFocusHistory((prev) => (selectedId ? [...prev.slice(-11), selectedId] : prev));
       setSelectedId(id);
+      setSeedId(id);
+      setDepth(1);
       focusNode(cy, id);
-    });
-    cy.on('zoom', () => {
-      if (cy.zoom() < 0.7) {
-        cy.nodes().style('font-size', 0);
-        cy.edges().style('font-size', 0);
-      } else {
-        cy.nodes().style('font-size', `${10 * labelScale}px`);
-        cy.edges().style('font-size', `${8 * labelScale}px`);
-      }
+      const params = new URLSearchParams(window.location.search);
+      params.set('q', normalizedLabel);
+      params.set('entity_id', id);
+      params.set('g_depth', '1');
+      params.set('g_mode', layoutView);
+      navigate({ to: '/graph', search: Object.fromEntries(params.entries()), replace: true });
     });
     cyRef.current = cy;
+    setCyReady(true);
     return () => {
       cy.destroy();
       cyRef.current = null;
+      setCyReady(false);
     };
-  }, [structureMode, labelScale, confidenceOpacity]);
+  }, [
+    layoutView,
+    labelScale,
+    confidenceOpacity,
+    seedResolutionQuery.isLoading,
+    query.isLoading,
+    activeSeed,
+    resolvedSeedId,
+  ]);
 
   useEffect(() => {
     const syncViewportHeight = () => {
@@ -204,32 +242,33 @@ export function GraphRouteView() {
   useEffect(() => {
     const cy = cyRef.current;
     if (!cy) return;
-    cy.style(buildStyle(structureMode, labelScale, confidenceOpacity) as any);
-  }, [structureMode, labelScale, confidenceOpacity]);
+    cy.style(buildStyle(labelScale, confidenceOpacity, layoutView) as any);
+  }, [layoutView, labelScale, confidenceOpacity]);
 
   useEffect(() => {
     const cy = cyRef.current;
     if (!cy) return;
-    applyGraph(cy, data, selectedId, structureMode, timeFrom, timeTo, collapsedRoots, nodeSemanticMapEnabled);
+    applyGraph(cy, data, selectedId, timeFrom, timeTo, collapsedRoots, nodeSemanticMapEnabled, layoutView);
     setMetrics((prev) => ({ ...prev, ...computeGraphMetrics(cy, separation) }));
-  }, [data, selectedId, structureMode, timeFrom, timeTo, collapsedRoots, nodeSemanticMapEnabled, separation]);
+  }, [data, selectedId, layoutView, timeFrom, timeTo, collapsedRoots, nodeSemanticMapEnabled, separation, cyReady]);
 
   useEffect(() => {
     const cy = cyRef.current;
     if (!cy || pinLayout) return;
     const started = performance.now();
-    runLayout(cy, structureMode, rootId || selectedId, separation);
+    runLayout(cy, separation, layoutView, selectedId);
     const runtimeMs = Math.round(performance.now() - started);
     setLastLayoutAt(Date.now());
     setMetrics((prev) => ({ ...prev, runtimeMs, zoom: Number(cy.zoom().toFixed(2)), ...computeGraphMetrics(cy, separation) }));
-  }, [structureMode, separation, rootId, selectedId, data, pinLayout]);
+  }, [layoutView, separation, selectedId, data, pinLayout, cyReady]);
 
   const clusterMap = useMemo(() => inferClusters(data.nodes, data.edges, viewMode), [data.nodes, data.edges, viewMode]);
   const relationTypes = useMemo(() => {
+    if (relationCatalog.length > 0) return relationCatalog;
     const set = new Set<string>();
     data.edges.forEach((edge) => set.add(String(edge.predicate ?? 'related_to')));
     return Array.from(set).sort((a, b) => a.localeCompare(b));
-  }, [data.edges]);
+  }, [data.edges, relationCatalog]);
 
   if ((seedResolutionQuery.isLoading || query.isLoading) && data.nodes.length === 0) {
     return (
@@ -245,18 +284,34 @@ export function GraphRouteView() {
       </Card>
     );
   }
-  if (!activeSeed) {
+  if (!activeSeed || (!resolvedSeedId && !seedResolutionQuery.isLoading)) {
+    const hasQuery = Boolean(activeSeed);
     return (
-      <Alert severity="info">
-        Search a person first (from the global search strip) to load a graph neighborhood.
-      </Alert>
-    );
-  }
-  if (!resolvedSeedId && !seedResolutionQuery.isLoading) {
-    return (
-      <Alert severity="warning">
-        No matching entity was found for "{activeSeed}". Try a different search string or use entity ID.
-      </Alert>
+      <Card>
+        <CardContent>
+          <Stack spacing={1}>
+            <Typography variant="h6">
+              {hasQuery ? 'No matching graph seed found' : 'Search an entity to view graph neighborhoods'}
+            </Typography>
+            <Typography color="text.secondary">
+              {hasQuery
+                ? `No entity matched "${activeSeed}". Try a different person label or use a canonical entity ID.`
+                : 'Use the global search strip and press Update. The graph opens around the selected person with hop-1 depth by default.'}
+            </Typography>
+            <Stack direction="row" spacing={1} useFlexGap flexWrap="wrap">
+              <Button size="small" variant="outlined" onClick={() => void navigate({ to: '/graph', search: { layer: filters.layer, q: 'alexios i komnenos' } })}>
+                Example: Alexios I Komnenos
+              </Button>
+              <Button size="small" variant="outlined" onClick={() => void navigate({ to: '/graph', search: { layer: filters.layer, q: 'manuel i komnenos' } })}>
+                Example: Manuel I Komnenos
+              </Button>
+              <Button size="small" variant="outlined" onClick={() => void navigate({ to: '/graph', search: { layer: filters.layer, q: 'Q41600' } })}>
+                Example: by entity ID
+              </Button>
+            </Stack>
+          </Stack>
+        </CardContent>
+      </Card>
     );
   }
   if (query.isError) return <Alert severity="error">Graph query failed: {query.error.message}</Alert>;
@@ -279,7 +334,7 @@ export function GraphRouteView() {
               <Stack direction="row" spacing={1} alignItems="center" flexWrap="wrap" useFlexGap>
                 <Typography variant="h6">Graph</Typography>
                 <Chip label={`Depth ${depth}`} />
-                <Chip label={structureMode === 'node' ? 'Node View' : 'Hierarchical View'} />
+                <Chip label={layoutView === 'node' ? 'Node View' : 'Directional View'} />
                 <Chip label={`Seed ${resolvedSeedId || activeSeed}`} />
                 <Button size="small" variant="outlined" onClick={() => setDepth((value) => Math.min(value + 1, 5))}>
                   Expand (+1)
@@ -345,18 +400,6 @@ export function GraphRouteView() {
                 >
                   Zoom -
                 </Button>
-                <FormControl size="small" sx={{ minWidth: 185 }}>
-                  <InputLabel id="graph-structure-mode-label">Structure mode</InputLabel>
-                  <Select
-                    labelId="graph-structure-mode-label"
-                    label="Structure mode"
-                    value={structureMode}
-                    onChange={(event) => setStructureMode(event.target.value as StructureMode)}
-                  >
-                    <MenuItem value="node">Node View</MenuItem>
-                    <MenuItem value="hierarchical">Hierarchical View</MenuItem>
-                  </Select>
-                </FormControl>
                 <FormControl size="small" sx={{ minWidth: 170 }}>
                   <InputLabel id="graph-view-mode-label">Cluster view</InputLabel>
                   <Select
@@ -367,6 +410,18 @@ export function GraphRouteView() {
                   >
                     <MenuItem value="dynasty">View Dynasty</MenuItem>
                     <MenuItem value="workplace">View Workplace</MenuItem>
+                  </Select>
+                </FormControl>
+                <FormControl size="small" sx={{ minWidth: 170 }}>
+                  <InputLabel id="graph-layout-view-label">Layout view</InputLabel>
+                  <Select
+                    labelId="graph-layout-view-label"
+                    label="Layout view"
+                    value={layoutView}
+                    onChange={(event) => setLayoutView(event.target.value as LayoutView)}
+                  >
+                    <MenuItem value="node">Node</MenuItem>
+                    <MenuItem value="directional">Directional</MenuItem>
                   </Select>
                 </FormControl>
                 <Button size="small" variant="text" onClick={() => setShowAdvanced((value) => !value)}>
@@ -464,7 +519,7 @@ export function GraphRouteView() {
                 <Button
                   variant="outlined"
                   onClick={() => {
-                    const payload = { selected_id: selectedId || null, mode: structureMode, data };
+                    const payload = { selected_id: selectedId || null, mode: layoutView, data };
                     const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
                     const url = URL.createObjectURL(blob);
                     const link = document.createElement('a');
@@ -484,11 +539,11 @@ export function GraphRouteView() {
                 const included = includeRelations.includes(rel);
                 const excluded = excludeRelations.includes(rel);
                 return (
-                  <Chip
+                  <Button
                     key={rel}
-                    label={excluded ? `!${rel}` : rel}
-                    color={included ? 'primary' : excluded ? 'warning' : 'default'}
-                    variant="outlined"
+                    size="small"
+                    color={included ? 'primary' : excluded ? 'warning' : 'inherit'}
+                    variant={included || excluded ? 'contained' : 'outlined'}
                     onClick={() => {
                       if (included) {
                         setIncludeRelations((prev) => prev.filter((item) => item !== rel));
@@ -501,11 +556,9 @@ export function GraphRouteView() {
                       }
                       setIncludeRelations((prev) => [...new Set([...prev, rel])]);
                     }}
-                    onDelete={() => {
-                      setIncludeRelations((prev) => prev.filter((item) => item !== rel));
-                      setExcludeRelations((prev) => prev.filter((item) => item !== rel));
-                    }}
-                  />
+                  >
+                    {included ? `+ ${rel}` : excluded ? `- ${rel}` : rel}
+                  </Button>
                 );
               })}
                 <Button size="small" onClick={() => { setIncludeRelations([]); setExcludeRelations([]); }}>
@@ -541,7 +594,7 @@ export function GraphRouteView() {
                 >
                   Reset to Preset
                 </Button>
-                <Button variant="outlined" onClick={() => setNodeSemanticMapEnabled((v) => !v)}>
+                <Button variant="outlined" onClick={() => setNodeSemanticMapEnabled((v) => !v)} disabled={layoutView === 'directional'}>
                   Node semantic map: {nodeSemanticMapEnabled ? 'on' : 'off'}
                 </Button>
                 <Button
@@ -550,7 +603,7 @@ export function GraphRouteView() {
                     const cy = cyRef.current;
                     if (!cy) return;
                     const started = performance.now();
-                    runLayout(cy, structureMode, rootId || selectedId, separation);
+                    runLayout(cy, separation, layoutView, selectedId);
                     const runtimeMs = Math.round(performance.now() - started);
                     setLastLayoutAt(Date.now());
                     setMetrics((prev) => ({ ...prev, runtimeMs, zoom: Number(cy.zoom().toFixed(2)), ...computeGraphMetrics(cy, separation) }));
@@ -588,8 +641,8 @@ export function GraphRouteView() {
                     size="small"
                     onClick={() => {
                       if (!selectedId) return;
-                      setRootId(selectedId);
-                      setStructureMode('hierarchical');
+                      setSeedId(selectedId);
+                      setDepth(1);
                     }}
                   >
                     Set as root
@@ -668,13 +721,44 @@ function applyGraph(
   cy: cytoscape.Core,
   graph: GraphPayload,
   selectedId: string,
-  mode: StructureMode,
   timeFrom: number,
   timeTo: number,
   collapsedRoots: string[],
   nodeSemanticMapEnabled: boolean,
+  layoutView: LayoutView,
 ) {
-  const generationById = mode === 'hierarchical' ? computeGenerations(graph.edges, rootIdFromState(selectedId, graph)) : new Map<string, number>();
+  const nodeCount = graph.nodes.length;
+  const denseGraph = nodeCount > 20;
+  const veryDenseGraph = nodeCount > 45;
+  const ultraDenseGraph = nodeCount > 80;
+  const baseNodeSize = Math.max(7, Math.min(14, 22 - Math.log2(nodeCount + 1) * 3));
+  const edgeLabelEnabled = nodeCount <= 18;
+  const focusIds = new Set<string>();
+  if (selectedId) {
+    focusIds.add(selectedId);
+    const prioritizedEdges = [...graph.edges]
+      .sort((left, right) => readConfidence(right) - readConfidence(left))
+      .slice(0, 8);
+    prioritizedEdges.forEach((edge) => {
+      const subject = String(edge.subject ?? '');
+      const object = String(edge.object ?? '');
+      if (subject === selectedId && object) focusIds.add(object);
+      if (object === selectedId && subject) focusIds.add(subject);
+    });
+  }
+  const focusNeighborBudget = veryDenseGraph ? 6 : 10;
+  if (focusIds.size > focusNeighborBudget + 1 && selectedId) {
+    const keep = new Set<string>([selectedId]);
+    let kept = 0;
+    for (const value of focusIds) {
+      if (value === selectedId) continue;
+      keep.add(value);
+      kept += 1;
+      if (kept >= focusNeighborBudget) break;
+    }
+    focusIds.clear();
+    keep.forEach((value) => focusIds.add(value));
+  }
   const edges = graph.edges.filter((edge) => {
     if (collapsedRoots.includes(String(edge.subject ?? ''))) {
       return false;
@@ -690,23 +774,32 @@ function applyGraph(
     ...graph.nodes.map((node) => ({
       data: {
         id: String(node.id),
-        label:
-          mode === 'hierarchical'
-            ? `L${generationById.get(String(node.id)) ?? 0} ${String(node.label ?? node.id ?? 'unknown')}`
+        fullLabel: String(node.label ?? node.id ?? 'unknown'),
+        nodeLabel: ultraDenseGraph
+          ? ''
+          : denseGraph && !focusIds.has(String(node.id))
+            ? ''
             : String(node.label ?? node.id ?? 'unknown'),
         entityType: String(node.entity_type ?? 'unknown').toLowerCase(),
         nodeColor: nodeSemanticMapEnabled ? entityColor(String(node.entity_type ?? 'unknown').toLowerCase()) : '#1976d2',
-        nodeShape: nodeSemanticMapEnabled ? entityShape(String(node.entity_type ?? 'unknown').toLowerCase()) : 'ellipse',
+        nodeShape:
+          layoutView === 'directional'
+            ? 'round-rectangle'
+            : nodeSemanticMapEnabled
+              ? entityShape(String(node.entity_type ?? 'unknown').toLowerCase())
+              : 'ellipse',
         haloColor: nodeSemanticMapEnabled ? entityHaloColor(String(node.entity_type ?? 'unknown').toLowerCase()) : '#b45309',
+        nodeSize: ultraDenseGraph ? Math.max(6, baseNodeSize - 1.5) : baseNodeSize,
+        nodeTextMaxWidth: ultraDenseGraph ? 56 : veryDenseGraph ? 64 : 90,
       },
-      classes: mode === 'hierarchical' ? 'hier-node' : 'node-view-node',
+      classes: 'node-view-node',
     })),
     ...edges.map((edge) => ({
       data: {
         id: String(edge.id ?? `${edge.subject}-${edge.object}-${edge.predicate}`),
         source: String(edge.subject ?? ''),
         target: String(edge.object ?? ''),
-        label: String(edge.predicate ?? 'related_to'),
+        label: edgeLabelEnabled ? String(edge.predicate ?? 'related_to') : '',
         relationType: String(edge.predicate ?? 'related_to').toLowerCase(),
         edgeColor: relationColor(String(edge.predicate ?? 'related_to').toLowerCase()),
         edgeLineStyle: relationLineStyle(String(edge.predicate ?? 'related_to').toLowerCase()),
@@ -719,26 +812,155 @@ function applyGraph(
   if (selectedId) cy.getElementById(selectedId).addClass('selected-node');
 }
 
-function runLayout(cy: cytoscape.Core, mode: StructureMode, rootId: string, separation: number) {
-  if (mode === 'hierarchical') {
+function runLayout(cy: cytoscape.Core, separation: number, layoutView: LayoutView, seedId: string) {
+  if (layoutView === 'directional') {
     cy.layout({
       name: 'breadthfirst',
       directed: true,
-      roots: rootId ? [`#${rootId}`] : undefined,
-      spacingFactor: Math.max(1.1, separation * 1.2),
       animate: false,
+      fit: false,
+      padding: Math.round(36 + separation * 14),
+      spacingFactor: Math.max(1.15, separation * 0.82),
+      roots: seedId ? [`#${seedId}`] : undefined,
     }).run();
-    cy.fit(undefined, Math.round(30 + separation * 10));
+    resolveNodeOverlaps(cy, separation);
+    cy.fit(undefined, Math.round(36 + separation * 10));
     return;
   }
-  cy.layout({
-    name: 'cose',
-    animate: false,
-    idealEdgeLength: 120 + 45 * separation,
-    nodeRepulsion: 7000 + 5000 * separation,
-    padding: Math.round(24 + separation * 10),
-  }).run();
+  const nodeCount = cy.nodes().length;
+  const edgeCount = cy.edges().length;
+  const params = computeDensityAdaptiveLayout(nodeCount, edgeCount, separation);
+  const attempts = nodeCount <= 120 ? 3 : 1;
+  let bestPositions: Map<string, { x: number; y: number }> | null = null;
+  let bestScore = Number.POSITIVE_INFINITY;
+
+  for (let attempt = 0; attempt < attempts; attempt += 1) {
+    cy.layout({
+      name: 'cose',
+      animate: false,
+      randomize: attempt > 0,
+      fit: false,
+      nodeDimensionsIncludeLabels: true,
+      nodeOverlap: params.nodeOverlap,
+      componentSpacing: params.componentSpacing,
+      idealEdgeLength: params.idealEdgeLength,
+      nodeRepulsion: params.nodeRepulsion,
+      gravity: params.gravity,
+      padding: params.padding,
+    }).run();
+
+    const crossings = estimateEdgeCrossings(cy);
+    const densePairs = computeGraphMetrics(cy, separation).densePairs;
+    const score = crossings * 10 + densePairs;
+    if (score < bestScore) {
+      bestScore = score;
+      bestPositions = new Map(cy.nodes().map((node) => [String(node.id()), { x: node.position('x'), y: node.position('y') }]));
+    }
+  }
+
+  if (bestPositions) {
+    cy.nodes().forEach((node) => {
+      const pos = bestPositions?.get(String(node.id()));
+      if (pos) node.position(pos);
+    });
+  }
+  resolveNodeOverlaps(cy, separation);
   cy.fit(undefined, Math.round(30 + separation * 10));
+}
+
+function computeDensityAdaptiveLayout(nodeCount: number, edgeCount: number, separation: number) {
+  const maxEdges = nodeCount > 1 ? (nodeCount * (nodeCount - 1)) / 2 : 1;
+  const graphDensity = Math.max(0, Math.min(1, edgeCount / maxEdges));
+  const complexity = Math.min(3, 1 + nodeCount / 30 + graphDensity * 2.2);
+  return {
+    nodeOverlap: Math.round(20 + separation * 5 + graphDensity * 22),
+    componentSpacing: Math.round(72 + separation * 16 + graphDensity * 90),
+    idealEdgeLength: Math.round((92 + separation * 42) * complexity),
+    nodeRepulsion: Math.round((7000 + separation * 5200) * complexity * (1 + graphDensity * 0.8)),
+    gravity: Math.max(0.2, 0.9 - graphDensity * 0.45),
+    padding: Math.round(28 + separation * 12 + graphDensity * 20),
+  };
+}
+
+function estimateEdgeCrossings(cy: cytoscape.Core): number {
+  const edges = cy.edges().toArray();
+  let crossings = 0;
+  for (let i = 0; i < edges.length; i += 1) {
+    const a = edges[i];
+    const aSource = a.source();
+    const aTarget = a.target();
+    const ax1 = aSource.position('x');
+    const ay1 = aSource.position('y');
+    const ax2 = aTarget.position('x');
+    const ay2 = aTarget.position('y');
+    for (let j = i + 1; j < edges.length; j += 1) {
+      const b = edges[j];
+      const bSource = b.source();
+      const bTarget = b.target();
+      if (
+        aSource.id() === bSource.id() ||
+        aSource.id() === bTarget.id() ||
+        aTarget.id() === bSource.id() ||
+        aTarget.id() === bTarget.id()
+      ) {
+        continue;
+      }
+      const bx1 = bSource.position('x');
+      const by1 = bSource.position('y');
+      const bx2 = bTarget.position('x');
+      const by2 = bTarget.position('y');
+      if (segmentsIntersect(ax1, ay1, ax2, ay2, bx1, by1, bx2, by2)) crossings += 1;
+    }
+  }
+  return crossings;
+}
+
+function segmentsIntersect(
+  ax: number,
+  ay: number,
+  bx: number,
+  by: number,
+  cx: number,
+  cy: number,
+  dx: number,
+  dy: number,
+): boolean {
+  const o1 = orientation(ax, ay, bx, by, cx, cy);
+  const o2 = orientation(ax, ay, bx, by, dx, dy);
+  const o3 = orientation(cx, cy, dx, dy, ax, ay);
+  const o4 = orientation(cx, cy, dx, dy, bx, by);
+  return o1 !== o2 && o3 !== o4;
+}
+
+function orientation(ax: number, ay: number, bx: number, by: number, cx: number, cy: number): number {
+  return Math.sign((by - ay) * (cx - bx) - (bx - ax) * (cy - by));
+}
+
+function resolveNodeOverlaps(cy: cytoscape.Core, separation: number) {
+  const nodes = cy.nodes();
+  if (nodes.length < 2) return;
+  const minDistance = Math.max(20, separation * 20);
+  const passes = nodes.length > 80 ? 7 : nodes.length > 40 ? 5 : 3;
+  for (let pass = 0; pass < passes; pass += 1) {
+    let moved = false;
+    for (let i = 0; i < nodes.length; i += 1) {
+      const a = nodes[i];
+      for (let j = i + 1; j < nodes.length; j += 1) {
+        const b = nodes[j];
+        const dx = a.position('x') - b.position('x');
+        const dy = a.position('y') - b.position('y');
+        const distance = Math.hypot(dx, dy) || 0.0001;
+        if (distance >= minDistance) continue;
+        const overlap = (minDistance - distance) / 2;
+        const ux = dx / distance;
+        const uy = dy / distance;
+        a.position({ x: a.position('x') + ux * overlap, y: a.position('y') + uy * overlap });
+        b.position({ x: b.position('x') - ux * overlap, y: b.position('y') - uy * overlap });
+        moved = true;
+      }
+    }
+    if (!moved) break;
+  }
 }
 
 function focusNode(cy: cytoscape.Core, id: string) {
@@ -747,23 +969,23 @@ function focusNode(cy: cytoscape.Core, id: string) {
   cy.animate({ center: { eles: node }, duration: 250 });
 }
 
-function buildStyle(mode: StructureMode, labelScale: number, confidenceOpacity: boolean): any[] {
+function buildStyle(labelScale: number, confidenceOpacity: boolean, layoutView: LayoutView): any[] {
   return [
     {
       selector: 'node',
       style: {
         'background-color': 'data(nodeColor)',
         color: '#102a43',
-        label: 'data(label)',
-        'font-size': `${10 * labelScale}px`,
-        width: mode === 'hierarchical' ? 82 : 16,
-        height: mode === 'hierarchical' ? 32 : 16,
-        shape: mode === 'hierarchical' ? 'round-rectangle' : 'data(nodeShape)',
-        'text-wrap': mode === 'hierarchical' ? 'wrap' : 'none',
-        'text-max-width': mode === 'hierarchical' ? 110 : 80,
+        label: 'data(nodeLabel)',
+        'font-size': `${8 * labelScale}px`,
+        width: 'data(nodeSize)',
+        height: 'data(nodeSize)',
+        shape: 'data(nodeShape)',
+        'text-wrap': 'none',
+        'text-max-width': 'data(nodeTextMaxWidth)',
         'border-color': 'data(haloColor)',
         'border-width': 2,
-        'min-zoomed-font-size': 8,
+        'min-zoomed-font-size': 9,
       },
     },
     {
@@ -773,16 +995,16 @@ function buildStyle(mode: StructureMode, labelScale: number, confidenceOpacity: 
         'line-color': 'data(edgeColor)',
         'target-arrow-color': 'data(edgeColor)',
         'target-arrow-shape': 'triangle',
-        'curve-style': mode === 'hierarchical' ? 'taxi' : 'bezier',
+        'curve-style': layoutView === 'directional' ? 'taxi' : 'bezier',
         'line-style': 'data(edgeLineStyle)',
         label: 'data(label)',
-        'font-size': `${8 * labelScale}px`,
+        'font-size': `${7 * labelScale}px`,
         color: '#475569',
         opacity: confidenceOpacity ? 'mapData(confidence, 0, 1, 0.35, 1)' : 1,
         'text-opacity': confidenceOpacity ? 'mapData(confidence, 0, 1, 0.45, 1)' : 1,
         'text-background-color': '#ffffff',
         'text-background-opacity': 0.8,
-        'min-zoomed-font-size': 8,
+        'min-zoomed-font-size': 10,
       },
     },
     { selector: '.selected-node', style: { 'background-color': '#f59e0b', 'border-width': 2, 'border-color': '#b45309' } },
@@ -866,41 +1088,6 @@ function relationLineStyle(relationType: string): string {
   if (relationType.includes('spouse')) return 'dashed';
   if (relationType.includes('mentor')) return 'dotted';
   return 'solid';
-}
-
-function rootIdFromState(selectedId: string, graph: GraphPayload): string {
-  if (selectedId) return selectedId;
-  const first = graph.nodes[0];
-  return first ? String(first.id ?? '') : '';
-}
-
-function computeGenerations(
-  edges: Array<Record<string, unknown>>,
-  rootId: string,
-): Map<string, number> {
-  const levels = new Map<string, number>();
-  if (!rootId) return levels;
-  const adjacency = new Map<string, string[]>();
-  edges.forEach((edge) => {
-    const source = String(edge.subject ?? '');
-    const target = String(edge.object ?? '');
-    if (!source || !target) return;
-    adjacency.set(source, [...(adjacency.get(source) ?? []), target]);
-    adjacency.set(target, [...(adjacency.get(target) ?? []), source]);
-  });
-  const queue: Array<{ id: string; level: number }> = [{ id: rootId, level: 0 }];
-  const visited = new Set<string>();
-  while (queue.length > 0) {
-    const current = queue.shift() as { id: string; level: number };
-    if (visited.has(current.id)) continue;
-    visited.add(current.id);
-    levels.set(current.id, current.level);
-    const next = adjacency.get(current.id) ?? [];
-    next.forEach((id) => {
-      if (!visited.has(id)) queue.push({ id, level: current.level + 1 });
-    });
-  }
-  return levels;
 }
 
 function extractEdgeYear(edge: Record<string, unknown>): number | null {

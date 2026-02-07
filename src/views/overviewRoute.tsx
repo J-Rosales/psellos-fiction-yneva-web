@@ -7,7 +7,7 @@ import PrecisionManufacturingIcon from '@mui/icons-material/PrecisionManufacturi
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 import TableRowsIcon from '@mui/icons-material/TableRows';
 import TravelExploreIcon from '@mui/icons-material/TravelExplore';
-import { Avatar, Card, CardActionArea, CardContent, Chip, Grid, Paper, Stack, Typography } from '@mui/material';
+import { Avatar, Card, CardActionArea, CardContent, Chip, Grid, Paper, Stack, Tooltip, Typography, Link as MuiLink } from '@mui/material';
 import { useNavigate } from '@tanstack/react-router';
 import type { ReactElement } from 'react';
 
@@ -86,62 +86,67 @@ export function OverviewRouteView() {
           </Stack>
           <Typography variant="h4">Psellos Overview</Typography>
           <Typography color="text.secondary" sx={{ maxWidth: 900 }}>
-            A Material-first exploration workspace for prosopographical artifacts, optimized for fast lookup, context
-            navigation, and cross-surface comparison between entities, graphs, maps, and narrative layers.
+            Psellos is a{' '}
+            <Tooltip title="SNAP is a standards initiative for interoperable, machine-readable prosopographical and historical data.">
+              <MuiLink href="https://snapdrgn.net/about.html" target="_blank" rel="noopener noreferrer">
+                SNAP
+              </MuiLink>
+            </Tooltip>
+            -aligned prosopography initiative with an explicit extension for narrative layers, allowing structured
+            persons/roles/relations to coexist with interpretive and temporal storytelling.
           </Typography>
+          <Grid container spacing={1.25} sx={{ pt: 0.5 }}>
+            <Grid size={{ xs: 12, md: 4 }}>
+              <Card variant="outlined" sx={{ height: '100%' }}>
+                <CardContent>
+                  <Stack spacing={1.25}>
+                    <Avatar sx={{ bgcolor: 'primary.main', width: 36, height: 36 }}>
+                      <TravelExploreIcon fontSize="small" />
+                    </Avatar>
+                    <Typography variant="h6" gutterBottom>What Psellos Is</Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      A read-only presentation surface for compiled outputs. It is optimized for transparent navigation across
+                      entities, assertions, layers, and diagnostics.
+                    </Typography>
+                  </Stack>
+                </CardContent>
+              </Card>
+            </Grid>
+            <Grid size={{ xs: 12, md: 4 }}>
+              <Card variant="outlined" sx={{ height: '100%' }}>
+                <CardContent>
+                  <Stack spacing={1.25}>
+                    <Avatar sx={{ bgcolor: 'secondary.main', width: 36, height: 36 }}>
+                      <HubIcon fontSize="small" />
+                    </Avatar>
+                    <Typography variant="h6" gutterBottom>How It Differs</Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      Unlike narrative-only prosopography viewers, this stack exposes structural views and query-first workflows
+                      for source-aware analysis, reproducible filtering, and cross-view state consistency.
+                    </Typography>
+                  </Stack>
+                </CardContent>
+              </Card>
+            </Grid>
+            <Grid size={{ xs: 12, md: 4 }}>
+              <Card variant="outlined" sx={{ height: '100%' }}>
+                <CardContent>
+                  <Stack spacing={1.25}>
+                    <Avatar sx={{ bgcolor: 'primary.main', width: 36, height: 36 }}>
+                      <PrecisionManufacturingIcon fontSize="small" />
+                    </Avatar>
+                    <Typography variant="h6" gutterBottom>Builder + Web Concretization</Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      Yneva Builder emits compiled artifacts; Yneva Web indexes and serves them with stable route contracts,
+                      canonical entity typing, and forward-compatible UI rendering.
+                    </Typography>
+                  </Stack>
+                </CardContent>
+              </Card>
+            </Grid>
+          </Grid>
         </Stack>
       </Paper>
-
-      <Grid container spacing={2}>
-        <Grid size={{ xs: 12, md: 4 }}>
-            <Card>
-              <CardContent>
-                <Stack spacing={1.25}>
-                  <Avatar sx={{ bgcolor: 'primary.main', width: 36, height: 36 }}>
-                    <TravelExploreIcon fontSize="small" />
-                  </Avatar>
-                  <Typography variant="h6" gutterBottom>What Psellos Is</Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    A read-only presentation surface for compiled outputs. It is optimized for transparent navigation across
-                    entities, assertions, layers, and diagnostics.
-                  </Typography>
-                </Stack>
-              </CardContent>
-            </Card>
-          </Grid>
-        <Grid size={{ xs: 12, md: 4 }}>
-          <Card>
-            <CardContent>
-                <Stack spacing={1.25}>
-                  <Avatar sx={{ bgcolor: 'secondary.main', width: 36, height: 36 }}>
-                    <HubIcon fontSize="small" />
-                  </Avatar>
-                  <Typography variant="h6" gutterBottom>How It Differs</Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    Unlike narrative-only prosopography viewers, this stack exposes structural views and query-first workflows
-                    for source-aware analysis, reproducible filtering, and cross-view state consistency.
-                  </Typography>
-                </Stack>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid size={{ xs: 12, md: 4 }}>
-          <Card>
-            <CardContent>
-                <Stack spacing={1.25}>
-                  <Avatar sx={{ bgcolor: 'primary.main', width: 36, height: 36 }}>
-                    <PrecisionManufacturingIcon fontSize="small" />
-                  </Avatar>
-                  <Typography variant="h6" gutterBottom>Builder + Web Concretization</Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    Yneva Builder emits compiled artifacts; Yneva Web indexes and serves them with stable route contracts,
-                    canonical entity typing, and forward-compatible UI rendering.
-                  </Typography>
-                </Stack>
-            </CardContent>
-          </Card>
-        </Grid>
-      </Grid>
 
       <Card>
         <CardContent>
