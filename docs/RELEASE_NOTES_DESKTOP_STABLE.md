@@ -31,6 +31,12 @@
 - Current known environment issue: local Playwright runner intermittently loses `127.0.0.1:4173` during e2e execution (`ERR_CONNECTION_REFUSED`), while build/unit/policy checks remain passing.
 - Temporary QA policy for this pass: automated e2e gate is marked deprecated; final verification performed manually by user in the runtime environment.
 
+## Importer Pipeline Follow-up
+- Implemented builder dist-run importer pipeline through milestones D0-D11.
+- Added importer guide and contract freeze note: `docs/IMPORTER_PIPELINE_GUIDE.md`.
+- Added deterministic guardrails, conflict reporting, narrative first-pass typing/merge, and runtime compatibility gate checks.
+- Current e2e status for importer gate remains pending re-enable after environment stability fix (manual runtime verification policy still applies).
+
 ## Executed Validation
 - `npm run build` passed.
 - `npm run test:unit` passed (26 tests).
