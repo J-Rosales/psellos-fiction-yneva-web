@@ -168,11 +168,19 @@ function main() {
   const assertions = Object.keys(assertionsById)
     .sort((a, b) => a.localeCompare(b))
     .map((id) => assertionsById[id]);
+  const assertionsByLayer = buildAssertionsByLayer(assertionsById);
+  const layers = Object.keys(assertionsByLayer).sort((a, b) => a.localeCompare(b));
+  const assertionsByPerson = buildAssertionsByPerson(assertionsById);
+  const assertionsByPersonByLayer = buildAssertionsByPersonByLayer(assertionsById);
 
   if (!args.dryRun) {
     writeJson(path.join(outDir, 'persons.json'), persons);
     writeJson(path.join(outDir, 'assertions_by_id.json'), assertionsById);
     writeJson(path.join(outDir, 'assertions.json'), assertions);
+    writeJson(path.join(outDir, 'assertions_by_layer.json'), assertionsByLayer);
+    writeJson(path.join(outDir, 'layers.json'), layers);
+    writeJson(path.join(outDir, 'assertions_by_person.json'), assertionsByPerson);
+    writeJson(path.join(outDir, 'assertions_by_person_by_layer.json'), assertionsByPersonByLayer);
   }
 
   const conflictReportPath = reportPath.replace(/\.json$/i, '.conflicts.json');
@@ -198,11 +206,19 @@ function main() {
     counts: {
       persons: Object.keys(persons).length,
       assertions: Object.keys(assertionsById).length,
+      layers: layers.length,
+      narrative_rows_emitted: assertionsResult.narrativeRowsEmitted,
     },
     duplicate_conflict_summary: {
       total_conflict_ids: assertionsResult.conflictReport.total_conflict_ids,
       discarded_rows: assertionsResult.conflictReport.discarded_rows,
       report_path: conflictReportPath,
+    },
+    narrative_layer: {
+      narrative_layer_yaml_detected: assertionsResult.narrativeLayerDetected,
+      narrative_layer_yaml_row_count: assertionsResult.narrativeLayerYamlRowCount,
+      narrative_layer_merge_applied: assertionsResult.narrativeLayerDetected,
+      narrative_layer_rows_emitted: assertionsResult.narrativeRowsEmitted,
     },
     warnings,
     note: 'D1 scaffold complete. Artifact generation pipeline is implemented in later milestones.',
@@ -317,9 +333,11 @@ function buildAssertionsById(distRun, warnings, scoreWeights) {
   const indexesPath = path.join(distRun, 'indexes', 'assertions_by_id.json');
   const indexPayload = fs.existsSync(indexesPath) ? parseJsonFile(indexesPath, {}) : {};
   const hasIndexRows = indexPayload && typeof indexPayload === 'object' && Object.keys(indexPayload).length > 0;
+  let baseAssertionsById = {};
+  const conflicts = [];
+
   if (hasIndexRows) {
     const normalized = {};
-    const conflicts = [];
     for (const [id, row] of Object.entries(indexPayload)) {
       const resolved = resolveDuplicateSet(
         String(id),
@@ -331,44 +349,53 @@ function buildAssertionsById(distRun, warnings, scoreWeights) {
         conflicts.push(resolved);
       }
     }
-    return {
-      assertionsById: normalized,
-      conflictReport: buildConflictReport(conflicts),
-    };
+    baseAssertionsById = normalized;
+  } else {
+    const entityFiles = walkFiles(path.join(distRun, 'entities')).filter((filePath) => {
+      const lower = filePath.toLowerCase();
+      return lower.endsWith('.yml') || lower.endsWith('.yaml');
+    });
+    const candidatesById = new Map();
+    let syntheticCounter = 0;
+    for (const filePath of entityFiles) {
+      const payload = parseYamlFile(filePath);
+      if (payload === null) continue;
+      const rows = extractAssertionRows(payload);
+      for (const row of rows) {
+        syntheticCounter += 1;
+        const rawId = String(row.id ?? row.assertion_id ?? row.aid ?? `assertion:${syntheticCounter}`).trim();
+        const id = rawId || `assertion:${syntheticCounter}`;
+        const normalized = normalizeAssertionRow(id, row, { defaultLayer: 'canon', warnings });
+        const existing = candidatesById.get(id) ?? [];
+        existing.push(normalized);
+        candidatesById.set(id, existing);
+      }
+    }
+    const resolved = {};
+    for (const id of Array.from(candidatesById.keys()).sort((a, b) => a.localeCompare(b))) {
+      const selection = resolveDuplicateSet(id, candidatesById.get(id), scoreWeights);
+      resolved[id] = selection.winner;
+      if (selection.discarded.length > 0) {
+        conflicts.push(selection);
+      }
+    }
+    baseAssertionsById = resolved;
   }
 
-  const entityFiles = walkFiles(path.join(distRun, 'entities')).filter((filePath) => {
-    const lower = filePath.toLowerCase();
-    return lower.endsWith('.yml') || lower.endsWith('.yaml');
+  const narrativeMerge = mergeNarrativeLayerRows({
+    distRun,
+    existingById: baseAssertionsById,
+    warnings,
+    scoreWeights,
+    existingConflicts: conflicts,
   });
-  const candidatesById = new Map();
-  let syntheticCounter = 0;
-  for (const filePath of entityFiles) {
-    const payload = parseYamlFile(filePath);
-    if (payload === null) continue;
-    const rows = extractAssertionRows(payload);
-    for (const row of rows) {
-      syntheticCounter += 1;
-      const rawId = String(row.id ?? row.assertion_id ?? row.aid ?? `assertion:${syntheticCounter}`).trim();
-      const id = rawId || `assertion:${syntheticCounter}`;
-      const normalized = normalizeAssertionRow(id, row, { defaultLayer: 'canon', warnings });
-      const existing = candidatesById.get(id) ?? [];
-      existing.push(normalized);
-      candidatesById.set(id, existing);
-    }
-  }
-  const conflicts = [];
-  const resolved = {};
-  for (const id of Array.from(candidatesById.keys()).sort((a, b) => a.localeCompare(b))) {
-    const selection = resolveDuplicateSet(id, candidatesById.get(id), scoreWeights);
-    resolved[id] = selection.winner;
-    if (selection.discarded.length > 0) {
-      conflicts.push(selection);
-    }
-  }
+
   return {
-    assertionsById: resolved,
-    conflictReport: buildConflictReport(conflicts),
+    assertionsById: narrativeMerge.assertionsById,
+    conflictReport: buildConflictReport(narrativeMerge.conflicts),
+    narrativeLayerDetected: narrativeMerge.detected,
+    narrativeLayerYamlRowCount: narrativeMerge.rowCount,
+    narrativeRowsEmitted: narrativeMerge.rowsEmitted,
   };
 }
 
@@ -385,6 +412,104 @@ function extractAssertionRows(value) {
   const rows = [];
   walkAssertionCandidates(value, rows);
   return rows;
+}
+
+function extractNarrativeRows(value) {
+  if (!value) {
+    return [];
+  }
+  if (Array.isArray(value)) {
+    return value.filter((row) => row && typeof row === 'object');
+  }
+  if (typeof value !== 'object') {
+    return [];
+  }
+  if (Array.isArray(value.rows)) {
+    return value.rows.filter((row) => row && typeof row === 'object');
+  }
+  if (Array.isArray(value.assertions)) {
+    return value.assertions.filter((row) => row && typeof row === 'object');
+  }
+  const rows = [];
+  for (const [layer, entry] of Object.entries(value)) {
+    if (!Array.isArray(entry)) continue;
+    for (const row of entry) {
+      if (!row || typeof row !== 'object') continue;
+      rows.push({ layer, ...row });
+    }
+  }
+  return rows;
+}
+
+function mergeNarrativeLayerRows({ distRun, existingById, warnings, scoreWeights, existingConflicts }) {
+  const narrativePath = path.join(distRun, 'narrative_layer_assertions.yml');
+  if (!fs.existsSync(narrativePath)) {
+    return {
+      assertionsById: existingById,
+      conflicts: existingConflicts,
+      detected: false,
+      rowCount: 0,
+      rowsEmitted: 0,
+    };
+  }
+
+  const payload = parseYamlFile(narrativePath);
+  const narrativeRows = extractNarrativeRows(payload);
+  const candidatesById = new Map();
+  for (const [id, assertion] of Object.entries(existingById)) {
+    candidatesById.set(id, [assertion]);
+  }
+
+  let emitted = 0;
+  for (let i = 0; i < narrativeRows.length; i += 1) {
+    const row = narrativeRows[i];
+    const linkedId = firstNonEmpty([row.linked_assertion_id, row.linkedAssertionId, row.assertion_ref]);
+    const linked = linkedId ? existingById[linkedId] : null;
+    const layer = firstNonEmpty([linked?.extensions?.psellos?.layer, row.layer, row.layer_id, row.narrative_layer, 'canon']);
+    const id = firstNonEmpty([row.id, row.assertion_id, row.narrative_assertion_id]) || `narrative:${layer}:${linkedId || i + 1}`;
+    const subject = firstNonEmpty([row.subject_qid, row.subject, linked?.subject]) || `unknown:subject:${id}`;
+    const object = firstNonEmpty([row.object_qid, row.object, linked?.object]) || `unknown:object:${id}`;
+    const predicate = firstNonEmpty([row.relation_mapped, row.predicate_pid, row.predicate_hint, row.predicate, linked?.predicate, 'related_to']);
+    const source = firstNonEmpty([row.source, row.source_id, row.provenance_source]);
+    const normalized = {
+      id,
+      subject,
+      predicate,
+      object,
+      extensions: {
+        psellos: {
+          rel: predicate,
+          layer,
+          assertion_class: 'narrative_layer',
+          ...(source ? { source } : {}),
+          narrative: row,
+          raw: row,
+        },
+      },
+    };
+    const existing = candidatesById.get(id) ?? [];
+    existing.push(normalized);
+    candidatesById.set(id, existing);
+    emitted += 1;
+  }
+
+  const resolved = {};
+  const conflicts = [...existingConflicts];
+  for (const id of Array.from(candidatesById.keys()).sort((a, b) => a.localeCompare(b))) {
+    const selection = resolveDuplicateSet(id, candidatesById.get(id), scoreWeights);
+    resolved[id] = selection.winner;
+    if (selection.discarded.length > 0) {
+      conflicts.push(selection);
+    }
+  }
+
+  return {
+    assertionsById: resolved,
+    conflicts,
+    detected: true,
+    rowCount: narrativeRows.length,
+    rowsEmitted: emitted,
+  };
 }
 
 function walkAssertionCandidates(node, rows) {
@@ -561,6 +686,75 @@ function buildConflictReport(conflicts) {
       discarded: item.discarded,
     })),
   };
+}
+
+function buildAssertionsByLayer(assertionsById) {
+  const mapping = {};
+  for (const [id, assertion] of Object.entries(assertionsById)) {
+    const layer = firstNonEmpty([assertion?.extensions?.psellos?.layer]) || 'canon';
+    const existing = mapping[layer] ?? [];
+    existing.push(id);
+    mapping[layer] = existing;
+  }
+  return Object.fromEntries(
+    Object.keys(mapping)
+      .sort((a, b) => a.localeCompare(b))
+      .map((layer) => [layer, Array.from(new Set(mapping[layer])).sort((a, b) => a.localeCompare(b))]),
+  );
+}
+
+function isNarrativeAssertion(assertion) {
+  return firstNonEmpty([assertion?.extensions?.psellos?.assertion_class]) === 'narrative_layer';
+}
+
+function buildAssertionsByPerson(assertionsById) {
+  const mapping = {};
+  for (const [id, assertion] of Object.entries(assertionsById)) {
+    if (isNarrativeAssertion(assertion)) continue;
+    const subject = firstNonEmpty([assertion.subject]);
+    const object = firstNonEmpty([assertion.object]);
+    for (const personId of [subject, object]) {
+      if (!personId) continue;
+      const existing = mapping[personId] ?? [];
+      existing.push(id);
+      mapping[personId] = existing;
+    }
+  }
+  return Object.fromEntries(
+    Object.keys(mapping)
+      .sort((a, b) => a.localeCompare(b))
+      .map((personId) => [personId, Array.from(new Set(mapping[personId])).sort((a, b) => a.localeCompare(b))]),
+  );
+}
+
+function buildAssertionsByPersonByLayer(assertionsById) {
+  const mapping = {};
+  for (const [id, assertion] of Object.entries(assertionsById)) {
+    if (isNarrativeAssertion(assertion)) continue;
+    const layer = firstNonEmpty([assertion?.extensions?.psellos?.layer]) || 'canon';
+    const subject = firstNonEmpty([assertion.subject]);
+    const object = firstNonEmpty([assertion.object]);
+    for (const personId of [subject, object]) {
+      if (!personId) continue;
+      const personMap = mapping[personId] ?? {};
+      const existing = personMap[layer] ?? [];
+      existing.push(id);
+      personMap[layer] = existing;
+      mapping[personId] = personMap;
+    }
+  }
+  return Object.fromEntries(
+    Object.keys(mapping)
+      .sort((a, b) => a.localeCompare(b))
+      .map((personId) => [
+        personId,
+        Object.fromEntries(
+          Object.keys(mapping[personId])
+            .sort((a, b) => a.localeCompare(b))
+            .map((layer) => [layer, Array.from(new Set(mapping[personId][layer])).sort((a, b) => a.localeCompare(b))]),
+        ),
+      ]),
+  );
 }
 
 main();
