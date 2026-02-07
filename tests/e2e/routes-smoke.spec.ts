@@ -15,7 +15,8 @@ for (const route of routes) {
   test(`route smoke: ${route.path}`, async ({ page }) => {
     await page.goto(route.path);
     await expect(page).toHaveURL(new RegExp(route.path === '/' ? '/$' : route.path.replace('/', '\\/')));
-    await expect(page.getByRole('tab', { name: route.tab })).toBeVisible();
+    await expect(page.getByText('Psellos Fiction Yneva Web')).toBeVisible({ timeout: 10_000 });
+    await expect(page.getByRole('tab', { name: route.tab })).toBeVisible({ timeout: 10_000 });
   });
 }
 

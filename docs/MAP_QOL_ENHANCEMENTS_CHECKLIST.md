@@ -20,11 +20,11 @@ This checklist implements the full Map quality-of-life pass for navigation, rend
 
 ## Milestone 3 - Interaction Quality and Accessibility
 
-- [ ] Add keyboard-safe list-first interaction model as full map alternative.
-- [ ] Improve map click affordances (cursor changes, click targets, clear visual states).
-- [ ] Add map interaction hint text and robust empty-state handling.
-- [ ] Ensure selected place details stay stable when switching display modes.
-- [ ] Add regression checks for map utility behavior and route smoke compatibility.
+- [x] Add keyboard-safe list-first interaction model as full map alternative.
+- [x] Improve map click affordances (cursor changes, click targets, clear visual states).
+- [x] Add map interaction hint text and robust empty-state handling.
+- [x] Ensure selected place details stay stable when switching display modes.
+- [x] Add regression checks for map utility behavior and route smoke compatibility.
 
 ## Milestone 4 - Validation, Documentation, and Release Readiness
 

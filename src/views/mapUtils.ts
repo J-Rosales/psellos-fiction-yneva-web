@@ -21,3 +21,30 @@ export function extractRenderableMarkers(features: MapFeatureRecord[]): Array<{
     }));
 }
 
+export function buildPointFeatureCollection(
+  markers: Array<{ lng: number; lat: number; placeKey: string; placeLabel: string; assertionCount: number }>,
+): {
+  type: 'FeatureCollection';
+  features: Array<{
+    type: 'Feature';
+    geometry: { type: 'Point'; coordinates: [number, number] };
+    properties: { place_key: string; place_label: string; assertion_count: number };
+  }>;
+} {
+  return {
+    type: 'FeatureCollection',
+    features: markers.map((item) => ({
+      type: 'Feature',
+      geometry: {
+        type: 'Point',
+        coordinates: [item.lng, item.lat],
+      },
+      properties: {
+        place_key: item.placeKey,
+        place_label: item.placeLabel,
+        assertion_count: item.assertionCount,
+      },
+    })),
+  };
+}
+

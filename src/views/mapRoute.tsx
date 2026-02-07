@@ -24,7 +24,7 @@ import maplibregl from 'maplibre-gl';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { fetchMapFeatures } from '../api/client';
 import { parseCoreFilters } from '../routing/coreFilters';
-import { extractRenderableMarkers } from './mapUtils';
+import { buildPointFeatureCollection, extractRenderableMarkers } from './mapUtils';
 import { computeViewportHeightPx } from './viewportLayout';
 
 type ScalePreset = 'earth' | 'yneva' | 'custom';
@@ -49,6 +49,13 @@ export function MapRouteView() {
   const [viewportHeight, setViewportHeight] = useState(620);
   const [cameraInfo, setCameraInfo] = useState({ zoom: 2, center: [23.7, 37.97] as [number, number] });
   const [densityMode, setDensityMode] = useState<DensityMode>('clusters');
+  const [selectedSnapshot, setSelectedSnapshot] = useState<{
+    place_key: string;
+    place_label: string;
+    entity_ids: string[];
+    assertion_ids: string[];
+    coordinates: [number, number] | null;
+  } | null>(null);
 
   const query = useQuery({
     queryKey: ['map-features', filters.layer, filters.rel_type, filters.q],
@@ -201,21 +208,7 @@ export function MapRouteView() {
       geometry: { type?: string; coordinates?: [number, number] } | null;
       properties?: { place_key?: string; place_label?: string; assertion_count?: number };
     }>);
-    const sourcePayload = {
-      type: 'FeatureCollection' as const,
-      features: markers.map((item) => ({
-        type: 'Feature' as const,
-        geometry: {
-          type: 'Point' as const,
-          coordinates: [item.lng, item.lat],
-        },
-        properties: {
-          place_key: item.placeKey,
-          place_label: item.placeLabel,
-          assertion_count: item.assertionCount,
-        },
-      })),
-    };
+    const sourcePayload = buildPointFeatureCollection(markers);
     const map = mapRef.current;
     const pushSourceData = () => {
       if (!map?.getSource(SOURCE_ID)) {
@@ -272,9 +265,11 @@ export function MapRouteView() {
   }, []);
 
   const selectedGroup = query.data?.groups.find((group) => group.place_key === selectedPlaceKey) ?? null;
+  const stableSelectedGroup = selectedGroup ?? selectedSnapshot;
 
   useEffect(() => {
     if (!selectedGroup || !selectedGroup.coordinates || !mapRef.current) return;
+    setSelectedSnapshot(selectedGroup);
     mapRef.current.flyTo({
       center: [selectedGroup.coordinates[0], selectedGroup.coordinates[1]],
       zoom: Math.max(5, mapRef.current.getZoom()),
@@ -311,6 +306,9 @@ export function MapRouteView() {
       <Alert severity="info">
         Unknown geo assertions: {unknownGeoCount} | Ambiguous place groups: {ambiguousPlaceCount}
       </Alert>
+      <Alert severity="info">
+        Map interaction: use the place list for keyboard-first navigation, or click map points/clusters for visual navigation.
+      </Alert>
 
       <Box ref={viewportRef} sx={{ position: 'relative', height: viewportHeight, border: '1px solid #e5e7eb', borderRadius: 1, overflow: 'hidden' }}>
         <Box ref={mapContainerRef} sx={{ width: '100%', height: '100%' }} />
@@ -322,6 +320,7 @@ export function MapRouteView() {
               <Chip label={`Places ${query.data.groups.length}`} />
               <Chip label={`${Math.round(scaleRadiusKm)} km`} />
               <Chip label={`Zoom ${cameraInfo.zoom.toFixed(2)}`} />
+              <Chip label={`Mode ${densityMode}`} />
               <FormControl size="small" sx={{ minWidth: 170 }}>
                 <InputLabel id="scale-preset-label">Scale preset</InputLabel>
                 <Select
@@ -439,31 +438,31 @@ export function MapRouteView() {
                 </ListItemButton>
               ))}
             </List>
-            {!selectedGroup ? (
+            {!stableSelectedGroup ? (
               <Typography color="text.secondary">No place selected.</Typography>
             ) : (
               <Stack spacing={1}>
-                <Typography variant="subtitle1">{selectedGroup.place_label}</Typography>
+                <Typography variant="subtitle1">{stableSelectedGroup.place_label}</Typography>
                 <Typography variant="body2" color="text.secondary">
-                  Place key: {selectedGroup.place_key}
+                  Place key: {stableSelectedGroup.place_key}
                 </Typography>
                 {!expanded ? (
                   <Typography variant="body2">Compact summary mode is active.</Typography>
                 ) : (
                   <Typography variant="body2">
-                    Full entity ids: {selectedGroup.entity_ids.join(', ') || 'none'} | Assertion ids:{' '}
-                    {selectedGroup.assertion_ids.join(', ') || 'none'}
+                    Full entity ids: {stableSelectedGroup.entity_ids.join(', ') || 'none'} | Assertion ids:{' '}
+                    {stableSelectedGroup.assertion_ids.join(', ') || 'none'}
                   </Typography>
                 )}
                 <Button size="small" onClick={() => setExpanded((value) => !value)}>
                   {expanded ? 'Collapse' : 'Expand details'}
                 </Button>
                 <Typography variant="subtitle2">Entities</Typography>
-                {selectedGroup.entity_ids.length === 0 ? (
+                {stableSelectedGroup.entity_ids.length === 0 ? (
                   <Typography color="text.secondary">No linked entities for this place group.</Typography>
                 ) : (
                   <Stack direction="row" spacing={1} useFlexGap flexWrap="wrap">
-                    {selectedGroup.entity_ids.map((entityId) => (
+                    {stableSelectedGroup.entity_ids.map((entityId) => (
                       <Chip key={entityId} label={entityId} variant="outlined" />
                     ))}
                   </Stack>
