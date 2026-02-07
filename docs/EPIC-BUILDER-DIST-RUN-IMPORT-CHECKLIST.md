@@ -118,23 +118,25 @@ Out of scope:
 
 ## Milestone D2: Entity Registry Mapping (`persons.json`)
 
-- [ ] Build persons registry from `machine/*.canonical.json` excluding assertions canonical file.
-- [ ] Implement deterministic primary-type precedence:
-  - [ ] persons > groups > polities > institutions > offices > places > artifacts > texts > sources > species
-- [ ] Emit fields:
-  - [ ] `id`
-  - [ ] `qid`
-  - [ ] `label`
-  - [ ] `entity_type`
-  - [ ] `entity_types`
-  - [ ] `source_entity_ids` when available
+- [x] Build persons registry from `machine/*.canonical.json` excluding assertions canonical file.
+- [x] Implement deterministic primary-type precedence:
+  - [x] persons > groups > polities > institutions > offices > places > artifacts > texts > sources > species
+- [x] Emit fields:
+  - [x] `id`
+  - [x] `qid`
+  - [x] `label`
+  - [x] `entity_type`
+  - [x] `entity_types`
+  - [x] `source_entity_ids` when available
 
 ### Exit criteria
-- [ ] `persons.json` deterministic and populated from machine canonical artifacts.
+- [x] `persons.json` deterministic and populated from machine canonical artifacts.
 
 ### Verification log (D2)
 - Count:
+  - Fixture run produced deterministic keyed `persons.json` with expected count.
 - Conflict/type-resolution notes:
+  - Primary type resolved via fixed precedence list in importer script.
 
 ---
 
