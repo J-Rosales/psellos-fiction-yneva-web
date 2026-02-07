@@ -20,8 +20,17 @@ import {
   Toolbar,
   Typography,
 } from '@mui/material';
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+import PersonIcon from '@mui/icons-material/Person';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import AccountTreeIcon from '@mui/icons-material/AccountTree';
+import MapIcon from '@mui/icons-material/Map';
+import LayersIcon from '@mui/icons-material/Layers';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import MonitorHeartIcon from '@mui/icons-material/MonitorHeart';
 import { Outlet, useLocation, useNavigate } from '@tanstack/react-router';
 import { useEffect, useMemo, useState } from 'react';
+import type { ReactElement } from 'react';
 import {
   filterLabel,
   getIncompatiblePinnedKeys,
@@ -37,17 +46,18 @@ import { DEFAULT_CORE_FILTERS, type CoreFilters, useFilterPinStore } from './sta
 interface RouteNavEntry {
   path: string;
   label: string;
+  icon: ReactElement;
 }
 
 const ROUTES: RouteNavEntry[] = [
-  { path: '/', label: 'Overview' },
-  { path: '/entities', label: 'Entities' },
-  { path: '/entity/sample', label: 'Entity Detail' },
-  { path: '/graph', label: 'Graph' },
-  { path: '/map', label: 'Map' },
-  { path: '/layers', label: 'Layers' },
-  { path: '/search', label: 'Search' },
-  { path: '/diagnostics', label: 'Diagnostics' },
+  { path: '/', label: 'Overview', icon: <AccountBalanceIcon sx={{ fontSize: 25 }} /> },
+  { path: '/entities', label: 'Entities', icon: <PersonIcon sx={{ fontSize: 25 }} /> },
+  { path: '/entity/sample', label: 'Entity Detail', icon: <ManageAccountsIcon sx={{ fontSize: 25 }} /> },
+  { path: '/graph', label: 'Graph', icon: <AccountTreeIcon sx={{ fontSize: 25 }} /> },
+  { path: '/map', label: 'Map', icon: <MapIcon sx={{ fontSize: 25 }} /> },
+  { path: '/layers', label: 'Layers', icon: <LayersIcon sx={{ fontSize: 25 }} /> },
+  { path: '/search', label: 'Search', icon: <VisibilityIcon sx={{ fontSize: 25 }} /> },
+  { path: '/diagnostics', label: 'Diagnostics', icon: <MonitorHeartIcon sx={{ fontSize: 25 }} /> },
 ];
 
 const MAJOR_ROUTES = new Set(['/entities', '/entity/sample', '/graph', '/map', '/layers', '/search', '/diagnostics']);
@@ -150,9 +160,35 @@ export function AppShell() {
             onChange={(_, value: string) => onRouteChange(value)}
             variant="scrollable"
             allowScrollButtonsMobile
+            sx={{
+              minHeight: 60,
+              '& .MuiTab-root': {
+                minHeight: 60,
+                minWidth: 84,
+                fontSize: '0.72rem',
+                fontWeight: 400,
+                color: 'text.secondary',
+                textTransform: 'none',
+                opacity: 0.88,
+                gap: 0.2,
+                py: 0.25,
+                px: 0.75,
+              },
+              '& .MuiTab-root:hover': {
+                color: 'text.primary',
+              },
+              '& .Mui-selected': {
+                color: 'text.primary',
+                fontWeight: 500,
+                opacity: 1,
+              },
+              '& .MuiSvgIcon-root': {
+                mb: 0.05,
+              },
+            }}
           >
             {ROUTES.map((route) => (
-              <Tab key={route.path} value={route.path} label={route.label} />
+              <Tab key={route.path} value={route.path} label={route.label} icon={route.icon} iconPosition="top" />
             ))}
           </Tabs>
         </Toolbar>
