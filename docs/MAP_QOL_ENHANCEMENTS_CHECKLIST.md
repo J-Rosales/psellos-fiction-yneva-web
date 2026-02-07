@@ -12,11 +12,11 @@ This checklist implements the full Map quality-of-life pass for navigation, rend
 
 ## Milestone 2 - Scalable Rendering and Density Modes
 
-- [ ] Replace per-marker rendering with map source/layer rendering.
-- [ ] Add cluster rendering mode for dense datasets (cluster circles + count labels).
-- [ ] Add non-cluster point rendering mode for direct inspection.
-- [ ] Add heatmap mode for density exploration.
-- [ ] Add runtime mode switch without page reload.
+- [x] Replace per-marker rendering with map source/layer rendering.
+- [x] Add cluster rendering mode for dense datasets (cluster circles + count labels).
+- [x] Add non-cluster point rendering mode for direct inspection.
+- [x] Add heatmap mode for density exploration.
+- [x] Add runtime mode switch without page reload.
 
 ## Milestone 3 - Interaction Quality and Accessibility
 
