@@ -299,22 +299,25 @@ Out of scope:
 
 ## Milestone D9: Tests
 
-- [ ] Add script-level tests with small synthetic fixtures:
-  - [ ] basic import success
-  - [ ] YAML fallback normalization
-  - [ ] duplicate conflict resolution
-  - [ ] score winner selection
-  - [ ] narrative class/layer mapping
-- [ ] Add repository integration test:
-  - [ ] generated output readable by `ArtifactRepository`
-- [ ] Add regression test around deterministic output for fixed fixture.
+- [x] Add script-level tests with small synthetic fixtures:
+  - [x] basic import success
+  - [x] YAML fallback normalization
+  - [x] duplicate conflict resolution
+  - [x] score winner selection
+  - [x] narrative class/layer mapping
+- [x] Add repository integration test:
+  - [x] generated output readable by `ArtifactRepository`
+- [x] Add regression test around deterministic output for fixed fixture.
 
 ### Exit criteria
-- [ ] Importer behavior covered by deterministic automated tests.
+- [x] Importer behavior covered by deterministic automated tests.
 
 ### Verification log (D9)
 - Test files:
+  - `backend/tests/importer.verification.test.ts`
 - Test run summary:
+  - `npx vitest run backend/tests/importer.verification.test.ts`
+  - Result: `2 passed, 0 failed`.
 
 ---
 
