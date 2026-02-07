@@ -15,7 +15,7 @@ This checklist turns `docs/DRAFT-UX_PRODUCT_ENHANCEMENTS.md` into an executable 
 
 ### NOW
 - [x] M0: Fix Entities pagination correctness bug.
-- [ ] M1: Add global light/dark + accent theme controls.
+- [x] M1: Add global light/dark + accent theme controls.
 
 ### NEXT
 - [ ] M2: Convert Graph to full-viewport + floating overlays (minimal-first).
@@ -71,28 +71,41 @@ This checklist turns `docs/DRAFT-UX_PRODUCT_ENHANCEMENTS.md` into an executable 
 - Add mode toggle + fixed accent swatches in top-right title row using MUI theming.
 
 ### Tasks
-- [ ] Add theme state model (`mode`, `accentId`) in top-level UI state.
-- [ ] Extend MUI theme generation to derive palette from selected accent + mode.
-- [ ] Add icon-only mode toggle:
-  - [ ] sun icon in light mode
-  - [ ] moon icon in dark mode
-- [ ] Add fixed accent swatch buttons (circular):
-  - [ ] dark pink
-  - [ ] aquamarine
-  - [ ] golden
-  - [ ] one neutral fallback accent
-- [ ] Add persistence:
-  - [ ] load saved mode/accent from local storage
-  - [ ] save on change
-- [ ] Add a11y:
-  - [ ] tooltip + aria-label on every theme control
-  - [ ] visible focus styles
-  - [ ] contrast check for selected accent in both modes
+- [x] Add theme state model (`mode`, `accentId`) in top-level UI state.
+- [x] Extend MUI theme generation to derive palette from selected accent + mode.
+- [x] Add icon-only mode toggle:
+  - [x] sun icon in light mode
+  - [x] moon icon in dark mode
+- [x] Add fixed accent swatch buttons (circular):
+  - [x] dark pink
+  - [x] aquamarine
+  - [x] golden
+  - [x] one neutral fallback accent
+- [x] Add persistence:
+  - [x] load saved mode/accent from local storage
+  - [x] save on change
+- [x] Add a11y:
+  - [x] tooltip + aria-label on every theme control
+  - [x] visible focus styles
+  - [x] contrast check for selected accent in both modes
 
 ### Exit criteria
-- [ ] Mode and accent update globally without page reload.
-- [ ] Preferences persist across refresh.
-- [ ] Controls are keyboard and screen-reader usable.
+- [x] Mode and accent update globally without page reload.
+- [x] Preferences persist across refresh.
+- [x] Controls are keyboard and screen-reader usable.
+
+### Verification log (M1)
+- Files:
+  - `src/theme/appTheme.ts`
+  - `src/theme/themePreferences.tsx`
+  - `src/main.tsx`
+  - `src/App.tsx`
+- Commands:
+  - `npm run build`
+  - `npm run test:unit`
+- Notes:
+  - Added fixed accent presets (`pink`, `aqua`, `gold`, `indigo`) and light/dark mode toggle in top title row.
+  - Preferences persist in local storage (`psellos-theme-preferences-v1`).
 
 ---
 
