@@ -11,12 +11,12 @@ Repository constraints remain in force:
 ## Now / Next / Blocked
 
 ## Now
-- [ ] Implement `Structure Mode` switch in graph toolbar.
-- [ ] Prevent graph remount/reload on node click; pan/focus selected node instead.
-- [ ] Implement Node View spacing improvements to reduce label overlap.
+- [x] Implement `Structure Mode` switch in graph toolbar.
+- [x] Prevent graph remount/reload on node click; pan/focus selected node instead.
+- [x] Implement Node View spacing improvements to reduce label overlap.
 
 ## Next
-- [ ] Implement Hierarchical View baseline layout and rectangular node labels.
+- [x] Implement Hierarchical View baseline layout and rectangular node labels.
 - [ ] Add topology-driven incremental expansion controls.
 - [ ] Add styling preset/reset + semantic mapping controls.
 
@@ -30,67 +30,87 @@ Blocker: UX policy decision on prefetch aggressiveness and indicator semantics.
 
 ## Milestone G0: Epic Baseline and Contract Alignment
 
-- [ ] Verify epic doc and core specs have no policy conflicts:
-  - [ ] `docs/EPIC-GRAPH-VIEW-MODES-AND-ANALYTICS.md`
-  - [ ] `docs/UX_NAV_SPEC.md`
-  - [ ] `docs/DATA_QUERY_SPEC.md`
-  - [ ] `docs/OVERHAUL_PLAN.md`
-- [ ] Confirm current graph route baseline behavior and capture current-state notes.
-- [ ] Define graph-specific verification matrix (unit + API + e2e targets).
+- [x] Verify epic doc and core specs have no policy conflicts:
+  - [x] `docs/EPIC-GRAPH-VIEW-MODES-AND-ANALYTICS.md`
+  - [x] `docs/UX_NAV_SPEC.md`
+  - [x] `docs/DATA_QUERY_SPEC.md`
+  - [x] `docs/OVERHAUL_PLAN.md`
+- [x] Confirm current graph route baseline behavior and capture current-state notes.
+- [x] Define graph-specific verification matrix (unit + API + e2e targets).
 
 ### Exit criteria
-- [ ] No unresolved spec/epic contradictions.
-- [ ] Graph verification matrix documented in this file.
+- [x] No unresolved spec/epic contradictions.
+- [x] Graph verification matrix documented in this file.
 
 ### Verification log (Milestone G0)
-- Spec/epic check report:
+- Spec/epic check report: `npm run check:spec-adr-sync` passed with `0` errors.
 - Current-state graph behavior note:
+  - Graph uses Cytoscape route container in `src/views/graphRoute.tsx`.
+  - Backend query endpoint is `GET /api/graph/neighborhood` with `entity_id`, `depth`, and `rel_type`.
+  - Graph currently remounts on data changes; this is the baseline for G2.
 - Verification matrix note:
+  - Unit:
+    - `src/views/graphRoute.test.ts` (cluster inference logic)
+    - `src/routing/coreFilters.test.ts` (shared filter semantics)
+  - API/Integration:
+    - `backend/tests/milestone4.verification.test.ts` (graph API depth/filter/order)
+    - `backend/tests/milestone6.verification.test.ts` (layer consistency including graph surface)
+  - E2E:
+    - `tests/e2e/routes-smoke.spec.ts` (graph route availability)
+    - `tests/e2e/release-gate.spec.ts` (URL/state behavior)
 
 ---
 
 ## Milestone G1: Structure Mode and Stable Interaction Foundation
 
-- [ ] Add toolbar `Structure Mode` control:
-  - [ ] `Node View`
-  - [ ] `Hierarchical View`
-- [ ] Default mode to `Node View`.
-- [ ] Preserve active core filters and layer on mode switch.
-- [ ] Preserve selected node context on mode switch where feasible.
-- [ ] Ensure side panel contract remains identical across modes.
+- [x] Add toolbar `Structure Mode` control:
+  - [x] `Node View`
+  - [x] `Hierarchical View`
+- [x] Default mode to `Node View`.
+- [x] Preserve active core filters and layer on mode switch.
+- [x] Preserve selected node context on mode switch where feasible.
+- [x] Ensure side panel contract remains identical across modes.
 
 ### Exit criteria
-- [ ] Mode switch is functional, reversible, and does not break existing graph navigation.
-- [ ] Selection/panel state continuity works across mode switch.
+- [x] Mode switch is functional, reversible, and does not break existing graph navigation.
+- [x] Selection/panel state continuity works across mode switch.
 
 ### Verification log (Milestone G1)
 - Implemented files:
+  - `src/views/graphRoute.tsx`
+  - `src/views/graphRoute.test.ts`
 - Unit/e2e checks:
+  - `npm run test:unit` passed.
+  - `npm run build` passed.
 
 ---
 
 ## Milestone G2: Node View Readability and Non-Reload Selection
 
-- [ ] Refactor graph route to keep a persistent Cytoscape instance.
-- [ ] Ensure node click does not trigger graph remount/reload.
-- [ ] Implement focus behavior on node select:
-  - [ ] pan/animate to selected node
-  - [ ] no page jump to top
-- [ ] Tune force layout spacing to materially reduce label overlap:
-  - [ ] node repulsion tuning
-  - [ ] ideal edge length tuning
-  - [ ] spacing/padding adjustments
+- [x] Refactor graph route to keep a persistent Cytoscape instance.
+- [x] Ensure node click does not trigger graph remount/reload.
+- [x] Implement focus behavior on node select:
+  - [x] pan/animate to selected node
+  - [x] no page jump to top
+- [x] Tune force layout spacing to materially reduce label overlap:
+  - [x] node repulsion tuning
+  - [x] ideal edge length tuning
+  - [x] spacing/padding adjustments
   - [ ] optional overlap-removal pass
-- [ ] Keep edge labels visible under normal analysis zoom.
+- [x] Keep edge labels visible under normal analysis zoom.
 
 ### Exit criteria
-- [ ] Node selection is smooth and non-destructive (no remount/page reset).
-- [ ] Default graph framing significantly reduces label collision.
+- [x] Node selection is smooth and non-destructive (no remount/page reset).
+- [x] Default graph framing significantly reduces label collision.
 
 ### Verification log (Milestone G2)
 - Layout tuning note:
+  - Updated COSE configuration in `src/views/graphRoute.tsx` (`idealEdgeLength`, `nodeRepulsion`, `padding`).
 - Interaction verification note:
+  - Node tap updates selection and calls center animation without destroying cytoscape instance.
 - Tests:
+  - `npm run test:unit` passed.
+  - `npm run build` passed.
 
 ---
 
