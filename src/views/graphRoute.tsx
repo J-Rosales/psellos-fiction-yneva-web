@@ -48,9 +48,15 @@ export function GraphRouteView() {
   const [data, setData] = useState<GraphPayload>({ nodes: [], edges: [] });
   const [pathFrom, setPathFrom] = useState('');
   const [pathTo, setPathTo] = useState('');
+  const [jumpTo, setJumpTo] = useState('');
   const [includeRelations, setIncludeRelations] = useState<string[]>([]);
   const [excludeRelations, setExcludeRelations] = useState<string[]>([]);
   const [confidenceOpacity, setConfidenceOpacity] = useState(true);
+  const [timeFrom, setTimeFrom] = useState(0);
+  const [timeTo, setTimeTo] = useState(3000);
+  const [rootId, setRootId] = useState('');
+  const [collapsedRoots, setCollapsedRoots] = useState<string[]>([]);
+  const [nodeSemanticMapEnabled, setNodeSemanticMapEnabled] = useState(true);
 
   const containerRef = useRef<HTMLDivElement | null>(null);
   const cyRef = useRef<cytoscape.Core | null>(null);
@@ -117,9 +123,9 @@ export function GraphRouteView() {
     const cy = cyRef.current;
     if (!cy) return;
     cy.style(buildStyle(structureMode, labelScale, confidenceOpacity) as any);
-    applyGraph(cy, data, selectedId, structureMode);
-    runLayout(cy, structureMode, selectedId);
-  }, [data, selectedId, structureMode, labelScale, confidenceOpacity]);
+    applyGraph(cy, data, selectedId, structureMode, timeFrom, timeTo, collapsedRoots, nodeSemanticMapEnabled);
+    runLayout(cy, structureMode, rootId || selectedId);
+  }, [data, selectedId, structureMode, labelScale, confidenceOpacity, timeFrom, timeTo, collapsedRoots, rootId, nodeSemanticMapEnabled]);
 
   const clusterMap = useMemo(() => inferClusters(data.nodes, data.edges, viewMode), [data.nodes, data.edges, viewMode]);
   const relationTypes = useMemo(() => {
@@ -158,6 +164,7 @@ export function GraphRouteView() {
               <Typography variant="h5">Graph</Typography>
               <Chip label={`Depth ${depth}`} />
               <Chip label={`Structure ${structureMode === 'node' ? 'Node View' : 'Hierarchical View'}`} />
+              <Chip label={`Root ${rootId || selectedId || 'auto'}`} />
               <Button variant="outlined" onClick={() => setDepth((value) => Math.min(value + 1, 5))}>
                 Expand (+1 depth)
               </Button>
@@ -216,6 +223,23 @@ export function GraphRouteView() {
                 </Box>
                 <TextField size="small" label="Path from" value={pathFrom} onChange={(e) => setPathFrom(e.target.value)} />
                 <TextField size="small" label="Path to" value={pathTo} onChange={(e) => setPathTo(e.target.value)} />
+                <TextField size="small" label="Jump to node id" value={jumpTo} onChange={(e) => setJumpTo(e.target.value)} />
+                <TextField size="small" type="number" label="Year from" value={timeFrom} onChange={(e) => setTimeFrom(Number(e.target.value || 0))} sx={{ width: 120 }} />
+                <TextField size="small" type="number" label="Year to" value={timeTo} onChange={(e) => setTimeTo(Number(e.target.value || 3000))} sx={{ width: 120 }} />
+                <Button
+                  variant="outlined"
+                  onClick={() => {
+                    const id = jumpTo.trim();
+                    if (!id) return;
+                    setSelectedId(id);
+                    const cy = cyRef.current;
+                    if (cy) {
+                      focusNode(cy, id);
+                    }
+                  }}
+                >
+                  Jump
+                </Button>
                 <Button
                   variant="outlined"
                   onClick={() => {
@@ -238,6 +262,24 @@ export function GraphRouteView() {
                   }}
                 >
                   Export PNG
+                </Button>
+                <Button
+                  variant="outlined"
+                  onClick={() => {
+                    const cy = cyRef.current;
+                    if (!cy) return;
+                    const png = cy.png({ full: true, scale: 2, bg: '#ffffff' });
+                    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000"><image href="${png}" width="1600" height="1000"/></svg>`;
+                    const blob = new Blob([svg], { type: 'image/svg+xml' });
+                    const url = URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = 'graph.svg';
+                    link.click();
+                    URL.revokeObjectURL(url);
+                  }}
+                >
+                  Export SVG
                 </Button>
                 <Button
                   variant="outlined"
@@ -300,9 +342,15 @@ export function GraphRouteView() {
                   onClick={() => {
                     setLabelScale(1);
                     setConfidenceOpacity(true);
+                    setTimeFrom(0);
+                    setTimeTo(3000);
+                    setNodeSemanticMapEnabled(true);
                   }}
                 >
                   Reset to Preset
+                </Button>
+                <Button variant="outlined" onClick={() => setNodeSemanticMapEnabled((v) => !v)}>
+                  Node semantic map: {nodeSemanticMapEnabled ? 'on' : 'off'}
                 </Button>
               </Stack>
             ) : null}
@@ -340,6 +388,29 @@ export function GraphRouteView() {
                 <Button size="small" onClick={() => setExpanded((value) => !value)}>
                   {expanded ? 'Collapse' : 'Expand details'}
                 </Button>
+                <Stack direction="row" spacing={1}>
+                  <Button
+                    size="small"
+                    onClick={() => {
+                      if (!selectedId) return;
+                      setRootId(selectedId);
+                      setStructureMode('hierarchical');
+                    }}
+                  >
+                    Set as root
+                  </Button>
+                  <Button
+                    size="small"
+                    onClick={() => {
+                      if (!selectedId) return;
+                      setCollapsedRoots((prev) =>
+                        prev.includes(selectedId) ? prev.filter((item) => item !== selectedId) : [...prev, selectedId],
+                      );
+                    }}
+                  >
+                    Collapse branch
+                  </Button>
+                </Stack>
                 <Typography variant="subtitle2" sx={{ mt: 1 }}>
                   Clusters ({viewMode})
                 </Typography>
@@ -352,6 +423,20 @@ export function GraphRouteView() {
                     ))}
                   </Stack>
                 )}
+                <Typography variant="subtitle2" sx={{ mt: 1 }}>
+                  Relation details
+                </Typography>
+                <Stack spacing={0.5}>
+                  {data.edges
+                    .filter((edge) => String(edge.subject) === selectedId || String(edge.object) === selectedId)
+                    .slice(0, 6)
+                    .map((edge) => (
+                      <Typography key={String(edge.id ?? `${edge.subject}-${edge.object}-${edge.predicate}`)} variant="caption">
+                        {String(edge.subject)} {String(edge.predicate)} {String(edge.object)} | source:{' '}
+                        {String(((edge.extensions as { psellos?: { source?: string } } | undefined)?.psellos?.source ?? 'unknown'))}
+                      </Typography>
+                    ))}
+                </Stack>
               </Stack>
             )}
           </CardContent>
@@ -361,20 +446,55 @@ export function GraphRouteView() {
   );
 }
 
-function applyGraph(cy: cytoscape.Core, graph: GraphPayload, selectedId: string, mode: StructureMode) {
+function applyGraph(
+  cy: cytoscape.Core,
+  graph: GraphPayload,
+  selectedId: string,
+  mode: StructureMode,
+  timeFrom: number,
+  timeTo: number,
+  collapsedRoots: string[],
+  nodeSemanticMapEnabled: boolean,
+) {
+  const generationById = mode === 'hierarchical' ? computeGenerations(graph.edges, rootIdFromState(selectedId, graph)) : new Map<string, number>();
+  const edges = graph.edges.filter((edge) => {
+    if (collapsedRoots.includes(String(edge.subject ?? ''))) {
+      return false;
+    }
+    const year = extractEdgeYear(edge);
+    if (year === null) {
+      return true;
+    }
+    return year >= timeFrom && year <= timeTo;
+  });
   cy.elements().remove();
   cy.add([
     ...graph.nodes.map((node) => ({
-      data: { id: String(node.id), label: String(node.label ?? node.id ?? 'unknown') },
+      data: {
+        id: String(node.id),
+        label:
+          mode === 'hierarchical'
+            ? `L${generationById.get(String(node.id)) ?? 0} ${String(node.label ?? node.id ?? 'unknown')}`
+            : String(node.label ?? node.id ?? 'unknown'),
+        entityType: String(node.entity_type ?? 'unknown').toLowerCase(),
+        nodeColor: nodeSemanticMapEnabled ? entityColor(String(node.entity_type ?? 'unknown').toLowerCase()) : '#1976d2',
+        nodeShape: nodeSemanticMapEnabled ? entityShape(String(node.entity_type ?? 'unknown').toLowerCase()) : 'ellipse',
+        haloColor: nodeSemanticMapEnabled ? entityHaloColor(String(node.entity_type ?? 'unknown').toLowerCase()) : '#b45309',
+      },
       classes: mode === 'hierarchical' ? 'hier-node' : 'node-view-node',
     })),
-    ...graph.edges.map((edge) => ({
+    ...edges.map((edge) => ({
       data: {
         id: String(edge.id ?? `${edge.subject}-${edge.object}-${edge.predicate}`),
         source: String(edge.subject ?? ''),
         target: String(edge.object ?? ''),
         label: String(edge.predicate ?? 'related_to'),
+        relationType: String(edge.predicate ?? 'related_to').toLowerCase(),
+        edgeColor: relationColor(String(edge.predicate ?? 'related_to').toLowerCase()),
+        edgeLineStyle: relationLineStyle(String(edge.predicate ?? 'related_to').toLowerCase()),
+        confidence: readConfidence(edge),
       },
+      classes: readConfidence(edge) < 0.45 ? 'ambiguous-edge' : '',
     })),
   ]);
   cy.nodes().removeClass('selected-node');
@@ -406,33 +526,39 @@ function buildStyle(mode: StructureMode, labelScale: number, confidenceOpacity: 
     {
       selector: 'node',
       style: {
-        'background-color': '#1976d2',
+        'background-color': 'data(nodeColor)',
         color: '#102a43',
         label: 'data(label)',
         'font-size': `${10 * labelScale}px`,
         width: mode === 'hierarchical' ? 82 : 16,
         height: mode === 'hierarchical' ? 32 : 16,
-        shape: mode === 'hierarchical' ? 'round-rectangle' : 'ellipse',
+        shape: mode === 'hierarchical' ? 'round-rectangle' : 'data(nodeShape)',
         'text-wrap': mode === 'hierarchical' ? 'wrap' : 'none',
+        'text-max-width': mode === 'hierarchical' ? 110 : 80,
+        'border-color': 'data(haloColor)',
+        'border-width': 2,
       },
     },
     {
       selector: 'edge',
       style: {
-        width: 1.5,
-        'line-color': '#6b7280',
-        'target-arrow-color': '#6b7280',
+        width: 'mapData(confidence, 0, 1, 1.2, 3.6)',
+        'line-color': 'data(edgeColor)',
+        'target-arrow-color': 'data(edgeColor)',
         'target-arrow-shape': 'triangle',
         'curve-style': mode === 'hierarchical' ? 'taxi' : 'bezier',
+        'line-style': 'data(edgeLineStyle)',
         label: 'data(label)',
         'font-size': `${8 * labelScale}px`,
         color: '#475569',
-        opacity: confidenceOpacity ? 0.75 : 1,
+        opacity: confidenceOpacity ? 'mapData(confidence, 0, 1, 0.35, 1)' : 1,
+        'font-weight': 'mapData(confidence, 0, 1, 300, 700)',
         'text-background-color': '#ffffff',
         'text-background-opacity': 0.8,
       },
     },
     { selector: '.selected-node', style: { 'background-color': '#f59e0b', 'border-width': 2, 'border-color': '#b45309' } },
+    { selector: '.ambiguous-edge', style: { 'line-style': 'dashed', 'line-color': '#dc2626', 'target-arrow-color': '#dc2626' } },
     { selector: '.focus-path', style: { 'line-color': '#ea580c', width: 4, 'target-arrow-color': '#ea580c' } },
   ];
 }
@@ -447,6 +573,90 @@ function buildRelationFilter(base: string, include: string[], exclude: string[])
     ...exclude.map((token) => `!${token}`),
   ];
   return Array.from(new Set(values)).join(',');
+}
+
+function readConfidence(edge: Record<string, unknown>): number {
+  const value = (edge.extensions as { psellos?: { confidence?: number } } | undefined)?.psellos?.confidence;
+  return typeof value === 'number' ? Math.max(0, Math.min(1, value)) : 0.5;
+}
+
+function entityColor(entityType: string): string {
+  if (entityType === 'person') return '#2563eb';
+  if (entityType === 'place') return '#059669';
+  if (entityType === 'organization') return '#7c3aed';
+  return '#475569';
+}
+
+function entityShape(entityType: string): string {
+  if (entityType === 'person') return 'ellipse';
+  if (entityType === 'place') return 'diamond';
+  if (entityType === 'organization') return 'round-rectangle';
+  return 'ellipse';
+}
+
+function entityHaloColor(entityType: string): string {
+  if (entityType === 'person') return '#0f172a';
+  if (entityType === 'place') return '#0f766e';
+  if (entityType === 'organization') return '#4c1d95';
+  return '#334155';
+}
+
+function relationColor(relationType: string): string {
+  if (relationType.includes('parent') || relationType.includes('child')) return '#7c3aed';
+  if (relationType.includes('spouse')) return '#db2777';
+  if (relationType.includes('mentor')) return '#0f766e';
+  if (relationType.includes('work') || relationType.includes('office')) return '#0369a1';
+  return '#6b7280';
+}
+
+function relationLineStyle(relationType: string): string {
+  if (relationType.includes('spouse')) return 'dashed';
+  if (relationType.includes('mentor')) return 'dotted';
+  return 'solid';
+}
+
+function rootIdFromState(selectedId: string, graph: GraphPayload): string {
+  if (selectedId) return selectedId;
+  const first = graph.nodes[0];
+  return first ? String(first.id ?? '') : '';
+}
+
+function computeGenerations(
+  edges: Array<Record<string, unknown>>,
+  rootId: string,
+): Map<string, number> {
+  const levels = new Map<string, number>();
+  if (!rootId) return levels;
+  const adjacency = new Map<string, string[]>();
+  edges.forEach((edge) => {
+    const source = String(edge.subject ?? '');
+    const target = String(edge.object ?? '');
+    if (!source || !target) return;
+    adjacency.set(source, [...(adjacency.get(source) ?? []), target]);
+    adjacency.set(target, [...(adjacency.get(target) ?? []), source]);
+  });
+  const queue: Array<{ id: string; level: number }> = [{ id: rootId, level: 0 }];
+  const visited = new Set<string>();
+  while (queue.length > 0) {
+    const current = queue.shift() as { id: string; level: number };
+    if (visited.has(current.id)) continue;
+    visited.add(current.id);
+    levels.set(current.id, current.level);
+    const next = adjacency.get(current.id) ?? [];
+    next.forEach((id) => {
+      if (!visited.has(id)) queue.push({ id, level: current.level + 1 });
+    });
+  }
+  return levels;
+}
+
+function extractEdgeYear(edge: Record<string, unknown>): number | null {
+  const direct = String(edge.date ?? '');
+  const ext = String((edge.extensions as { psellos?: { date?: string } } | undefined)?.psellos?.date ?? '');
+  const raw = direct || ext;
+  const match = raw.match(/(\d{3,4})/);
+  if (!match) return null;
+  return Number(match[1]);
 }
 
 function applyPathHighlight(cy: cytoscape.Core, from: string, to: string) {

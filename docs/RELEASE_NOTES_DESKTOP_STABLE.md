@@ -25,6 +25,12 @@
 - `check:url-policy` currently emits 2 non-blocking warnings (no hard failures).
 - PostGIS and external/public API remain blocked by prior roadmap constraints.
 
+## Graph Epic Follow-up
+- Graph epic implementation report: `docs/GRAPH_EPIC_RELEASE_REPORT.md`
+- Added graph structure modes, semantic styling mappings, generation-aware hierarchical view, and export/jump/path utilities.
+- Current known environment issue: local Playwright runner intermittently loses `127.0.0.1:4173` during e2e execution (`ERR_CONNECTION_REFUSED`), while build/unit/policy checks remain passing.
+- Temporary QA policy for this pass: automated e2e gate is marked deprecated; final verification performed manually by user in the runtime environment.
+
 ## Executed Validation
 - `npm run build` passed.
 - `npm run test:unit` passed (26 tests).

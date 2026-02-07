@@ -199,3 +199,17 @@ Enable top-down lineage exploration (ancestor/superior -> descendant/subordinate
   - Decision: implement confidence encoding + relation quick filters before time slicing.
 5. Duplicate identity handling in Hierarchical View:
   - Decision: single canonical node with cross-links (no mirrored duplicates in initial release).
+
+## 10. Delivery Status
+
+- Implemented baseline scope through Milestones G0-G9, including:
+  - dual structure modes,
+  - persistent graph interaction model,
+  - topology-based expansion,
+  - semantic style mappings and reset preset,
+  - path/jump/export utilities.
+- Remaining blocked or environment-dependent completion items:
+  - advanced hierarchical relation lanes taxonomy,
+  - optional next-hop prefetch policy,
+  - local e2e runner stability for release-gate closure.
+- Verification/report artifact: `docs/GRAPH_EPIC_RELEASE_REPORT.md`.
