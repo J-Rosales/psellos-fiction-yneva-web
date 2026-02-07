@@ -223,20 +223,20 @@ Out of scope:
 
 ## Milestone D6: Layer/Person Index Artifacts
 
-- [ ] Build `assertions_by_layer.json` from normalized assertions.
-- [ ] Build `layers.json` from `assertions_by_layer` keys.
-- [ ] Build `assertions_by_person.json` from canonical-class rows only.
-- [ ] Build `assertions_by_person_by_layer.json` from canonical-class rows only.
-- [ ] Ensure sorted deterministic IDs and keys for externally consumed artifacts.
+- [x] Build `assertions_by_layer.json` from normalized assertions.
+- [x] Build `layers.json` from `assertions_by_layer` keys.
+- [x] Build `assertions_by_person.json` from canonical-class rows only.
+- [x] Build `assertions_by_person_by_layer.json` from canonical-class rows only.
+- [x] Ensure sorted deterministic IDs and keys for externally consumed artifacts.
 
 ### Exit criteria
-- [ ] Layer/person indexes are deterministic and runtime compatible.
+- [x] Layer/person indexes are deterministic and runtime compatible.
 
 ### Verification log (D6)
 - Layers count:
-  - (pending milestone completion)
+  - Verified via fixture import (`layers.json` generated and sorted).
 - Canon layer present:
-  - (pending milestone completion)
+  - Verified in `layers.json` and `assertions_by_person_by_layer.json`.
 
 ---
 
