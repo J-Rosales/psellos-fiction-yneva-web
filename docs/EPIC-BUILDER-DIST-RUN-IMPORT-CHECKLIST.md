@@ -323,24 +323,31 @@ Out of scope:
 
 ## Milestone D10: Runtime Compatibility Gate
 
-- [ ] Run importer on target dist-run.
-- [ ] Run runtime compatibility gate:
-  - [ ] backend tests pass with generated artifacts
-  - [ ] frontend unit tests pass with generated artifacts
-  - [ ] `npm run ingest:dry -- --data-dir public/data`
-  - [ ] API smoke:
-    - [ ] `/api/assertions?layer=canon` non-empty
-    - [ ] `/api/layers` non-empty
-- [ ] E2E policy:
-  - [ ] mark as pending re-enable after environment stability fix
+- [x] Run importer on target dist-run.
+- [x] Run runtime compatibility gate:
+  - [x] backend tests pass with generated artifacts
+  - [x] frontend unit tests pass with generated artifacts
+  - [x] `npm run ingest:dry -- --data-dir public/data`
+  - [x] API smoke:
+    - [x] `/api/assertions?layer=canon` non-empty
+    - [x] `/api/layers` non-empty
+- [x] E2E policy:
+  - [x] mark as pending re-enable after environment stability fix
 
 ### Exit criteria
-- [ ] Runtime reads generated artifacts without contract-breaking regressions.
+- [x] Runtime reads generated artifacts without contract-breaking regressions.
 
 ### Verification log (D10)
 - Import command:
+  - `node scripts/import-builder-dist-run.mjs --dist-run .tmp/dist-run-d10 --out public/data --report docs/d10-import-report.json`
 - Gate command results:
+  - `npm run test:unit` passed (`11` files, `29` tests).
+  - `npm run ingest:dry -- --data-dir public/data` passed (`failures: []`).
 - API smoke notes:
+  - `npx tsx` app-inject script confirmed:
+    - `/api/assertions?layer=canon` status `200`, count `2`.
+    - `/api/layers` status `200`, count `1`.
+  - E2E remains intentionally pending re-enable per policy decision (`B`).
 
 ---
 
