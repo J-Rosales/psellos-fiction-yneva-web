@@ -1,0 +1,58 @@
+{
+  "started_at": "2026-02-07T03:00:03.131Z",
+  "finished_at": "2026-02-07T03:00:03.203Z",
+  "mode": "apply",
+  "strict": false,
+  "source": "E:\\Github\\psellos-prosopography\\psellos-fiction-yneva-web\\.tmp\\dist-run-d1-full",
+  "output": "E:\\Github\\psellos-prosopography\\psellos-fiction-yneva-web\\.tmp\\out-d8",
+  "score_config": null,
+  "backup_path": null,
+  "checks": {
+    "required_entries": [
+      "machine",
+      "entities"
+    ],
+    "optional_entries": [
+      "indexes",
+      "reports",
+      "narrative_layer_assertions.yml"
+    ],
+    "missing_optional": [],
+    "entity_yaml_files_count": 0
+  },
+  "counts": {
+    "persons": 0,
+    "assertions": 0,
+    "layers": 0,
+    "narrative_rows_emitted": 0
+  },
+  "duplicate_conflict_summary": {
+    "total_conflict_ids": 0,
+    "discarded_rows": 0,
+    "report_path": "E:\\Github\\psellos-prosopography\\psellos-fiction-yneva-web\\docs\\d8-import-report.conflicts.json"
+  },
+  "guardrails": {
+    "no_duplicate_ids": true,
+    "assertions_by_layer_subset": true,
+    "assertions_by_person_subset": true,
+    "deterministic_order_by_layer": true,
+    "deterministic_order_by_person": true
+  },
+  "critical_hashes": {
+    "persons.json": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+    "assertions_by_id.json": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+    "assertions_by_layer.json": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+    "layers.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "manifest.json": "b1ff2d02ff8f2d602001deb6202bb530e69f164bff0737723af85328ba3efcdc"
+  },
+  "narrative_layer": {
+    "narrative_layer_yaml_detected": true,
+    "narrative_layer_yaml_row_count": 0,
+    "narrative_layer_merge_applied": true,
+    "narrative_layer_rows_emitted": 0
+  },
+  "warnings": [
+    "No .yml/.yaml entity files detected under entities/"
+  ],
+  "note": "D1 scaffold complete. Artifact generation pipeline is implemented in later milestones."
+}

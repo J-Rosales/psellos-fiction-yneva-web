@@ -1,0 +1,11 @@
+assertions:
+  []
+data:
+  description: "French dynasty"
+  label: "Ramnulfids"
+  p31_labels: "noble family"
+  qid: "Q383925"
+entity_type: "groups"
+id: "e.groups.ramnulfids--q383925"
+label: "Ramnulfids"
+qid: "Q383925"

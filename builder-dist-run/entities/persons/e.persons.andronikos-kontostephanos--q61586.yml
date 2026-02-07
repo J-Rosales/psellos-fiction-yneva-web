@@ -1,0 +1,90 @@
+assertions:
+  -
+    id: "a.wdqs.P22.000399"
+    object_in_compiled: true
+    object_label: "Stephen Kontostephanos"
+    object_qid: "Q25303541"
+    predicate_pid: "P22"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P22_father"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "child_of"
+    status: "confirmed"
+    subject_label: "Andronikos Kontostephanos"
+    subject_qid: "Q61586"
+  -
+    id: "a.wdqs.P25.000506"
+    object_in_compiled: true
+    object_label: "Anna Komnene"
+    object_qid: "Q20498884"
+    predicate_pid: "P25"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P25_mother"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "child_of"
+    status: "confirmed"
+    subject_label: "Andronikos Kontostephanos"
+    subject_qid: "Q61586"
+  -
+    id: "a.wdqs.P27.000711"
+    object_in_compiled: true
+    object_label: "Byzantine Empire"
+    object_qid: "Q12544"
+    predicate_pid: "P27"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P27_citizenship"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "citizen_of"
+    status: "candidate"
+    subject_label: "Andronikos Kontostephanos"
+    subject_qid: "Q61586"
+  -
+    id: "a.wdqs.P40.000869"
+    object_in_compiled: true
+    object_label: "Andronikos Kontostephanos"
+    object_qid: "Q61586"
+    predicate_pid: "P40"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P40_child"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "parent_of"
+    status: "confirmed"
+    subject_label: "Anna Komnene"
+    subject_qid: "Q20498884"
+  -
+    id: "a.wdqs.P40.000901"
+    object_in_compiled: true
+    object_label: "Andronikos Kontostephanos"
+    object_qid: "Q61586"
+    predicate_pid: "P40"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P40_child"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "parent_of"
+    status: "confirmed"
+    subject_label: "Stephen Kontostephanos"
+    subject_qid: "Q25303541"
+data:
+  description: "Byzantine general and admiral"
+  label: "Andronikos Kontostephanos"
+  p31_labels: "human"
+  qid: "Q61586"
+entity_type: "persons"
+id: "e.persons.andronikos-kontostephanos--q61586"
+label: "Andronikos Kontostephanos"
+qid: "Q61586"

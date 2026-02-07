@@ -1,0 +1,24 @@
+assertions:
+  []
+data:
+  class_labels:
+    - "manuscript"
+  confidence: "high"
+  context_labels:
+    - "Constantinople"
+  contexts:
+    - "Q16869"
+  description: "from the collection of Holy See of Cilicia"
+  label: "Gospel Book (ms 156)"
+  qid: "Q56682966"
+  reasons:
+    - "linked to Byzantine/Crusader context seed"
+    - "has explicit class typing"
+    - "artifact keyword: manuscript"
+  score: 5
+  via_properties:
+    - "http://www.wikidata.org/prop/direct/P740"
+entity_type: "artifacts"
+id: "e.artifacts.gospel-book-ms-156--q56682966"
+label: "Gospel Book (ms 156)"
+qid: "Q56682966"

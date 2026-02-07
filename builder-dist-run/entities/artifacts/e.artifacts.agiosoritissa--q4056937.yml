@@ -1,0 +1,24 @@
+assertions:
+  []
+data:
+  class_labels:
+    - "icon"
+  confidence: "high"
+  context_labels:
+    - "Byzantine Empire"
+  contexts:
+    - "Q12544"
+  description: "Iconographic type of the representation of the Holy Mary in Byzantine art (5th to 7th century)."
+  label: "Agiosoritissa"
+  qid: "Q4056937"
+  reasons:
+    - "linked to Byzantine/Crusader context seed"
+    - "has explicit class typing"
+    - "artifact keyword: icon"
+  score: 5
+  via_properties:
+    - "http://www.wikidata.org/prop/direct/P495"
+entity_type: "artifacts"
+id: "e.artifacts.agiosoritissa--q4056937"
+label: "Agiosoritissa"
+qid: "Q4056937"

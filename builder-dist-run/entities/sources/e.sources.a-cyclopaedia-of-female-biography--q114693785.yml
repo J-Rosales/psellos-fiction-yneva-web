@@ -1,0 +1,58 @@
+assertions:
+  -
+    id: "a.wdqs.P1343.000080"
+    object_in_compiled: true
+    object_label: "A Cyclopaedia of Female Biography"
+    object_qid: "Q114693785"
+    predicate_pid: "P1343"
+    provenance:
+      phase: "phase2"
+      query_id: "Q_ASSERT_P1343_described_by_source"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "described_by"
+    status: "candidate"
+    subject_label: "Anna Komnene"
+    subject_qid: "Q179284"
+  -
+    id: "a.wdqs.P1343.000115"
+    object_in_compiled: true
+    object_label: "A Cyclopaedia of Female Biography"
+    object_qid: "Q114693785"
+    predicate_pid: "P1343"
+    provenance:
+      phase: "phase2"
+      query_id: "Q_ASSERT_P1343_described_by_source"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "described_by"
+    status: "candidate"
+    subject_label: "Adèle of Champagne"
+    subject_qid: "Q229407"
+  -
+    id: "a.wdqs.P1343.000116"
+    object_in_compiled: true
+    object_label: "A Cyclopaedia of Female Biography"
+    object_qid: "Q114693785"
+    predicate_pid: "P1343"
+    provenance:
+      phase: "phase2"
+      query_id: "Q_ASSERT_P1343_described_by_source"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "described_by"
+    status: "candidate"
+    subject_label: "Agnes of France"
+    subject_qid: "Q233631"
+data:
+  description: "1857 edition of a worked edited by Henry Gardiner Adams"
+  label: "A Cyclopaedia of Female Biography"
+  p31_labels: "version, edition or translation"
+  qid: "Q114693785"
+entity_type: "sources"
+id: "e.sources.a-cyclopaedia-of-female-biography--q114693785"
+label: "A Cyclopaedia of Female Biography"
+qid: "Q114693785"

@@ -1,0 +1,24 @@
+assertions:
+  []
+data:
+  class_labels:
+    - "manuscript"
+  confidence: "high"
+  context_labels:
+    - "Constantinople"
+  contexts:
+    - "Q16869"
+  description: "from the collection of Holy See of Cilicia"
+  label: "Synaxarion (Yaysmawurk')"
+  qid: "Q56683825"
+  reasons:
+    - "linked to Byzantine/Crusader context seed"
+    - "has explicit class typing"
+    - "artifact keyword: manuscript"
+  score: 5
+  via_properties:
+    - "http://www.wikidata.org/prop/direct/P1071"
+entity_type: "artifacts"
+id: "e.artifacts.synaxarion-yaysmawurk--q56683825"
+label: "Synaxarion (Yaysmawurk')"
+qid: "Q56683825"

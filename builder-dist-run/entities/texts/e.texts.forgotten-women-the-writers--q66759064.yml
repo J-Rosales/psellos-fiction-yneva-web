@@ -1,0 +1,26 @@
+assertions:
+  -
+    id: "a.wdqs.P1343.000089"
+    object_in_compiled: true
+    object_label: "Forgotten Women: The Writers"
+    object_qid: "Q66759064"
+    predicate_pid: "P1343"
+    provenance:
+      phase: "phase2"
+      query_id: "Q_ASSERT_P1343_described_by_source"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "described_by"
+    status: "candidate"
+    subject_label: "Anna Komnene"
+    subject_qid: "Q179284"
+data:
+  description: "book by Zing Tsjeng"
+  label: "Forgotten Women: The Writers"
+  p31_labels: "literary work"
+  qid: "Q66759064"
+entity_type: "texts"
+id: "e.texts.forgotten-women-the-writers--q66759064"
+label: "Forgotten Women: The Writers"
+qid: "Q66759064"

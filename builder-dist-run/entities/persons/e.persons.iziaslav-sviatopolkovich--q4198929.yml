@@ -1,0 +1,90 @@
+assertions:
+  -
+    id: "a.wdqs.P1343.000162"
+    object_in_compiled: true
+    object_label: "Brockhaus and Efron Encyclopedic Dictionary"
+    object_qid: "Q602358"
+    predicate_pid: "P1343"
+    provenance:
+      phase: "phase2"
+      query_id: "Q_ASSERT_P1343_described_by_source"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "described_by"
+    status: "candidate"
+    subject_label: "Iziaslav Sviatopolkovich"
+    subject_qid: "Q4198929"
+  -
+    id: "a.wdqs.P22.000381"
+    object_in_compiled: true
+    object_label: "Sviatopolk II of Kiev"
+    object_qid: "Q143099"
+    predicate_pid: "P22"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P22_father"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "child_of"
+    status: "confirmed"
+    subject_label: "Iziaslav Sviatopolkovich"
+    subject_qid: "Q4198929"
+  -
+    id: "a.wdqs.P25.000489"
+    object_in_compiled: true
+    object_label: "Barbara Komnena"
+    object_qid: "Q4103592"
+    predicate_pid: "P25"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P25_mother"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "child_of"
+    status: "confirmed"
+    subject_label: "Iziaslav Sviatopolkovich"
+    subject_qid: "Q4198929"
+  -
+    id: "a.wdqs.P40.000858"
+    object_in_compiled: true
+    object_label: "Iziaslav Sviatopolkovich"
+    object_qid: "Q4198929"
+    predicate_pid: "P40"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P40_child"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "parent_of"
+    status: "confirmed"
+    subject_label: "Sviatopolk II of Kiev"
+    subject_qid: "Q143099"
+  -
+    id: "a.wdqs.P40.000958"
+    object_in_compiled: true
+    object_label: "Iziaslav Sviatopolkovich"
+    object_qid: "Q4198929"
+    predicate_pid: "P40"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P40_child"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "parent_of"
+    status: "confirmed"
+    subject_label: "Barbara Komnena"
+    subject_qid: "Q4103592"
+data:
+  description: "1128"
+  label: "Iziaslav Sviatopolkovich"
+  p31_labels: "human"
+  qid: "Q4198929"
+entity_type: "persons"
+id: "e.persons.iziaslav-sviatopolkovich--q4198929"
+label: "Iziaslav Sviatopolkovich"
+qid: "Q4198929"

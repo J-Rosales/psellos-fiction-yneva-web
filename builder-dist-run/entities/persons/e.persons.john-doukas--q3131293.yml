@@ -1,0 +1,106 @@
+assertions:
+  -
+    id: "a.wdqs.P22.000361"
+    object_in_compiled: true
+    object_label: "Andronikos Doukas"
+    object_qid: "Q513495"
+    predicate_pid: "P22"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P22_father"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "child_of"
+    status: "confirmed"
+    subject_label: "John Doukas"
+    subject_qid: "Q3131293"
+  -
+    id: "a.wdqs.P25.000474"
+    object_in_compiled: true
+    object_label: "Maria of Bulgaria"
+    object_qid: "Q3292878"
+    predicate_pid: "P25"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P25_mother"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "child_of"
+    status: "confirmed"
+    subject_label: "John Doukas"
+    subject_qid: "Q3131293"
+  -
+    id: "a.wdqs.P27.000684"
+    object_in_compiled: true
+    object_label: "Byzantine Empire"
+    object_qid: "Q12544"
+    predicate_pid: "P27"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P27_citizenship"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "citizen_of"
+    status: "candidate"
+    subject_label: "John Doukas"
+    subject_qid: "Q3131293"
+  -
+    id: "a.wdqs.P39.000774"
+    object_in_compiled: false
+    object_label: "megas doux"
+    object_qid: "Q136578"
+    predicate_pid: "P39"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P39_position_held"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "holds_office"
+    status: "confirmed"
+    subject_label: "John Doukas"
+    subject_qid: "Q3131293"
+  -
+    id: "a.wdqs.P40.000923"
+    object_in_compiled: true
+    object_label: "John Doukas"
+    object_qid: "Q3131293"
+    predicate_pid: "P40"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P40_child"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "parent_of"
+    status: "confirmed"
+    subject_label: "Maria of Bulgaria"
+    subject_qid: "Q3292878"
+  -
+    id: "a.wdqs.P40.000997"
+    object_in_compiled: true
+    object_label: "John Doukas"
+    object_qid: "Q3131293"
+    predicate_pid: "P40"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P40_child"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "parent_of"
+    status: "confirmed"
+    subject_label: "Andronikos Doukas"
+    subject_qid: "Q513495"
+data:
+  description: "Byzantine admiral"
+  label: "John Doukas"
+  p31_labels: "human"
+  qid: "Q3131293"
+entity_type: "persons"
+id: "e.persons.john-doukas--q3131293"
+label: "John Doukas"
+qid: "Q3131293"

@@ -1,0 +1,47 @@
+{
+  "started_at": "2026-02-07T02:58:11.915Z",
+  "finished_at": "2026-02-07T02:58:11.938Z",
+  "mode": "apply",
+  "strict": false,
+  "source": "E:\\Github\\psellos-prosopography\\psellos-fiction-yneva-web\\.tmp\\d7",
+  "output": "E:\\Github\\psellos-prosopography\\psellos-fiction-yneva-web\\.tmp\\d7-out",
+  "score_config": null,
+  "backup_path": null,
+  "checks": {
+    "required_entries": [
+      "machine",
+      "entities"
+    ],
+    "optional_entries": [
+      "indexes",
+      "reports",
+      "narrative_layer_assertions.yml"
+    ],
+    "missing_optional": [
+      "indexes",
+      "narrative_layer_assertions.yml"
+    ],
+    "entity_yaml_files_count": 1
+  },
+  "counts": {
+    "persons": 1,
+    "assertions": 1,
+    "layers": 1,
+    "narrative_rows_emitted": 0
+  },
+  "duplicate_conflict_summary": {
+    "total_conflict_ids": 0,
+    "discarded_rows": 0,
+    "report_path": "E:\\Github\\psellos-prosopography\\psellos-fiction-yneva-web\\docs\\d7-import-report.conflicts.json"
+  },
+  "narrative_layer": {
+    "narrative_layer_yaml_detected": false,
+    "narrative_layer_yaml_row_count": 0,
+    "narrative_layer_merge_applied": false,
+    "narrative_layer_rows_emitted": 0
+  },
+  "warnings": [
+    "Missing optional dist-run entries: indexes, narrative_layer_assertions.yml"
+  ],
+  "note": "D1 scaffold complete. Artifact generation pipeline is implemented in later milestones."
+}

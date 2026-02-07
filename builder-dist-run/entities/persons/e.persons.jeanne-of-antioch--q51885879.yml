@@ -1,0 +1,90 @@
+assertions:
+  -
+    id: "a.wdqs.P22.000387"
+    object_in_compiled: true
+    object_label: "Raynald of Châtillon"
+    object_qid: "Q316831"
+    predicate_pid: "P22"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P22_father"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "child_of"
+    status: "confirmed"
+    subject_label: "Jeanne of Antioch"
+    subject_qid: "Q51885879"
+  -
+    id: "a.wdqs.P25.000495"
+    object_in_compiled: true
+    object_label: "Constance of Antioch"
+    object_qid: "Q238609"
+    predicate_pid: "P25"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P25_mother"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "child_of"
+    status: "confirmed"
+    subject_label: "Jeanne of Antioch"
+    subject_qid: "Q51885879"
+  -
+    id: "a.wdqs.P26.000613"
+    object_in_compiled: false
+    object_label: "Boniface I, Marquess of Montferrat"
+    object_qid: "Q312369"
+    predicate_pid: "P26"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P26_spouse"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "spouse_of"
+    status: "confirmed"
+    subject_label: "Jeanne of Antioch"
+    subject_qid: "Q51885879"
+  -
+    id: "a.wdqs.P40.000884"
+    object_in_compiled: true
+    object_label: "Jeanne of Antioch"
+    object_qid: "Q51885879"
+    predicate_pid: "P40"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P40_child"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "parent_of"
+    status: "confirmed"
+    subject_label: "Constance of Antioch"
+    subject_qid: "Q238609"
+  -
+    id: "a.wdqs.P40.000917"
+    object_in_compiled: true
+    object_label: "Jeanne of Antioch"
+    object_qid: "Q51885879"
+    predicate_pid: "P40"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P40_child"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "parent_of"
+    status: "confirmed"
+    subject_label: "Raynald of Châtillon"
+    subject_qid: "Q316831"
+data:
+  description: null
+  label: "Jeanne of Antioch"
+  p31_labels: "human"
+  qid: "Q51885879"
+entity_type: "persons"
+id: "e.persons.jeanne-of-antioch--q51885879"
+label: "Jeanne of Antioch"
+qid: "Q51885879"

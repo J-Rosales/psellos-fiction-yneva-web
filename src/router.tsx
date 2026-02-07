@@ -11,6 +11,7 @@ import { EntityDetailRouteView } from './views/entityDetailRoute';
 import { GraphRouteView } from './views/graphRoute';
 import { LayersRouteView } from './views/layersRoute';
 import { MapRouteView } from './views/mapRoute';
+import { OverviewRouteView } from './views/overviewRoute';
 import { SearchRouteView } from './views/searchRoute';
 
 const rootRoute = createRootRoute({
@@ -20,13 +21,7 @@ const rootRoute = createRootRoute({
 const indexRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/',
-  component: () => (
-    <SimpleView
-      title="Overview"
-      description="Portfolio-grade prosopographical explorer shell is active. Use route tabs to navigate planned surfaces."
-      routeId="/"
-    />
-  ),
+  component: OverviewRouteView,
 });
 
 const entitiesRoute = createRoute({
@@ -36,6 +31,18 @@ const entitiesRoute = createRoute({
 });
 
 const entityRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/entity',
+  component: () => (
+    <SimpleView
+      title="Entity Detail"
+      description="Search an entity to see more details."
+      routeId="/entity"
+    />
+  ),
+});
+
+const entityByIdRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/entity/$entityId',
   component: EntityDetailRouteView,
@@ -75,6 +82,7 @@ const routeTree = rootRoute.addChildren([
   indexRoute,
   entitiesRoute,
   entityRoute,
+  entityByIdRoute,
   graphRoute,
   mapRoute,
   layersRoute,

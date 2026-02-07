@@ -1,0 +1,42 @@
+assertions:
+  -
+    id: "a.wdqs.P1343.000122"
+    object_in_compiled: true
+    object_label: "Obálky knih"
+    object_qid: "Q67311526"
+    predicate_pid: "P1343"
+    provenance:
+      phase: "phase2"
+      query_id: "Q_ASSERT_P1343_described_by_source"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "described_by"
+    status: "candidate"
+    subject_label: "Ladislaus I of Hungary"
+    subject_qid: "Q26486"
+  -
+    id: "a.wdqs.P1343.000140"
+    object_in_compiled: true
+    object_label: "Obálky knih"
+    object_qid: "Q67311526"
+    predicate_pid: "P1343"
+    provenance:
+      phase: "phase2"
+      query_id: "Q_ASSERT_P1343_described_by_source"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "described_by"
+    status: "candidate"
+    subject_label: "Alexios I Komnenos"
+    subject_qid: "Q41600"
+data:
+  description: "book cover database in Czechia"
+  label: "Obálky knih"
+  p31_labels: "web portal"
+  qid: "Q67311526"
+entity_type: "texts"
+id: "e.texts.ob-lky-knih--q67311526"
+label: "Obálky knih"
+qid: "Q67311526"

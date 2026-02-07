@@ -1,0 +1,138 @@
+assertions:
+  -
+    id: "a.wdqs.P19.000203"
+    object_in_compiled: true
+    object_label: "Byzantine Empire"
+    object_qid: "Q12544"
+    predicate_pid: "P19"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P19_birth_place"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "born_in"
+    status: "confirmed"
+    subject_label: "Eudokia Komnene"
+    subject_qid: "Q1228696"
+  -
+    id: "a.wdqs.P22.000311"
+    object_in_compiled: true
+    object_label: "Isaac Komnenos"
+    object_qid: "Q1235662"
+    predicate_pid: "P22"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P22_father"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "child_of"
+    status: "confirmed"
+    subject_label: "Eudokia Komnene"
+    subject_qid: "Q1228696"
+  -
+    id: "a.wdqs.P25.000438"
+    object_in_compiled: true
+    object_label: "Irene Diplosynadene"
+    object_qid: "Q12281836"
+    predicate_pid: "P25"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P25_mother"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "child_of"
+    status: "confirmed"
+    subject_label: "Eudokia Komnene"
+    subject_qid: "Q1228696"
+  -
+    id: "a.wdqs.P26.000539"
+    object_in_compiled: false
+    object_label: "William VIII of Montpellier"
+    object_qid: "Q1226306"
+    predicate_pid: "P26"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P26_spouse"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "spouse_of"
+    status: "confirmed"
+    subject_label: "Eudokia Komnene"
+    subject_qid: "Q1228696"
+  -
+    id: "a.wdqs.P27.000652"
+    object_in_compiled: true
+    object_label: "Byzantine Empire"
+    object_qid: "Q12544"
+    predicate_pid: "P27"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P27_citizenship"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "citizen_of"
+    status: "candidate"
+    subject_label: "Eudokia Komnene"
+    subject_qid: "Q1228696"
+  -
+    id: "a.wdqs.P40.000813"
+    object_in_compiled: true
+    object_label: "Eudokia Komnene"
+    object_qid: "Q1228696"
+    predicate_pid: "P40"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P40_child"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "parent_of"
+    status: "confirmed"
+    subject_label: "Irene Diplosynadene"
+    subject_qid: "Q12281836"
+  -
+    id: "a.wdqs.P40.000818"
+    object_in_compiled: false
+    object_label: "Maria of Montpellier"
+    object_qid: "Q268731"
+    predicate_pid: "P40"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P40_child"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "parent_of"
+    status: "confirmed"
+    subject_label: "Eudokia Komnene"
+    subject_qid: "Q1228696"
+  -
+    id: "a.wdqs.P40.000827"
+    object_in_compiled: true
+    object_label: "Eudokia Komnene"
+    object_qid: "Q1228696"
+    predicate_pid: "P40"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P40_child"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "parent_of"
+    status: "confirmed"
+    subject_label: "Isaac Komnenos"
+    subject_qid: "Q1235662"
+data:
+  description: "Spouse of William VIII of Montpellier"
+  label: "Eudokia Komnene"
+  p31_labels: "human"
+  qid: "Q1228696"
+entity_type: "persons"
+id: "e.persons.eudokia-komnene--q1228696"
+label: "Eudokia Komnene"
+qid: "Q1228696"

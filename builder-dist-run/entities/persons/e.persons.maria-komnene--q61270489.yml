@@ -1,0 +1,138 @@
+assertions:
+  -
+    id: "a.wdqs.P22.000397"
+    object_in_compiled: true
+    object_label: "Andronikos Komnenos"
+    object_qid: "Q1227872"
+    predicate_pid: "P22"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P22_father"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "child_of"
+    status: "confirmed"
+    subject_label: "Maria Komnene"
+    subject_qid: "Q61270489"
+  -
+    id: "a.wdqs.P25.000505"
+    object_in_compiled: true
+    object_label: "Irene Komnene"
+    object_qid: "Q61270574"
+    predicate_pid: "P25"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P25_mother"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "child_of"
+    status: "confirmed"
+    subject_label: "Maria Komnene"
+    subject_qid: "Q61270489"
+  -
+    id: "a.wdqs.P26.000621"
+    object_in_compiled: false
+    object_label: "Theodore Dasiotes"
+    object_qid: "Q112957458"
+    predicate_pid: "P26"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P26_spouse"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "spouse_of"
+    status: "confirmed"
+    subject_label: "Maria Komnene"
+    subject_qid: "Q61270489"
+  -
+    id: "a.wdqs.P26.000622"
+    object_in_compiled: false
+    object_label: "John Kantakouzenos"
+    object_qid: "Q16210437"
+    predicate_pid: "P26"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P26_spouse"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "spouse_of"
+    status: "confirmed"
+    subject_label: "Maria Komnene"
+    subject_qid: "Q61270489"
+  -
+    id: "a.wdqs.P40.000806"
+    object_in_compiled: true
+    object_label: "Maria Komnene"
+    object_qid: "Q61270489"
+    predicate_pid: "P40"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P40_child"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "parent_of"
+    status: "confirmed"
+    subject_label: "Andronikos Komnenos"
+    subject_qid: "Q1227872"
+  -
+    id: "a.wdqs.P40.001017"
+    object_in_compiled: false
+    object_label: "Manuel Kantakouzenos"
+    object_qid: "Q112632079"
+    predicate_pid: "P40"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P40_child"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "parent_of"
+    status: "confirmed"
+    subject_label: "Maria Komnene"
+    subject_qid: "Q61270489"
+  -
+    id: "a.wdqs.P40.001018"
+    object_in_compiled: false
+    object_label: "Irene Komnene"
+    object_qid: "Q61268877"
+    predicate_pid: "P40"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P40_child"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "parent_of"
+    status: "confirmed"
+    subject_label: "Maria Komnene"
+    subject_qid: "Q61270489"
+  -
+    id: "a.wdqs.P40.001021"
+    object_in_compiled: true
+    object_label: "Maria Komnene"
+    object_qid: "Q61270489"
+    predicate_pid: "P40"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P40_child"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "parent_of"
+    status: "confirmed"
+    subject_label: "Irene Komnene"
+    subject_qid: "Q61270574"
+data:
+  description: null
+  label: "Maria Komnene"
+  p31_labels: "human"
+  qid: "Q61270489"
+entity_type: "persons"
+id: "e.persons.maria-komnene--q61270489"
+label: "Maria Komnene"
+qid: "Q61270489"

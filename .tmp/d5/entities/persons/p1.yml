@@ -1,0 +1,5 @@
+assertions:
+  - id: a1
+    subject_qid: Q1
+    object_qid: Q2
+    relation_mapped: mentor_of

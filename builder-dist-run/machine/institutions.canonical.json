@@ -1,0 +1,18 @@
+{
+  "build": {
+    "generated_at": "2026-02-06T23:42:06.389076+00:00",
+    "input_mode": "compiled",
+    "run_id": "compiled-20260206T234206Z"
+  },
+  "count": 1,
+  "entities": [
+    {
+      "confirmation": "manual_institutions_confirmed",
+      "description": "Byzantine Greek state on Black Sea coast",
+      "label": "Empire of Trebizond",
+      "qid": "Q178913"
+    }
+  ],
+  "entity_type": "institutions",
+  "schema_version": "v1.compiled"
+}

@@ -492,7 +492,7 @@ function mergeNarrativeLayerRows({ distRun, existingById, warnings, scoreWeights
     const row = narrativeRows[i];
     const linkedId = firstNonEmpty([row.linked_assertion_id, row.linkedAssertionId, row.assertion_ref]);
     const linked = linkedId ? existingById[linkedId] : null;
-    const layer = firstNonEmpty([linked?.extensions?.psellos?.layer, row.layer, row.layer_id, row.narrative_layer, 'canon']);
+    const layer = firstNonEmpty([row.layer_id, row.layer, row.narrative_layer, linked?.extensions?.psellos?.layer, 'canon']);
     const id = firstNonEmpty([row.id, row.assertion_id, row.narrative_assertion_id]) || `narrative:${layer}:${linkedId || i + 1}`;
     const subject = firstNonEmpty([row.subject_qid, row.subject, linked?.subject]) || `unknown:subject:${id}`;
     const object = firstNonEmpty([row.object_qid, row.object, linked?.object]) || `unknown:object:${id}`;

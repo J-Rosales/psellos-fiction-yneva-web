@@ -1,0 +1,122 @@
+assertions:
+  -
+    id: "a.wdqs.P19.000232"
+    object_in_compiled: false
+    object_label: "Edessa"
+    object_qid: "Q1190403"
+    predicate_pid: "P19"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P19_birth_place"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "born_in"
+    status: "confirmed"
+    subject_label: "Alice of Antioch"
+    subject_qid: "Q53117"
+  -
+    id: "a.wdqs.P22.000390"
+    object_in_compiled: false
+    object_label: "Baldwin II of Jerusalem"
+    object_qid: "Q51718"
+    predicate_pid: "P22"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P22_father"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "child_of"
+    status: "confirmed"
+    subject_label: "Alice of Antioch"
+    subject_qid: "Q53117"
+  -
+    id: "a.wdqs.P25.000461"
+    object_in_compiled: true
+    object_label: "Alice of Antioch"
+    object_qid: "Q53117"
+    predicate_pid: "P25"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P25_mother"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "child_of"
+    status: "confirmed"
+    subject_label: "Constance of Antioch"
+    subject_qid: "Q238609"
+  -
+    id: "a.wdqs.P25.000498"
+    object_in_compiled: false
+    object_label: "Morphia of Melitene"
+    object_qid: "Q53116"
+    predicate_pid: "P25"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P25_mother"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "child_of"
+    status: "confirmed"
+    subject_label: "Alice of Antioch"
+    subject_qid: "Q53117"
+  -
+    id: "a.wdqs.P26.000591"
+    object_in_compiled: true
+    object_label: "Alice of Antioch"
+    object_qid: "Q53117"
+    predicate_pid: "P26"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P26_spouse"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "spouse_of"
+    status: "confirmed"
+    subject_label: "Bohemond II of Antioch"
+    subject_qid: "Q333884"
+  -
+    id: "a.wdqs.P26.000614"
+    object_in_compiled: true
+    object_label: "Bohemond II of Antioch"
+    object_qid: "Q333884"
+    predicate_pid: "P26"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P26_spouse"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "spouse_of"
+    status: "confirmed"
+    subject_label: "Alice of Antioch"
+    subject_qid: "Q53117"
+  -
+    id: "a.wdqs.P40.001005"
+    object_in_compiled: true
+    object_label: "Constance of Antioch"
+    object_qid: "Q238609"
+    predicate_pid: "P40"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P40_child"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "parent_of"
+    status: "confirmed"
+    subject_label: "Alice of Antioch"
+    subject_qid: "Q53117"
+data:
+  description: "Daughter of Baldwin II of Jerusalem, Princess of Antioch (12th century)"
+  label: "Alice of Antioch"
+  p31_labels: "human"
+  qid: "Q53117"
+entity_type: "persons"
+id: "e.persons.alice-of-antioch--q53117"
+label: "Alice of Antioch"
+qid: "Q53117"

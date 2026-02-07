@@ -1,0 +1,90 @@
+assertions:
+  -
+    id: "a.wdqs.P1343.000008"
+    object_in_compiled: true
+    object_label: "Great Soviet Encyclopedia (1926–1947)"
+    object_qid: "Q20078554"
+    predicate_pid: "P1343"
+    provenance:
+      phase: "phase2"
+      query_id: "Q_ASSERT_P1343_described_by_source"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "described_by"
+    status: "candidate"
+    subject_label: "Macedonia"
+    subject_qid: "Q103251"
+  -
+    id: "a.wdqs.P1343.000059"
+    object_in_compiled: true
+    object_label: "Great Soviet Encyclopedia (1926–1947)"
+    object_qid: "Q20078554"
+    predicate_pid: "P1343"
+    provenance:
+      phase: "phase2"
+      query_id: "Q_ASSERT_P1343_described_by_source"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "described_by"
+    status: "candidate"
+    subject_label: "Komnenos"
+    subject_qid: "Q163814"
+  -
+    id: "a.wdqs.P1343.000104"
+    object_in_compiled: true
+    object_label: "Great Soviet Encyclopedia (1926–1947)"
+    object_qid: "Q20078554"
+    predicate_pid: "P1343"
+    provenance:
+      phase: "phase2"
+      query_id: "Q_ASSERT_P1343_described_by_source"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "described_by"
+    status: "candidate"
+    subject_label: "Antioch"
+    subject_qid: "Q200441"
+  -
+    id: "a.wdqs.P1343.000136"
+    object_in_compiled: true
+    object_label: "Great Soviet Encyclopedia (1926–1947)"
+    object_qid: "Q20078554"
+    predicate_pid: "P1343"
+    provenance:
+      phase: "phase2"
+      query_id: "Q_ASSERT_P1343_described_by_source"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "described_by"
+    status: "candidate"
+    subject_label: "Alexios I Komnenos"
+    subject_qid: "Q41600"
+  -
+    id: "a.wdqs.P1343.000188"
+    object_in_compiled: true
+    object_label: "Great Soviet Encyclopedia (1926–1947)"
+    object_qid: "Q20078554"
+    predicate_pid: "P1343"
+    provenance:
+      phase: "phase2"
+      query_id: "Q_ASSERT_P1343_described_by_source"
+      query_part: "chunk04"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "described_by"
+    status: "candidate"
+    subject_label: "Antalya"
+    subject_qid: "Q6487"
+data:
+  description: "1st edition of the Great Soviet Encyclopedia"
+  label: "Great Soviet Encyclopedia (1926–1947)"
+  p31_labels: "version, edition or translation"
+  qid: "Q20078554"
+entity_type: "sources"
+id: "e.sources.great-soviet-encyclopedia-1926-1947--q20078554"
+label: "Great Soviet Encyclopedia (1926–1947)"
+qid: "Q20078554"

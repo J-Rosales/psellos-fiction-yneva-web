@@ -1,0 +1,106 @@
+assertions:
+  -
+    id: "a.wdqs.P22.000327"
+    object_in_compiled: true
+    object_label: "Theodoros Batatzes"
+    object_qid: "Q12902332"
+    predicate_pid: "P22"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P22_father"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "child_of"
+    status: "confirmed"
+    subject_label: "Alexios Vatatzes"
+    subject_qid: "Q131419591"
+  -
+    id: "a.wdqs.P25.000450"
+    object_in_compiled: true
+    object_label: "Eudokia Komnene"
+    object_qid: "Q12279392"
+    predicate_pid: "P25"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P25_mother"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "child_of"
+    status: "confirmed"
+    subject_label: "Alexios Vatatzes"
+    subject_qid: "Q131419591"
+  -
+    id: "a.wdqs.P26.000549"
+    object_in_compiled: false
+    object_label: "Q131419666"
+    object_qid: "Q131419666"
+    predicate_pid: "P26"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P26_spouse"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "spouse_of"
+    status: "confirmed"
+    subject_label: "Alexios Vatatzes"
+    subject_qid: "Q131419591"
+  -
+    id: "a.wdqs.P40.000811"
+    object_in_compiled: true
+    object_label: "Alexios Vatatzes"
+    object_qid: "Q131419591"
+    predicate_pid: "P40"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P40_child"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "parent_of"
+    status: "confirmed"
+    subject_label: "Eudokia Komnene"
+    subject_qid: "Q12279392"
+  -
+    id: "a.wdqs.P40.000843"
+    object_in_compiled: true
+    object_label: "Alexios Vatatzes"
+    object_qid: "Q131419591"
+    predicate_pid: "P40"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P40_child"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "parent_of"
+    status: "confirmed"
+    subject_label: "Theodoros Batatzes"
+    subject_qid: "Q12902332"
+  -
+    id: "a.wdqs.P40.000846"
+    object_in_compiled: false
+    object_label: "Isaac Komnenos Vatatzes"
+    object_qid: "Q22343021"
+    predicate_pid: "P40"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P40_child"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "parent_of"
+    status: "confirmed"
+    subject_label: "Alexios Vatatzes"
+    subject_qid: "Q131419591"
+data:
+  description: null
+  label: "Alexios Vatatzes"
+  p31_labels: "human"
+  qid: "Q131419591"
+entity_type: "persons"
+id: "e.persons.alexios-vatatzes--q131419591"
+label: "Alexios Vatatzes"
+qid: "Q131419591"

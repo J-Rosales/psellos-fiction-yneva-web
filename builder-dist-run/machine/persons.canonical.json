@@ -1,0 +1,867 @@
+{
+  "build": {
+    "generated_at": "2026-02-06T23:42:06.389076+00:00",
+    "input_mode": "compiled",
+    "run_id": "compiled-20260206T234206Z"
+  },
+  "count": 142,
+  "entities": [
+    {
+      "description": null,
+      "label": "Isaakios Angelos, Military Governor of Cilicia",
+      "p31_labels": "human",
+      "qid": "Q101499976"
+    },
+    {
+      "description": "town in the Serres regional unit, Macedonia, Greece",
+      "label": "Sidirokastro",
+      "p31_labels": "human settlement",
+      "qid": "Q1018794"
+    },
+    {
+      "description": "byzantine aristocrat and military commander",
+      "label": "Andronikos Euphorbenos",
+      "p31_labels": "human",
+      "qid": "Q105966067"
+    },
+    {
+      "description": null,
+      "label": "Alexios Komnenos Angelos",
+      "p31_labels": "human",
+      "qid": "Q110196472"
+    },
+    {
+      "description": "Byzantine noblewoman",
+      "label": "Eudocia Angelina",
+      "p31_labels": "human",
+      "qid": "Q110201937"
+    },
+    {
+      "description": null,
+      "label": "Zoe Angelina",
+      "p31_labels": "human",
+      "qid": "Q110217035"
+    },
+    {
+      "description": "11th century princess",
+      "label": "Konstostephanie of Bulgaria",
+      "p31_labels": "human",
+      "qid": "Q110738147"
+    },
+    {
+      "description": null,
+      "label": "Alexios Kontostephanos",
+      "p31_labels": "human",
+      "qid": "Q112243755"
+    },
+    {
+      "description": null,
+      "label": "Byzantinisches Reich Anna Dallasena",
+      "p31_labels": "human",
+      "qid": "Q113721818"
+    },
+    {
+      "description": "12th century Byzantine nobleman",
+      "label": "Alexios Komnenos",
+      "p31_labels": "human",
+      "qid": "Q115689646"
+    },
+    {
+      "description": "12th century Byzantine nobleman",
+      "label": "John Komnenos",
+      "p31_labels": "human",
+      "qid": "Q115689792"
+    },
+    {
+      "description": null,
+      "label": "Q11921175",
+      "p31_labels": "human",
+      "qid": "Q11921175"
+    },
+    {
+      "description": null,
+      "label": "Iryna Volodarivna",
+      "p31_labels": "human",
+      "qid": "Q12074957"
+    },
+    {
+      "description": "Byzantine leader",
+      "label": "John Tzelepes Komnenos",
+      "p31_labels": "human",
+      "qid": "Q1219238"
+    },
+    {
+      "description": null,
+      "label": "Maria Angelina",
+      "p31_labels": "human",
+      "qid": "Q12221454"
+    },
+    {
+      "description": "Byzantine noble (1143-1185)",
+      "label": "Manuel Komnenos",
+      "p31_labels": "human",
+      "qid": "Q1226596"
+    },
+    {
+      "description": "Byzantine junior emperor; (1106-1142)",
+      "label": "Alexios Komnenos",
+      "p31_labels": "human",
+      "qid": "Q1226606"
+    },
+    {
+      "description": "Byzantine prince (1091-1130/31)",
+      "label": "Andronikos Komnenos",
+      "p31_labels": "human",
+      "qid": "Q12272034"
+    },
+    {
+      "description": "Byzantine prince (1108-1142)",
+      "label": "Andronikos Komnenos",
+      "p31_labels": "human",
+      "qid": "Q1227872"
+    },
+    {
+      "description": "daughter of John II Komnenos",
+      "label": "Eudokia Komnene",
+      "p31_labels": "human",
+      "qid": "Q12279392"
+    },
+    {
+      "description": "Byzantine noblewoman, sister of emperor Andronikos I Komnenos",
+      "label": "Anna Komnene",
+      "p31_labels": "human",
+      "qid": "Q122802384"
+    },
+    {
+      "description": null,
+      "label": "Irene Diplosynadene",
+      "p31_labels": "human",
+      "qid": "Q12281836"
+    },
+    {
+      "description": "princess",
+      "label": "Maria Komnene",
+      "p31_labels": "human",
+      "qid": "Q12286002"
+    },
+    {
+      "description": "daughter of John II Komnenos",
+      "label": "Maria Komnene",
+      "p31_labels": "human",
+      "qid": "Q12286004"
+    },
+    {
+      "description": "Spouse of William VIII of Montpellier",
+      "label": "Eudokia Komnene",
+      "p31_labels": "human",
+      "qid": "Q1228696"
+    },
+    {
+      "description": "Greek nobleman and general",
+      "label": "John Doukas",
+      "p31_labels": "human",
+      "qid": "Q1229014"
+    },
+    {
+      "description": "Byzantine noblewoman, sister of emperor Alexios I Komnenos",
+      "label": "Theodora Komnene",
+      "p31_labels": "human",
+      "qid": "Q12296185"
+    },
+    {
+      "description": "Bulgarian aristocrat",
+      "label": "Trayan of Bulgaria",
+      "p31_labels": "human",
+      "qid": "Q12296870"
+    },
+    {
+      "description": "Byzantine nobleman, son of Emperor John II Komnenos",
+      "label": "Isaac Komnenos",
+      "p31_labels": "human",
+      "qid": "Q1235662"
+    },
+    {
+      "description": "wife of Alexios Komnenos, the co-emperor of John II Komnenos.",
+      "label": "Eudokia",
+      "p31_labels": "human",
+      "qid": "Q123987292"
+    },
+    {
+      "description": "Byzantine aristocrat",
+      "label": "Konstantinos Angelos",
+      "p31_labels": "human",
+      "qid": "Q1247876"
+    },
+    {
+      "description": "daughter of the Byzantine emperor Andronikos I Komnenos",
+      "label": "Maria Komnene",
+      "p31_labels": "human",
+      "qid": "Q126717816"
+    },
+    {
+      "description": "Byzantine military chief from 12 century",
+      "label": "Andronicus Comnenus Batatzes",
+      "p31_labels": "human",
+      "qid": "Q12898718"
+    },
+    {
+      "description": "son of Andronikos I",
+      "label": "John Komnenos",
+      "p31_labels": "human",
+      "qid": "Q12900494"
+    },
+    {
+      "description": "illegitimate daughter of the Byzantine emperor Andronikos I Komnenos",
+      "label": "Irene Komnene",
+      "p31_labels": "human",
+      "qid": "Q12900547"
+    },
+    {
+      "description": null,
+      "label": "Isaac Angelos Doukas",
+      "p31_labels": "human",
+      "qid": "Q12900551"
+    },
+    {
+      "description": null,
+      "label": "Theodora Batatzaena",
+      "p31_labels": "human",
+      "qid": "Q12902330"
+    },
+    {
+      "description": "Byzantine general and aristocrat",
+      "label": "Theodoros Batatzes",
+      "p31_labels": "human",
+      "qid": "Q12902332"
+    },
+    {
+      "description": null,
+      "label": "NN Anemas",
+      "p31_labels": "human",
+      "qid": "Q129094314"
+    },
+    {
+      "description": null,
+      "label": "John Doukas",
+      "p31_labels": "human",
+      "qid": "Q130681251"
+    },
+    {
+      "description": "daughter of Manuel Anemas and Theodora Komenen",
+      "label": "Eudokia Komnene",
+      "p31_labels": "human",
+      "qid": "Q130797273"
+    },
+    {
+      "description": null,
+      "label": "Alexios Vatatzes",
+      "p31_labels": "human",
+      "qid": "Q131419591"
+    },
+    {
+      "description": "12th century Byzantine noblewoman",
+      "label": "Eirene Doukaina",
+      "p31_labels": "human",
+      "qid": "Q131568681"
+    },
+    {
+      "description": "Byzantine aristocrat and military commander",
+      "label": "John Doukas",
+      "p31_labels": "human",
+      "qid": "Q133828662"
+    },
+    {
+      "description": "King of France from 1137 to 1180 (1120\u20131180)",
+      "label": "Louis VII of France",
+      "p31_labels": "human",
+      "qid": "Q134259"
+    },
+    {
+      "description": null,
+      "label": "Q136816772",
+      "p31_labels": "human",
+      "qid": "Q136816772"
+    },
+    {
+      "description": "grand prince of Kiev from 1093 to 1113",
+      "label": "Sviatopolk II of Kiev",
+      "p31_labels": "human",
+      "qid": "Q143099"
+    },
+    {
+      "description": "Byzantine princess and historian",
+      "label": "Anna Komnene",
+      "p31_labels": "human",
+      "qid": "Q179284"
+    },
+    {
+      "description": "Sebastokrator, illegitimate son of Byzantine emperor Manuel I",
+      "label": "Alexios Komnenos",
+      "p31_labels": "human",
+      "qid": "Q18410116"
+    },
+    {
+      "description": "father of the Byzantine empress Anna Dalassene",
+      "label": "Alexios Charon",
+      "p31_labels": "human",
+      "qid": "Q18712843"
+    },
+    {
+      "description": "(1104-1127)",
+      "label": "Brecislaus Sventopolci",
+      "p31_labels": "human",
+      "qid": "Q20096905"
+    },
+    {
+      "description": "daughter of the Byzantine emperor John II Komnenos",
+      "label": "Theodora Komnene",
+      "p31_labels": "human",
+      "qid": "Q20498724"
+    },
+    {
+      "description": "daughter of John II Komnenos",
+      "label": "Anna Komnene",
+      "p31_labels": "human",
+      "qid": "Q20498884"
+    },
+    {
+      "description": "Byzantine nobleman, son-in-law of Alexios I Komnenos",
+      "label": "Michael Iassites",
+      "p31_labels": "human",
+      "qid": "Q20971257"
+    },
+    {
+      "description": "(est. 1135 - )",
+      "label": "Irene Komnene",
+      "p31_labels": "human",
+      "qid": "Q21030027"
+    },
+    {
+      "description": null,
+      "label": "Anna Komnene",
+      "p31_labels": "human",
+      "qid": "Q21030028"
+    },
+    {
+      "description": "Queen of the Franks from 1160 to 1180",
+      "label": "Ad\u00e8le of Champagne",
+      "p31_labels": "human",
+      "qid": "Q229407"
+    },
+    {
+      "description": "Empress consort of the Byzantine Empire",
+      "label": "Irene Doukaina",
+      "p31_labels": "human",
+      "qid": "Q232714"
+    },
+    {
+      "description": "Byzantine Empress consort (1171 \u2013 on or after 1220)",
+      "label": "Agnes of France",
+      "p31_labels": "human",
+      "qid": "Q233631"
+    },
+    {
+      "description": null,
+      "label": "Kutalmich",
+      "p31_labels": "human",
+      "qid": "Q2375924"
+    },
+    {
+      "description": "Princess of Antioch (1127-1163)",
+      "label": "Constance of Antioch",
+      "p31_labels": "human",
+      "qid": "Q238609"
+    },
+    {
+      "description": "Member of Rurik dynasty of Kievan Rus'",
+      "label": "Volodar of Peremyshl",
+      "p31_labels": "human",
+      "qid": "Q2389427"
+    },
+    {
+      "description": "Byzantine Empress",
+      "label": "Maria of Antioch",
+      "p31_labels": "human",
+      "qid": "Q240604"
+    },
+    {
+      "description": "Byzantine empress of German descent",
+      "label": "Bertha of Sulzbach",
+      "p31_labels": "human",
+      "qid": "Q241451"
+    },
+    {
+      "description": "Byzantine general, brother of emperor Alexios I",
+      "label": "Isaac Komnenos",
+      "p31_labels": "human",
+      "qid": "Q246434"
+    },
+    {
+      "description": "Byzantine statesman of the 12th Century",
+      "label": "John Kontostephanos",
+      "p31_labels": "human",
+      "qid": "Q24895868"
+    },
+    {
+      "description": "byzantine aristocrat",
+      "label": "Stephen Kontostephanos",
+      "p31_labels": "human",
+      "qid": "Q25303541"
+    },
+    {
+      "description": "Duchess consort of Austria",
+      "label": "Theodora Komnene, Duchess of Austria",
+      "p31_labels": "human",
+      "qid": "Q259927"
+    },
+    {
+      "description": "Queen of Hungary",
+      "label": "Maria Komnene, Queen of Hungary",
+      "p31_labels": "human",
+      "qid": "Q260019"
+    },
+    {
+      "description": "King of Hungary from 1077 to 1095",
+      "label": "Ladislaus I of Hungary",
+      "p31_labels": "human",
+      "qid": "Q26486"
+    },
+    {
+      "description": "Queen of Jerusalem",
+      "label": "Theodora Komnene",
+      "p31_labels": "human",
+      "qid": "Q273606"
+    },
+    {
+      "description": "third daughter of the Byzantine emperor Alexios I Komnenos",
+      "label": "Eudokia Komnene",
+      "p31_labels": "human",
+      "qid": "Q28729593"
+    },
+    {
+      "description": "Byzantine princess and heiress to the throne (1152-1182)",
+      "label": "Maria Komnene",
+      "p31_labels": "human",
+      "qid": "Q291231"
+    },
+    {
+      "description": "Georgian royal",
+      "label": "Rusudan, daughter of George III of Georgia",
+      "p31_labels": "human",
+      "qid": "Q2915861"
+    },
+    {
+      "description": null,
+      "label": "Kata of Georgia",
+      "p31_labels": "human",
+      "qid": "Q2941574"
+    },
+    {
+      "description": "Byzantine general",
+      "label": "John Komnenos Vatatzes",
+      "p31_labels": "human",
+      "qid": "Q2945602"
+    },
+    {
+      "description": "Duchess of Aquitaine",
+      "label": "Philippa, Countess of Toulouse",
+      "p31_labels": "human",
+      "qid": "Q3048073"
+    },
+    {
+      "description": "Byzantine admiral",
+      "label": "John Doukas",
+      "p31_labels": "human",
+      "qid": "Q3131293"
+    },
+    {
+      "description": "Emperor of Trebizond",
+      "label": "Alexios I of Trebizond",
+      "p31_labels": "human",
+      "qid": "Q314442"
+    },
+    {
+      "description": "Byzantine monk",
+      "label": "John Rogerios Dalassenos",
+      "p31_labels": "human",
+      "qid": "Q3154047"
+    },
+    {
+      "description": "French crusader",
+      "label": "Raynald of Ch\u00e2tillon",
+      "p31_labels": "human",
+      "qid": "Q316831"
+    },
+    {
+      "description": "Byzantine aristocrat and military commander",
+      "label": "Manuel Komnenos",
+      "p31_labels": "human",
+      "qid": "Q3286784"
+    },
+    {
+      "description": null,
+      "label": "Marie Comn\u00e8ne",
+      "p31_labels": "human",
+      "qid": "Q3292454"
+    },
+    {
+      "description": "Byzantine noblewoman",
+      "label": "Maria of Bulgaria",
+      "p31_labels": "human",
+      "qid": "Q3292878"
+    },
+    {
+      "description": "Prince of Antioch",
+      "label": "Bohemond II of Antioch",
+      "p31_labels": "human",
+      "qid": "Q333884"
+    },
+    {
+      "description": "Prince of Antioch",
+      "label": "Bohemond III of Antioch",
+      "p31_labels": "human",
+      "qid": "Q349062"
+    },
+    {
+      "description": "Queen consort of Hungary",
+      "label": "Adelaide of Rheinfelden",
+      "p31_labels": "human",
+      "qid": "Q354918"
+    },
+    {
+      "description": "Byzantine military officer",
+      "label": "Adrianos Komnenos",
+      "p31_labels": "human",
+      "qid": "Q3624362"
+    },
+    {
+      "description": "Byzantine aristocrat and military leader, brother of Isaac I Komnenos",
+      "label": "John Komnenos",
+      "p31_labels": "human",
+      "qid": "Q3767041"
+    },
+    {
+      "description": "Byzantine general, statesman and historian (1062\u20131137)",
+      "label": "Nikephoros Bryennios the Younger",
+      "p31_labels": "human",
+      "qid": "Q383003"
+    },
+    {
+      "description": "Byzantine noble",
+      "label": "Isaac Komnenos",
+      "p31_labels": "human",
+      "qid": "Q392653"
+    },
+    {
+      "description": "(est. 1083 - uncertain)",
+      "label": "Barbara Komnena",
+      "p31_labels": [
+        "human",
+        "legendary figure"
+      ],
+      "qid": "Q4103592"
+    },
+    {
+      "description": "Byzantine emperor (1048\u20131118)",
+      "label": "Alexios I Komnenos",
+      "p31_labels": "human",
+      "qid": "Q41600"
+    },
+    {
+      "description": "Byzantine Emperor",
+      "label": "Manuel I Komnenos",
+      "p31_labels": "human",
+      "qid": "Q41610"
+    },
+    {
+      "description": "Byzantine Emperor from 1118 to 1144",
+      "label": "John II Komnenos",
+      "p31_labels": "human",
+      "qid": "Q41628"
+    },
+    {
+      "description": "a Rus' princess",
+      "label": "Eupraxia Mstislavna",
+      "p31_labels": "human",
+      "qid": "Q4163672"
+    },
+    {
+      "description": "Byzantine emperor (1118\u20131185)",
+      "label": "Andronikos I Komnenos",
+      "p31_labels": "human",
+      "qid": "Q41830"
+    },
+    {
+      "description": "Byzantine emperor",
+      "label": "Alexios II Komnenos",
+      "p31_labels": "human",
+      "qid": "Q41849"
+    },
+    {
+      "description": "1128",
+      "label": "Iziaslav Sviatopolkovich",
+      "p31_labels": "human",
+      "qid": "Q4198929"
+    },
+    {
+      "description": "Prince of Antioch",
+      "label": "Raymond of Poitiers",
+      "p31_labels": "human",
+      "qid": "Q437271"
+    },
+    {
+      "description": "Emperor of Trebizond",
+      "label": "David I of Trebizond",
+      "p31_labels": "human",
+      "qid": "Q447439"
+    },
+    {
+      "description": "Wife of Berengar II, Count of Sulzbach",
+      "label": "Adelheid of Wolfratshausen",
+      "p31_labels": "human",
+      "qid": "Q4681926"
+    },
+    {
+      "description": "Frankish knight",
+      "label": "Baldwin of Antioch",
+      "p31_labels": "human",
+      "qid": "Q4850617"
+    },
+    {
+      "description": "Byzantine official general (died 1077)",
+      "label": "Andronikos Doukas",
+      "p31_labels": "human",
+      "qid": "Q513495"
+    },
+    {
+      "description": null,
+      "label": "Jeanne of Antioch",
+      "p31_labels": "human",
+      "qid": "Q51885879"
+    },
+    {
+      "description": null,
+      "label": "Raimond of Antioch",
+      "p31_labels": "human",
+      "qid": "Q51919517"
+    },
+    {
+      "description": "brother of Alexios I",
+      "label": "Nikephoros Komnenos",
+      "p31_labels": "human",
+      "qid": "Q52219392"
+    },
+    {
+      "description": "Daughter of Baldwin II of Jerusalem, Princess of Antioch (12th century)",
+      "label": "Alice of Antioch",
+      "p31_labels": "human",
+      "qid": "Q53117"
+    },
+    {
+      "description": "Duke of Aquitaine and Gascony and Count of Poitou",
+      "label": "Guillaume IX",
+      "p31_labels": "human",
+      "qid": "Q5351"
+    },
+    {
+      "description": "Illegitimate son of Byzantine Emperor Andronikos I and Theodora Komnene, queen consort of Jerusalem",
+      "label": "Alexios Komnenos",
+      "p31_labels": "human",
+      "qid": "Q548798"
+    },
+    {
+      "description": "12th-century Byzantine general (died 1148)",
+      "label": "Manuel Anemas",
+      "p31_labels": "human",
+      "qid": "Q55979351"
+    },
+    {
+      "description": "Byzantine noblewoman, sister of emperor Alexios I Komnenos",
+      "label": "Maria Komnene",
+      "p31_labels": "human",
+      "qid": "Q60036404"
+    },
+    {
+      "description": "Byzantine noblewoman, sister of emperor Alexios I Komnenos",
+      "label": "Eudokia Komnene",
+      "p31_labels": "human",
+      "qid": "Q61140127"
+    },
+    {
+      "description": "Byzantine noblewoman, sister of the Byzantine empress-consort Irene Doukaina",
+      "label": "Theodora Doukaina",
+      "p31_labels": "human",
+      "qid": "Q61140664"
+    },
+    {
+      "description": "Byzantine noblewoman",
+      "label": "Anna Doukaina",
+      "p31_labels": "human",
+      "qid": "Q61140665"
+    },
+    {
+      "description": null,
+      "label": "Maria Komnene",
+      "p31_labels": "human",
+      "qid": "Q61270489"
+    },
+    {
+      "description": "XII c. Byzantine nobelwoman and literary patroness",
+      "label": "Irene Komnene",
+      "p31_labels": "human",
+      "qid": "Q61270574"
+    },
+    {
+      "description": null,
+      "label": "Adriana Dalassena",
+      "p31_labels": "human",
+      "qid": "Q61570544"
+    },
+    {
+      "description": "Byzantine general and admiral",
+      "label": "Andronikos Kontostephanos",
+      "p31_labels": "human",
+      "qid": "Q61586"
+    },
+    {
+      "description": "(1018-1060)",
+      "label": "Irene Pegonitissa",
+      "p31_labels": "human",
+      "qid": "Q61607230"
+    },
+    {
+      "description": "Byzantine governor of Cyprus",
+      "label": "John Doukas Komnenos",
+      "p31_labels": "human",
+      "qid": "Q6229938"
+    },
+    {
+      "description": "Mother of the Byzantine Emperor Alexios I Komnenos (1030-1102)",
+      "label": "Anna Dalassene",
+      "p31_labels": "human",
+      "qid": "Q641370"
+    },
+    {
+      "description": "Byzantine usurper",
+      "label": "John Doukas",
+      "p31_labels": "human",
+      "qid": "Q65256"
+    },
+    {
+      "description": "Byzantine general",
+      "label": "Manuel Erotikos Komnenos",
+      "p31_labels": "human",
+      "qid": "Q6752551"
+    },
+    {
+      "description": "Byzantine general",
+      "label": "Michael Doukas",
+      "p31_labels": "human",
+      "qid": "Q6829943"
+    },
+    {
+      "description": "12th-century Byzantine aristocrat",
+      "label": "Nikephoros Katakalon",
+      "p31_labels": "human",
+      "qid": "Q7034843"
+    },
+    {
+      "description": "Mistress of Byzantine royalty",
+      "label": "Philippa of Antioch",
+      "p31_labels": "human",
+      "qid": "Q7184745"
+    },
+    {
+      "description": "Byzantine nobleman",
+      "label": "Stephanos Doukas",
+      "p31_labels": "human",
+      "qid": "Q75198210"
+    },
+    {
+      "description": "Byzantine nobleman, sebastos, son of Andronikos Doukas",
+      "label": "Konstantinos Doukas",
+      "p31_labels": "human",
+      "qid": "Q75254262"
+    },
+    {
+      "description": "Peerage person ID=219136",
+      "label": "unknown daughter Comnene",
+      "p31_labels": "human",
+      "qid": "Q75571126"
+    },
+    {
+      "description": "Byzantine aristocrat and courtier; (1141-1183)",
+      "label": "Alexios Komnenos",
+      "p31_labels": "human",
+      "qid": "Q7596674"
+    },
+    {
+      "description": "Peerage person ID=709043",
+      "label": "Aveline de Ch\u00e2tillon",
+      "p31_labels": "human",
+      "qid": "Q76356024"
+    },
+    {
+      "description": "12th-century Byzantine noblewoman",
+      "label": "Theodora Komnene Angelina",
+      "p31_labels": "human",
+      "qid": "Q765682"
+    },
+    {
+      "description": "Byzantine general, father of Alexios III and Isaac II",
+      "label": "Andronikos Doukas Angelos",
+      "p31_labels": "human",
+      "qid": "Q775287"
+    },
+    {
+      "description": "Empress of Trebizond",
+      "label": "Theodora Axouchina",
+      "p31_labels": "human",
+      "qid": "Q7781645"
+    },
+    {
+      "description": "Italian noble, Byzantine Caesar (1162-1183)",
+      "label": "Renier of Montferrat",
+      "p31_labels": "human",
+      "qid": "Q782328"
+    },
+    {
+      "description": "Byzantine military commander",
+      "label": "Alexios Komnenos",
+      "p31_labels": "human",
+      "qid": "Q80465480"
+    },
+    {
+      "description": "German noble",
+      "label": "Berengar I, Count of Sulzbach",
+      "p31_labels": "human",
+      "qid": "Q819017"
+    },
+    {
+      "description": "Empress consort of the Byzantine Empire (d. 1134)",
+      "label": "Irene of Hungary",
+      "p31_labels": "human",
+      "qid": "Q82691"
+    },
+    {
+      "description": "Byzantine noblewoman, Daughter of Empress Anna of France",
+      "label": "N. Branaina",
+      "p31_labels": "human",
+      "qid": "Q848948"
+    },
+    {
+      "description": "Queen consort of Hungary (1154\u20131184)",
+      "label": "Agnes of Antioch",
+      "p31_labels": "human",
+      "qid": "Q86846"
+    },
+    {
+      "description": "Byzantine general",
+      "label": "Theodore Branas",
+      "p31_labels": "human",
+      "qid": "Q881512"
+    }
+  ],
+  "entity_type": "persons",
+  "schema_version": "v1.compiled"
+}

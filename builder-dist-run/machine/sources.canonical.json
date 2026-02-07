@@ -1,0 +1,132 @@
+{
+  "build": {
+    "generated_at": "2026-02-06T23:42:06.389076+00:00",
+    "input_mode": "compiled",
+    "run_id": "compiled-20260206T234206Z"
+  },
+  "count": 20,
+  "entities": [
+    {
+      "description": "American encyclopedia first published in 1902",
+      "label": "New International Encyclopedia",
+      "p31_labels": "literary work",
+      "qid": "Q1029706"
+    },
+    {
+      "description": "reference work on women\u2019s biographies",
+      "label": "Dictionary of Women Worldwide",
+      "p31_labels": "biographical dictionary",
+      "qid": "Q105802405"
+    },
+    {
+      "description": "1857 edition of a worked edited by Henry Gardiner Adams",
+      "label": "A Cyclopaedia of Female Biography",
+      "p31_labels": "version, edition or translation",
+      "qid": "Q114693785"
+    },
+    {
+      "description": null,
+      "label": "Asian Women Artists: A Biographical Dictionary, 2700 BCE to Today",
+      "p31_labels": "biographical dictionary",
+      "qid": "Q119627456"
+    },
+    {
+      "description": "volume of the Armenian Soviet Encyclopedia",
+      "label": "Armenian Soviet Encyclopedia, vol. 1",
+      "p31_labels": "volume",
+      "qid": "Q123560817"
+    },
+    {
+      "description": "volume of the Armenian Soviet Encyclopedia",
+      "label": "Armenian Soviet Encyclopedia, vol. 7",
+      "p31_labels": "volume",
+      "qid": "Q123625363"
+    },
+    {
+      "description": "volume of the Armenian Soviet Encyclopedia",
+      "label": "Armenian Soviet Encyclopedia, vol. 6",
+      "p31_labels": "volume",
+      "qid": "Q124737633"
+    },
+    {
+      "description": "1879 encyclopedia",
+      "label": "The American Cyclop\u00e6dia",
+      "p31_labels": "version, edition or translation",
+      "qid": "Q19077875"
+    },
+    {
+      "description": "Russian encyclopedic dictionary",
+      "label": "Small Brockhaus and Efron Encyclopedic Dictionary",
+      "p31_labels": "written work",
+      "qid": "Q19180675"
+    },
+    {
+      "description": "edition of a German language encyclopaedia",
+      "label": "Meyers Konversations-Lexikon, 4th edition (1885\u20131890)",
+      "p31_labels": "version, edition or translation",
+      "qid": "Q19219752"
+    },
+    {
+      "description": "Czech encyclopedia edition",
+      "label": "Vlastensk\u00fd slovn\u00edk historick\u00fd",
+      "p31_labels": "version, edition or translation",
+      "qid": "Q19538713"
+    },
+    {
+      "description": "1st edition of the Great Soviet Encyclopedia",
+      "label": "Great Soviet Encyclopedia (1926\u20131947)",
+      "p31_labels": "version, edition or translation",
+      "qid": "Q20078554"
+    },
+    {
+      "description": "1875 edition of Encyclop\u00e6dia Britannica",
+      "label": "Encyclop\u00e6dia Britannica Ninth Edition",
+      "p31_labels": "version, edition or translation",
+      "qid": "Q20096917"
+    },
+    {
+      "description": "1888\u20131909 edition of the largest printed encyclopedia written in the Czech language",
+      "label": "Otto's encyclopedia",
+      "p31_labels": "version, edition or translation",
+      "qid": "Q2041543"
+    },
+    {
+      "description": "British encyclopedia",
+      "label": "The Nuttall Encyclop\u00e6dia",
+      "p31_labels": "literary work",
+      "qid": "Q3181656"
+    },
+    {
+      "description": "encyclopedia",
+      "label": "Jewish Encyclopedia of Brockhaus and Efron",
+      "p31_labels": "Jewish encyclopedia",
+      "qid": "Q4173137"
+    },
+    {
+      "description": "encyclopedic dictionary",
+      "label": "Encyclopedic Lexicon",
+      "p31_labels": "encyclopedic dictionary",
+      "qid": "Q4532135"
+    },
+    {
+      "description": "comprehensive multi-volume encyclopedia in Russian",
+      "label": "Brockhaus and Efron Encyclopedic Dictionary",
+      "p31_labels": "version, edition or translation",
+      "qid": "Q602358"
+    },
+    {
+      "description": "11th edition of Encyclop\u00e6dia Britannica",
+      "label": "Encyclop\u00e6dia Britannica 11th edition",
+      "p31_labels": "version, edition or translation",
+      "qid": "Q867541"
+    },
+    {
+      "description": "biographical dictionary",
+      "label": "Biographical Archive of Christianity",
+      "p31_labels": "biographical dictionary",
+      "qid": "Q90859937"
+    }
+  ],
+  "entity_type": "sources",
+  "schema_version": "v1.compiled"
+}

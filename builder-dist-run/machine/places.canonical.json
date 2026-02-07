@@ -1,0 +1,76 @@
+{
+  "build": {
+    "generated_at": "2026-02-06T23:42:06.389076+00:00",
+    "input_mode": "compiled",
+    "run_id": "compiled-20260206T234206Z"
+  },
+  "count": 8,
+  "entities": [
+    {
+      "description": "1804 edition of work by Mary Matilda Betham",
+      "label": "A Biographical Dictionary of the Celebrated Women of Every Age and Country",
+      "p31_labels": "version, edition or translation",
+      "qid": "Q103843006"
+    },
+    {
+      "description": "Asian part of Turkey",
+      "label": "Asia Minor",
+      "p31_labels": [
+        "historical region",
+        "peninsula"
+      ],
+      "qid": "Q12824780"
+    },
+    {
+      "added_by": "artifact_context_enrichment",
+      "description": "capital of the Eastern Roman, Latin and Ottoman Empires, currently Istanbul, Turkey",
+      "label": "Constantinople",
+      "p31_labels": [
+        "administrative territorial entity",
+        "ancient city",
+        "city"
+      ],
+      "qid": "Q16869"
+    },
+    {
+      "description": "city in Hungary",
+      "label": "Esztergom",
+      "p31_labels": "city with county rights",
+      "qid": "Q171353"
+    },
+    {
+      "description": "district and town in Sanliurfa, Turkey and ancient city in Upper Mesopotamia",
+      "label": "Harran",
+      "p31_labels": "town",
+      "qid": "Q199547"
+    },
+    {
+      "description": "ancient Greek city in southern Turkey",
+      "label": "Antioch",
+      "p31_labels": "ancient city",
+      "qid": "Q200441"
+    },
+    {
+      "description": "ancient region of Asia Minor",
+      "label": "Cilicia",
+      "p31_labels": [
+        "area",
+        "historical region",
+        "region"
+      ],
+      "qid": "Q620864"
+    },
+    {
+      "description": "city in Turkey",
+      "label": "Antalya",
+      "p31_labels": [
+        "big city",
+        "city",
+        "metropolitan municipality in Turkey"
+      ],
+      "qid": "Q6487"
+    }
+  ],
+  "entity_type": "places",
+  "schema_version": "v1.compiled"
+}

@@ -1,0 +1,15 @@
+{
+  "spec_version": "compiled-dist-run.v1",
+  "builder_version": "d10-gate",
+  "counts": {
+    "persons": 2,
+    "assertions": 2
+  },
+  "person_index": {
+    "p1": "Alpha",
+    "p2": "Beta"
+  },
+  "source_dist_run": "E:\\Github\\psellos-prosopography\\psellos-fiction-yneva-web\\.tmp\\dist-run-d10",
+  "source_generated_at": "2026-02-07T00:00:00Z",
+  "imported_at": "2026-02-07T03:02:37.302Z"
+}

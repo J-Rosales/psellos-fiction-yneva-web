@@ -1,0 +1,106 @@
+assertions:
+  -
+    id: "a.wdqs.P22.000366"
+    object_in_compiled: true
+    object_label: "Alexios Komnenos"
+    object_qid: "Q1226606"
+    predicate_pid: "P22"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P22_father"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "child_of"
+    status: "confirmed"
+    subject_label: "Marie Comnène"
+    subject_qid: "Q3292454"
+  -
+    id: "a.wdqs.P25.000477"
+    object_in_compiled: true
+    object_label: "Eupraxia Mstislavna"
+    object_qid: "Q4163672"
+    predicate_pid: "P25"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P25_mother"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "child_of"
+    status: "confirmed"
+    subject_label: "Marie Comnène"
+    subject_qid: "Q3292454"
+  -
+    id: "a.wdqs.P26.000589"
+    object_in_compiled: false
+    object_label: "Alexios Axouch"
+    object_qid: "Q384442"
+    predicate_pid: "P26"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P26_spouse"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "spouse_of"
+    status: "confirmed"
+    subject_label: "Marie Comnène"
+    subject_qid: "Q3292454"
+  -
+    id: "a.wdqs.P40.000803"
+    object_in_compiled: true
+    object_label: "Marie Comnène"
+    object_qid: "Q3292454"
+    predicate_pid: "P40"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P40_child"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "parent_of"
+    status: "confirmed"
+    subject_label: "Alexios Komnenos"
+    subject_qid: "Q1226606"
+  -
+    id: "a.wdqs.P40.000921"
+    object_in_compiled: false
+    object_label: "John Komnenos the Fat"
+    object_qid: "Q665874"
+    predicate_pid: "P40"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P40_child"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "parent_of"
+    status: "confirmed"
+    subject_label: "Marie Comnène"
+    subject_qid: "Q3292454"
+  -
+    id: "a.wdqs.P40.000979"
+    object_in_compiled: true
+    object_label: "Marie Comnène"
+    object_qid: "Q3292454"
+    predicate_pid: "P40"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P40_child"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "parent_of"
+    status: "confirmed"
+    subject_label: "Eupraxia Mstislavna"
+    subject_qid: "Q4163672"
+data:
+  description: null
+  label: "Marie Comnène"
+  p31_labels: "human"
+  qid: "Q3292454"
+entity_type: "persons"
+id: "e.persons.marie-comn-ne--q3292454"
+label: "Marie Comnène"
+qid: "Q3292454"

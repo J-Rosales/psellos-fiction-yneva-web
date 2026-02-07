@@ -47,6 +47,8 @@ export class ArtifactRepository implements Repository {
   private readonly assertionsById: Record<string, Record<string, unknown>>;
   private readonly persons: Record<string, Record<string, unknown>>;
   private readonly layers: string[];
+  private readonly locationByQid: Record<string, [number, number]>;
+  private readonly locationByName: Record<string, [number, number]>;
 
   constructor(dataDir = path.resolve(process.cwd(), 'public/data')) {
     this.assertionsByLayer = this.readJson<Record<string, string[]>>(
@@ -61,6 +63,23 @@ export class ArtifactRepository implements Repository {
       path.join(dataDir, 'persons.json'),
       {},
     );
+    const locationIndex = this.readJson<{ items?: Array<{ qid?: string; name?: string; lat?: number; lon?: number }> }>(
+      path.join(dataDir, 'location_coordinates.json'),
+      {},
+    );
+    this.locationByQid = {};
+    this.locationByName = {};
+    for (const item of locationIndex.items ?? []) {
+      if (typeof item.lat !== 'number' || typeof item.lon !== 'number') {
+        continue;
+      }
+      if (typeof item.qid === 'string' && item.qid.trim()) {
+        this.locationByQid[item.qid] = [item.lat, item.lon];
+      }
+      if (typeof item.name === 'string' && item.name.trim()) {
+        this.locationByName[item.name.trim().toLowerCase()] = [item.lat, item.lon];
+      }
+    }
 
     const fromLayerIndex = Object.keys(this.assertionsByLayer);
     this.layers = fromLayerIndex.length > 0 ? fromLayerIndex : ['canon'];
@@ -336,6 +355,24 @@ export class ArtifactRepository implements Repository {
     const lat = latCandidates.find((value): value is number => typeof value === 'number');
     const lon = lonCandidates.find((value): value is number => typeof value === 'number');
     if (typeof lat !== 'number' || typeof lon !== 'number') {
+      const placeQidCandidates = [
+        this.readId(record, 'subject'),
+        this.readId(record, 'object'),
+      ];
+      for (const qid of placeQidCandidates) {
+        if (!qid) continue;
+        const hit = this.locationByQid[qid];
+        if (hit) {
+          return hit;
+        }
+      }
+      const placeLabel = this.extractPlaceLabel(record).trim().toLowerCase();
+      if (placeLabel) {
+        const byName = this.locationByName[placeLabel];
+        if (byName) {
+          return byName;
+        }
+      }
       return null;
     }
     return [lat, lon];

@@ -1,0 +1,122 @@
+assertions:
+  -
+    id: "a.wdqs.P19.000240"
+    object_in_compiled: false
+    object_label: "Piedmont"
+    object_qid: "Q1216"
+    predicate_pid: "P19"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P19_birth_place"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "born_in"
+    status: "confirmed"
+    subject_label: "Renier of Montferrat"
+    subject_qid: "Q782328"
+  -
+    id: "a.wdqs.P20.000287"
+    object_in_compiled: true
+    object_label: "Constantinople"
+    object_qid: "Q16869"
+    predicate_pid: "P20"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P20_death_place"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "died_in"
+    status: "confirmed"
+    subject_label: "Renier of Montferrat"
+    subject_qid: "Q782328"
+  -
+    id: "a.wdqs.P22.000415"
+    object_in_compiled: false
+    object_label: "William V, Marquess of Montferrat"
+    object_qid: "Q778149"
+    predicate_pid: "P22"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P22_father"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "child_of"
+    status: "confirmed"
+    subject_label: "Renier of Montferrat"
+    subject_qid: "Q782328"
+  -
+    id: "a.wdqs.P25.000519"
+    object_in_compiled: false
+    object_label: "Judith of Babenberg"
+    object_qid: "Q3769178"
+    predicate_pid: "P25"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P25_mother"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "child_of"
+    status: "confirmed"
+    subject_label: "Renier of Montferrat"
+    subject_qid: "Q782328"
+  -
+    id: "a.wdqs.P26.000580"
+    object_in_compiled: true
+    object_label: "Renier of Montferrat"
+    object_qid: "Q782328"
+    predicate_pid: "P26"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P26_spouse"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "spouse_of"
+    status: "confirmed"
+    subject_label: "Maria Komnene"
+    subject_qid: "Q291231"
+  -
+    id: "a.wdqs.P26.000635"
+    object_in_compiled: true
+    object_label: "Maria Komnene"
+    object_qid: "Q291231"
+    predicate_pid: "P26"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P26_spouse"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "spouse_of"
+    status: "confirmed"
+    subject_label: "Renier of Montferrat"
+    subject_qid: "Q782328"
+  -
+    id: "a.wdqs.P27.000724"
+    object_in_compiled: true
+    object_label: "Byzantine Empire"
+    object_qid: "Q12544"
+    predicate_pid: "P27"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P27_citizenship"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "citizen_of"
+    status: "candidate"
+    subject_label: "Renier of Montferrat"
+    subject_qid: "Q782328"
+data:
+  description: "Italian noble, Byzantine Caesar (1162-1183)"
+  label: "Renier of Montferrat"
+  p31_labels: "human"
+  qid: "Q782328"
+entity_type: "persons"
+id: "e.persons.renier-of-montferrat--q782328"
+label: "Renier of Montferrat"
+qid: "Q782328"

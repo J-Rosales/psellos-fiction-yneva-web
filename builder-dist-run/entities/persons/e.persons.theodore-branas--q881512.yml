@@ -1,0 +1,138 @@
+assertions:
+  -
+    id: "a.wdqs.P19.000243"
+    object_in_compiled: false
+    object_label: "Edirne"
+    object_qid: "Q43387"
+    predicate_pid: "P19"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P19_birth_place"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "born_in"
+    status: "confirmed"
+    subject_label: "Theodore Branas"
+    subject_qid: "Q881512"
+  -
+    id: "a.wdqs.P20.000290"
+    object_in_compiled: true
+    object_label: "Constantinople"
+    object_qid: "Q16869"
+    predicate_pid: "P20"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P20_death_place"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "died_in"
+    status: "confirmed"
+    subject_label: "Theodore Branas"
+    subject_qid: "Q881512"
+  -
+    id: "a.wdqs.P22.000419"
+    object_in_compiled: true
+    object_label: "Theodore Branas"
+    object_qid: "Q881512"
+    predicate_pid: "P22"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P22_father"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "child_of"
+    status: "confirmed"
+    subject_label: "N. Branaina"
+    subject_qid: "Q848948"
+  -
+    id: "a.wdqs.P22.000421"
+    object_in_compiled: false
+    object_label: "Alexios Branas"
+    object_qid: "Q195854"
+    predicate_pid: "P22"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P22_father"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "child_of"
+    status: "confirmed"
+    subject_label: "Theodore Branas"
+    subject_qid: "Q881512"
+  -
+    id: "a.wdqs.P26.000567"
+    object_in_compiled: true
+    object_label: "Theodore Branas"
+    object_qid: "Q881512"
+    predicate_pid: "P26"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P26_spouse"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "spouse_of"
+    status: "confirmed"
+    subject_label: "Agnes of France"
+    subject_qid: "Q233631"
+  -
+    id: "a.wdqs.P26.000642"
+    object_in_compiled: true
+    object_label: "Agnes of France"
+    object_qid: "Q233631"
+    predicate_pid: "P26"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P26_spouse"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "spouse_of"
+    status: "confirmed"
+    subject_label: "Theodore Branas"
+    subject_qid: "Q881512"
+  -
+    id: "a.wdqs.P27.000728"
+    object_in_compiled: true
+    object_label: "Byzantine Empire"
+    object_qid: "Q12544"
+    predicate_pid: "P27"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P27_citizenship"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "citizen_of"
+    status: "candidate"
+    subject_label: "Theodore Branas"
+    subject_qid: "Q881512"
+  -
+    id: "a.wdqs.P40.001087"
+    object_in_compiled: true
+    object_label: "N. Branaina"
+    object_qid: "Q848948"
+    predicate_pid: "P40"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P40_child"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "parent_of"
+    status: "confirmed"
+    subject_label: "Theodore Branas"
+    subject_qid: "Q881512"
+data:
+  description: "Byzantine general"
+  label: "Theodore Branas"
+  p31_labels: "human"
+  qid: "Q881512"
+entity_type: "persons"
+id: "e.persons.theodore-branas--q881512"
+label: "Theodore Branas"
+qid: "Q881512"

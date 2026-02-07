@@ -1,0 +1,106 @@
+assertions:
+  -
+    id: "a.wdqs.P22.000370"
+    object_in_compiled: false
+    object_label: "Rudolf of Rheinfelden"
+    object_qid: "Q438435"
+    predicate_pid: "P22"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P22_father"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "child_of"
+    status: "confirmed"
+    subject_label: "Adelaide of Rheinfelden"
+    subject_qid: "Q354918"
+  -
+    id: "a.wdqs.P25.000481"
+    object_in_compiled: false
+    object_label: "Adelaide of Savoy"
+    object_qid: "Q2825471"
+    predicate_pid: "P25"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P25_mother"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "child_of"
+    status: "confirmed"
+    subject_label: "Adelaide of Rheinfelden"
+    subject_qid: "Q354918"
+  -
+    id: "a.wdqs.P25.000522"
+    object_in_compiled: true
+    object_label: "Adelaide of Rheinfelden"
+    object_qid: "Q354918"
+    predicate_pid: "P25"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P25_mother"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "child_of"
+    status: "confirmed"
+    subject_label: "Irene of Hungary"
+    subject_qid: "Q82691"
+  -
+    id: "a.wdqs.P26.000577"
+    object_in_compiled: true
+    object_label: "Adelaide of Rheinfelden"
+    object_qid: "Q354918"
+    predicate_pid: "P26"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P26_spouse"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "spouse_of"
+    status: "confirmed"
+    subject_label: "Ladislaus I of Hungary"
+    subject_qid: "Q26486"
+  -
+    id: "a.wdqs.P26.000596"
+    object_in_compiled: true
+    object_label: "Ladislaus I of Hungary"
+    object_qid: "Q26486"
+    predicate_pid: "P26"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P26_spouse"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "spouse_of"
+    status: "confirmed"
+    subject_label: "Adelaide of Rheinfelden"
+    subject_qid: "Q354918"
+  -
+    id: "a.wdqs.P40.000939"
+    object_in_compiled: true
+    object_label: "Irene of Hungary"
+    object_qid: "Q82691"
+    predicate_pid: "P40"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P40_child"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "parent_of"
+    status: "confirmed"
+    subject_label: "Adelaide of Rheinfelden"
+    subject_qid: "Q354918"
+data:
+  description: "Queen consort of Hungary"
+  label: "Adelaide of Rheinfelden"
+  p31_labels: "human"
+  qid: "Q354918"
+entity_type: "persons"
+id: "e.persons.adelaide-of-rheinfelden--q354918"
+label: "Adelaide of Rheinfelden"
+qid: "Q354918"

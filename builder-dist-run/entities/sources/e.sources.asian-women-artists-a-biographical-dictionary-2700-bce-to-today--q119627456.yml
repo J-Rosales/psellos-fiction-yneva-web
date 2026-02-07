@@ -1,0 +1,26 @@
+assertions:
+  -
+    id: "a.wdqs.P1343.000081"
+    object_in_compiled: true
+    object_label: "Asian Women Artists: A Biographical Dictionary, 2700 BCE to Today"
+    object_qid: "Q119627456"
+    predicate_pid: "P1343"
+    provenance:
+      phase: "phase2"
+      query_id: "Q_ASSERT_P1343_described_by_source"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "described_by"
+    status: "candidate"
+    subject_label: "Anna Komnene"
+    subject_qid: "Q179284"
+data:
+  description: null
+  label: "Asian Women Artists: A Biographical Dictionary, 2700 BCE to Today"
+  p31_labels: "biographical dictionary"
+  qid: "Q119627456"
+entity_type: "sources"
+id: "e.sources.asian-women-artists-a-biographical-dictionary-2700-bce-to-today--q119627456"
+label: "Asian Women Artists: A Biographical Dictionary, 2700 BCE to Today"
+qid: "Q119627456"

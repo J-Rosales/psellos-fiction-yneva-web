@@ -1,0 +1,109 @@
+schema_version: "v1.location-canonical-shape"
+purpose: "Canonical location payload shape for map-visible assertions in psellos-fiction-yneva-web."
+generated_at: "2026-02-07"
+
+canonical_assertion_shape:
+  note: "Populate one of the supported coordinate paths; preferred shape is extensions.psellos."
+  preferred:
+    extensions:
+      psellos:
+        place: "<string place name>"
+        lat: "<number latitude>"
+        lon: "<number longitude>"
+  supported_alternatives:
+    - location:
+        name: "<string place name>"
+        lat: "<number latitude>"
+        lon: "<number longitude>"
+    - lat: "<number latitude>"
+      lon: "<number longitude>"
+  rendering_note: "Renderer consumes lat/lon and outputs GeoJSON coordinates as [lon, lat]."
+
+authoritative_sources:
+  coordinate_source: "Wikidata P625 (coordinate location) with cross-reference to Wikipedia pages."
+  retrieval_method: "Manual lookup using Special:EntityData and linked enwiki pages."
+
+geocodable_locations:
+  - qid: "Q200441"
+    name: "Antioch"
+    lat: 36.20472222222222
+    lon: 36.181666666666665
+    wikidata: "https://www.wikidata.org/wiki/Q200441"
+    wikipedia: "https://en.wikipedia.org/wiki/Antioch"
+  - qid: "Q6487"
+    name: "Antalya"
+    lat: 36.90812
+    lon: 30.69556
+    wikidata: "https://www.wikidata.org/wiki/Q6487"
+    wikipedia: "https://en.wikipedia.org/wiki/Antalya"
+  - qid: "Q620864"
+    name: "Cilicia"
+    lat: 36.985
+    lon: 35.12
+    wikidata: "https://www.wikidata.org/wiki/Q620864"
+    wikipedia: "https://en.wikipedia.org/wiki/Cilicia"
+  - qid: "Q16869"
+    name: "Constantinople"
+    lat: 41.0125
+    lon: 28.98
+    wikidata: "https://www.wikidata.org/wiki/Q16869"
+    wikipedia: "https://en.wikipedia.org/wiki/Constantinople"
+  - qid: "Q171353"
+    name: "Esztergom"
+    lat: 47.785555555556
+    lon: 18.740277777778
+    wikidata: "https://www.wikidata.org/wiki/Q171353"
+    wikipedia: "https://en.wikipedia.org/wiki/Esztergom"
+  - qid: "Q199547"
+    name: "Harran"
+    lat: 36.87083333333333
+    lon: 39.025
+    wikidata: "https://www.wikidata.org/wiki/Q199547"
+    wikipedia: "https://en.wikipedia.org/wiki/Harran"
+  - qid: "Q12824780"
+    name: "Asia Minor"
+    lat: 39
+    lon: 34
+    wikidata: "https://www.wikidata.org/wiki/Q12824780"
+    wikipedia: "https://en.wikipedia.org/wiki/Asia_Minor"
+  - qid: "Q103251"
+    name: "Macedonia"
+    lat: 41.32925475068105
+    lon: 22.5086210752146
+    wikidata: "https://www.wikidata.org/wiki/Q103251"
+    wikipedia: "https://en.wikipedia.org/wiki/Macedonia_(region)"
+  - qid: "Q1491574"
+    name: "Thrace"
+    lat: 42.5
+    lon: 27.5
+    wikidata: "https://www.wikidata.org/wiki/Q1491574"
+    wikipedia: "https://en.wikipedia.org/wiki/Thrace_(theme)"
+  - qid: "Q142"
+    name: "France"
+    lat: 47
+    lon: 2
+    wikidata: "https://www.wikidata.org/wiki/Q142"
+    wikipedia: "https://en.wikipedia.org/wiki/France"
+  - qid: "Q12544"
+    name: "Byzantine Empire"
+    lat: 41.0125
+    lon: 28.98
+    wikidata: "https://www.wikidata.org/wiki/Q12544"
+    wikipedia: "https://en.wikipedia.org/wiki/Byzantine_Empire"
+
+non_geocodable_or_not_place_entities:
+  - qid: "Q18577504"
+    name: "Byzantine emperor"
+    reason: "Role/title, not a geographic place."
+    wikidata: "https://www.wikidata.org/wiki/Q18577504"
+    wikipedia: "https://en.wikipedia.org/wiki/Byzantine_emperor"
+  - qid: "Q70972"
+    name: "Kingdom of France"
+    reason: "Historical polity without a single canonical point coordinate in source data."
+    wikidata: "https://www.wikidata.org/wiki/Q70972"
+    wikipedia: "https://en.wikipedia.org/wiki/Kingdom_of_France"
+  - qid: "Q103843006"
+    name: "A Biographical Dictionary of the Celebrated Women of Every Age and Country"
+    reason: "Bibliographic work, not a geographic place."
+    wikidata: "https://www.wikidata.org/wiki/Q103843006"
+    wikipedia: "https://en.wikipedia.org/wiki/A_Biographical_Dictionary_of_the_Celebrated_Women_of_Every_Age_and_Country"

@@ -1,0 +1,90 @@
+assertions:
+  -
+    id: "a.wdqs.P22.000326"
+    object_in_compiled: true
+    object_label: "Manuel Anemas"
+    object_qid: "Q55979351"
+    predicate_pid: "P22"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P22_father"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "child_of"
+    status: "confirmed"
+    subject_label: "Eudokia Komnene"
+    subject_qid: "Q130797273"
+  -
+    id: "a.wdqs.P25.000449"
+    object_in_compiled: true
+    object_label: "Theodora Komnene"
+    object_qid: "Q20498724"
+    predicate_pid: "P25"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P25_mother"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "child_of"
+    status: "confirmed"
+    subject_label: "Eudokia Komnene"
+    subject_qid: "Q130797273"
+  -
+    id: "a.wdqs.P26.000548"
+    object_in_compiled: false
+    object_label: "Theodore Styppeiotes"
+    object_qid: "Q16934471"
+    predicate_pid: "P26"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P26_spouse"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "spouse_of"
+    status: "confirmed"
+    subject_label: "Eudokia Komnene"
+    subject_qid: "Q130797273"
+  -
+    id: "a.wdqs.P40.000866"
+    object_in_compiled: true
+    object_label: "Eudokia Komnene"
+    object_qid: "Q130797273"
+    predicate_pid: "P40"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P40_child"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "parent_of"
+    status: "confirmed"
+    subject_label: "Theodora Komnene"
+    subject_qid: "Q20498724"
+  -
+    id: "a.wdqs.P40.001011"
+    object_in_compiled: true
+    object_label: "Eudokia Komnene"
+    object_qid: "Q130797273"
+    predicate_pid: "P40"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P40_child"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "parent_of"
+    status: "confirmed"
+    subject_label: "Manuel Anemas"
+    subject_qid: "Q55979351"
+data:
+  description: "daughter of Manuel Anemas and Theodora Komenen"
+  label: "Eudokia Komnene"
+  p31_labels: "human"
+  qid: "Q130797273"
+entity_type: "persons"
+id: "e.persons.eudokia-komnene--q130797273"
+label: "Eudokia Komnene"
+qid: "Q130797273"

@@ -1,0 +1,106 @@
+assertions:
+  -
+    id: "a.wdqs.P19.000233"
+    object_in_compiled: true
+    object_label: "Harran"
+    object_qid: "Q199547"
+    predicate_pid: "P19"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P19_birth_place"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "born_in"
+    status: "confirmed"
+    subject_label: "Alexios Komnenos"
+    subject_qid: "Q548798"
+  -
+    id: "a.wdqs.P22.000392"
+    object_in_compiled: true
+    object_label: "Andronikos I Komnenos"
+    object_qid: "Q41830"
+    predicate_pid: "P22"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P22_father"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "child_of"
+    status: "confirmed"
+    subject_label: "Alexios Komnenos"
+    subject_qid: "Q548798"
+  -
+    id: "a.wdqs.P25.000500"
+    object_in_compiled: true
+    object_label: "Theodora Komnene"
+    object_qid: "Q273606"
+    predicate_pid: "P25"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P25_mother"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "child_of"
+    status: "confirmed"
+    subject_label: "Alexios Komnenos"
+    subject_qid: "Q548798"
+  -
+    id: "a.wdqs.P27.000708"
+    object_in_compiled: true
+    object_label: "Byzantine Empire"
+    object_qid: "Q12544"
+    predicate_pid: "P27"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P27_citizenship"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "citizen_of"
+    status: "candidate"
+    subject_label: "Alexios Komnenos"
+    subject_qid: "Q548798"
+  -
+    id: "a.wdqs.P40.000907"
+    object_in_compiled: true
+    object_label: "Alexios Komnenos"
+    object_qid: "Q548798"
+    predicate_pid: "P40"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P40_child"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "parent_of"
+    status: "confirmed"
+    subject_label: "Theodora Komnene"
+    subject_qid: "Q273606"
+  -
+    id: "a.wdqs.P40.000984"
+    object_in_compiled: true
+    object_label: "Alexios Komnenos"
+    object_qid: "Q548798"
+    predicate_pid: "P40"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P40_child"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "parent_of"
+    status: "confirmed"
+    subject_label: "Andronikos I Komnenos"
+    subject_qid: "Q41830"
+data:
+  description: "Illegitimate son of Byzantine Emperor Andronikos I and Theodora Komnene, queen consort of Jerusalem"
+  label: "Alexios Komnenos"
+  p31_labels: "human"
+  qid: "Q548798"
+entity_type: "persons"
+id: "e.persons.alexios-komnenos--q548798"
+label: "Alexios Komnenos"
+qid: "Q548798"

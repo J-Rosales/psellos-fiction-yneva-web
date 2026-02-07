@@ -1,0 +1,122 @@
+assertions:
+  -
+    id: "a.wdqs.P22.000393"
+    object_in_compiled: true
+    object_label: "John Komnenos"
+    object_qid: "Q3767041"
+    predicate_pid: "P22"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P22_father"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "child_of"
+    status: "confirmed"
+    subject_label: "Maria Komnene"
+    subject_qid: "Q60036404"
+  -
+    id: "a.wdqs.P25.000501"
+    object_in_compiled: true
+    object_label: "Anna Dalassene"
+    object_qid: "Q641370"
+    predicate_pid: "P25"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P25_mother"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "child_of"
+    status: "confirmed"
+    subject_label: "Maria Komnene"
+    subject_qid: "Q60036404"
+  -
+    id: "a.wdqs.P26.000618"
+    object_in_compiled: false
+    object_label: "Michael Taronites"
+    object_qid: "Q3310945"
+    predicate_pid: "P26"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P26_spouse"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "spouse_of"
+    status: "confirmed"
+    subject_label: "Maria Komnene"
+    subject_qid: "Q60036404"
+  -
+    id: "a.wdqs.P27.000709"
+    object_in_compiled: true
+    object_label: "Byzantine Empire"
+    object_qid: "Q12544"
+    predicate_pid: "P27"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P27_citizenship"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "citizen_of"
+    status: "candidate"
+    subject_label: "Maria Komnene"
+    subject_qid: "Q60036404"
+  -
+    id: "a.wdqs.P40.000949"
+    object_in_compiled: true
+    object_label: "Maria Komnene"
+    object_qid: "Q60036404"
+    predicate_pid: "P40"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P40_child"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "parent_of"
+    status: "confirmed"
+    subject_label: "John Komnenos"
+    subject_qid: "Q3767041"
+  -
+    id: "a.wdqs.P40.001012"
+    object_in_compiled: false
+    object_label: "John Taronites"
+    object_qid: "Q28089044"
+    predicate_pid: "P40"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P40_child"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "parent_of"
+    status: "confirmed"
+    subject_label: "Maria Komnene"
+    subject_qid: "Q60036404"
+  -
+    id: "a.wdqs.P40.001036"
+    object_in_compiled: true
+    object_label: "Maria Komnene"
+    object_qid: "Q60036404"
+    predicate_pid: "P40"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P40_child"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "parent_of"
+    status: "confirmed"
+    subject_label: "Anna Dalassene"
+    subject_qid: "Q641370"
+data:
+  description: "Byzantine noblewoman, sister of emperor Alexios I Komnenos"
+  label: "Maria Komnene"
+  p31_labels: "human"
+  qid: "Q60036404"
+entity_type: "persons"
+id: "e.persons.maria-komnene--q60036404"
+label: "Maria Komnene"
+qid: "Q60036404"

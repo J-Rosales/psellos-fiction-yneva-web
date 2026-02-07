@@ -1,0 +1,39 @@
+assertions:
+  -
+    id: "a.wdqs.P170.000196"
+    object_in_compiled: false
+    object_label: "Ioannes Tzoutzounas"
+    object_qid: "Q33298579"
+    predicate_pid: "P170"
+    provenance:
+      phase: "phase2"
+      query_id: "Q_ASSERT_P170_creator"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "created_by"
+    status: "candidate"
+    subject_label: "Minuscule 104"
+    subject_qid: "Q6869789"
+data:
+  class_labels:
+    - "codex"
+  confidence: "high"
+  context_labels:
+    - "Byzantine Empire"
+  contexts:
+    - "Q12544"
+  description: "manuscript"
+  label: "Minuscule 104"
+  qid: "Q6869789"
+  reasons:
+    - "linked to Byzantine/Crusader context seed"
+    - "has explicit class typing"
+    - "artifact keyword: codex"
+  score: 5
+  via_properties:
+    - "http://www.wikidata.org/prop/direct/P495"
+entity_type: "artifacts"
+id: "e.artifacts.minuscule-104--q6869789"
+label: "Minuscule 104"
+qid: "Q6869789"

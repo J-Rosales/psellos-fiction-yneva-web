@@ -1,0 +1,39 @@
+assertions:
+  -
+    id: "a.wdqs.P276.000735"
+    object_in_compiled: false
+    object_label: "British Library"
+    object_qid: "Q23308"
+    predicate_pid: "P276"
+    provenance:
+      phase: "phase2"
+      query_id: "Q_ASSERT_P276_location"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "located_in"
+    status: "candidate"
+    subject_label: "Lectionary 150"
+    subject_qid: "Q11688596"
+data:
+  class_labels:
+    - "codex"
+  confidence: "high"
+  context_labels:
+    - "Byzantine Empire"
+  contexts:
+    - "Q12544"
+  description: "New Testament manuscript"
+  label: "Lectionary 150"
+  qid: "Q11688596"
+  reasons:
+    - "linked to Byzantine/Crusader context seed"
+    - "has explicit class typing"
+    - "artifact keyword: codex"
+  score: 5
+  via_properties:
+    - "http://www.wikidata.org/prop/direct/P495"
+entity_type: "artifacts"
+id: "e.artifacts.lectionary-150--q11688596"
+label: "Lectionary 150"
+qid: "Q11688596"

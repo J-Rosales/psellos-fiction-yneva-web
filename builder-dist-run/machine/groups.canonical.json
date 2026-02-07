@@ -1,0 +1,54 @@
+{
+  "build": {
+    "generated_at": "2026-02-06T23:42:06.389076+00:00",
+    "input_mode": "compiled",
+    "run_id": "compiled-20260206T234206Z"
+  },
+  "count": 6,
+  "entities": [
+    {
+      "description": "Byzantine noble family of Norman origin",
+      "label": "Rogerios family",
+      "p31_labels": "family",
+      "qid": "Q123907501"
+    },
+    {
+      "description": "noble family",
+      "label": "Komnenos",
+      "p31_labels": [
+        "dynasty",
+        "noble family"
+      ],
+      "qid": "Q163814"
+    },
+    {
+      "description": "family",
+      "label": "Capet family",
+      "p31_labels": [
+        "dynasty",
+        "noble family"
+      ],
+      "qid": "Q2937731"
+    },
+    {
+      "description": "French dynasty",
+      "label": "Ramnulfids",
+      "p31_labels": "noble family",
+      "qid": "Q383925"
+    },
+    {
+      "description": "dynasty",
+      "label": "\u00c1rp\u00e1d dynasty",
+      "p31_labels": "dynasty",
+      "qid": "Q51153"
+    },
+    {
+      "description": "Byzantine aristocratic family",
+      "label": "Dalassenos",
+      "p31_labels": "family",
+      "qid": "Q5210224"
+    }
+  ],
+  "entity_type": "groups",
+  "schema_version": "v1.compiled"
+}

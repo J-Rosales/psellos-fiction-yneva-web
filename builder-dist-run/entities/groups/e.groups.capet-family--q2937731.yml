@@ -1,0 +1,44 @@
+assertions:
+  -
+    id: "a.wdqs.P1343.000124"
+    object_in_compiled: true
+    object_label: "Encyclopædia Britannica 11th edition"
+    object_qid: "Q867541"
+    predicate_pid: "P1343"
+    provenance:
+      phase: "phase2"
+      query_id: "Q_ASSERT_P1343_described_by_source"
+      query_part: "chunk03"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "described_by"
+    status: "candidate"
+    subject_label: "Capet family"
+    subject_qid: "Q2937731"
+  -
+    id: "a.wdqs.P361.000753"
+    object_in_compiled: false
+    object_label: "Capetian dynasty"
+    object_qid: "Q179544"
+    predicate_pid: "P361"
+    provenance:
+      phase: "phase2"
+      query_id: "Q_ASSERT_P361_part_of"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "part_of"
+    status: "candidate"
+    subject_label: "Capet family"
+    subject_qid: "Q2937731"
+data:
+  description: "family"
+  label: "Capet family"
+  p31_labels:
+    - "dynasty"
+    - "noble family"
+  qid: "Q2937731"
+entity_type: "groups"
+id: "e.groups.capet-family--q2937731"
+label: "Capet family"
+qid: "Q2937731"

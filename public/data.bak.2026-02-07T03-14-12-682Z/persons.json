@@ -1,0 +1,22 @@
+{
+  "p1": {
+    "id": "p1",
+    "qid": "p1",
+    "label": "Alpha",
+    "entity_types": [
+      "persons"
+    ],
+    "source_entity_ids": [],
+    "entity_type": "persons"
+  },
+  "p2": {
+    "id": "p2",
+    "qid": "p2",
+    "label": "Beta",
+    "entity_types": [
+      "persons"
+    ],
+    "source_entity_ids": [],
+    "entity_type": "persons"
+  }
+}

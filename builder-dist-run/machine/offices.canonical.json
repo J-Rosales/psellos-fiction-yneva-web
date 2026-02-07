@@ -1,0 +1,73 @@
+{
+  "build": {
+    "generated_at": "2026-02-06T23:42:06.389076+00:00",
+    "input_mode": "compiled",
+    "run_id": "compiled-20260206T234206Z"
+  },
+  "count": 5,
+  "entities": [
+    {
+      "description": "ruler of the Byzantine Empire",
+      "evidence_property": "P39",
+      "label": "Byzantine emperor",
+      "qid": "Q18577504",
+      "source_count": 7,
+      "source_qids": [
+        "Q392653",
+        "Q1226606",
+        "Q12900494",
+        "Q41600",
+        "Q41610",
+        "Q41628",
+        "Q41849"
+      ]
+    },
+    {
+      "description": "governing official in the absence or incapacity of a monarch",
+      "evidence_property": "P39",
+      "label": "regent",
+      "qid": "Q477406",
+      "source_count": 2,
+      "source_qids": [
+        "Q240604",
+        "Q641370"
+      ]
+    },
+    {
+      "description": "Crusader sovereignty title (from WDQS audit match on confirmed person)",
+      "evidence_property": "P39",
+      "label": "prince of Antioch",
+      "provenance": "wdqs_live_audit_backfill",
+      "qid": "Q51885707",
+      "source_count": 1,
+      "source_qids": [
+        "Q437271"
+      ]
+    },
+    {
+      "description": "Military post of the Byzantine Empire, extant from the 8c",
+      "evidence_property": "P39",
+      "label": "Domestic of the Schools",
+      "qid": "Q5290188",
+      "source_count": 1,
+      "source_qids": [
+        "Q3767041"
+      ]
+    },
+    {
+      "description": "empress of the Byzantine Empire",
+      "evidence_property": "P39",
+      "label": "Byzantine empress",
+      "qid": "Q81299243",
+      "source_count": 4,
+      "source_qids": [
+        "Q82691",
+        "Q232714",
+        "Q233631",
+        "Q241451"
+      ]
+    }
+  ],
+  "entity_type": "offices",
+  "schema_version": "v1.compiled"
+}

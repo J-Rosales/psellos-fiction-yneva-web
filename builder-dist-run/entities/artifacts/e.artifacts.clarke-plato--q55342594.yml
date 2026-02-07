@@ -1,0 +1,24 @@
+assertions:
+  []
+data:
+  class_labels:
+    - "manuscript"
+  confidence: "high"
+  context_labels:
+    - "Byzantine Empire"
+  contexts:
+    - "Q12544"
+  description: "earliest surviving manuscript of many dialogues of Plato"
+  label: "Clarke Plato"
+  qid: "Q55342594"
+  reasons:
+    - "linked to Byzantine/Crusader context seed"
+    - "has explicit class typing"
+    - "artifact keyword: manuscript"
+  score: 5
+  via_properties:
+    - "http://www.wikidata.org/prop/direct/P495"
+entity_type: "artifacts"
+id: "e.artifacts.clarke-plato--q55342594"
+label: "Clarke Plato"
+qid: "Q55342594"

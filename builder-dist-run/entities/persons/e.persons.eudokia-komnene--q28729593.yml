@@ -1,0 +1,122 @@
+assertions:
+  -
+    id: "a.wdqs.P22.000355"
+    object_in_compiled: true
+    object_label: "Alexios I Komnenos"
+    object_qid: "Q41600"
+    predicate_pid: "P22"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P22_father"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "child_of"
+    status: "confirmed"
+    subject_label: "Eudokia Komnene"
+    subject_qid: "Q28729593"
+  -
+    id: "a.wdqs.P25.000469"
+    object_in_compiled: true
+    object_label: "Irene Doukaina"
+    object_qid: "Q232714"
+    predicate_pid: "P25"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P25_mother"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "child_of"
+    status: "confirmed"
+    subject_label: "Eudokia Komnene"
+    subject_qid: "Q28729593"
+  -
+    id: "a.wdqs.P26.000561"
+    object_in_compiled: true
+    object_label: "Eudokia Komnene"
+    object_qid: "Q28729593"
+    predicate_pid: "P26"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P26_spouse"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "spouse_of"
+    status: "confirmed"
+    subject_label: "Michael Iassites"
+    subject_qid: "Q20971257"
+  -
+    id: "a.wdqs.P26.000579"
+    object_in_compiled: true
+    object_label: "Michael Iassites"
+    object_qid: "Q20971257"
+    predicate_pid: "P26"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P26_spouse"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "spouse_of"
+    status: "confirmed"
+    subject_label: "Eudokia Komnene"
+    subject_qid: "Q28729593"
+  -
+    id: "a.wdqs.P27.000680"
+    object_in_compiled: true
+    object_label: "Byzantine Empire"
+    object_qid: "Q12544"
+    predicate_pid: "P27"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P27_citizenship"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "citizen_of"
+    status: "candidate"
+    subject_label: "Eudokia Komnene"
+    subject_qid: "Q28729593"
+  -
+    id: "a.wdqs.P40.000875"
+    object_in_compiled: true
+    object_label: "Eudokia Komnene"
+    object_qid: "Q28729593"
+    predicate_pid: "P40"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P40_child"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "parent_of"
+    status: "confirmed"
+    subject_label: "Irene Doukaina"
+    subject_qid: "Q232714"
+  -
+    id: "a.wdqs.P40.000962"
+    object_in_compiled: true
+    object_label: "Eudokia Komnene"
+    object_qid: "Q28729593"
+    predicate_pid: "P40"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P40_child"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "parent_of"
+    status: "confirmed"
+    subject_label: "Alexios I Komnenos"
+    subject_qid: "Q41600"
+data:
+  description: "third daughter of the Byzantine emperor Alexios I Komnenos"
+  label: "Eudokia Komnene"
+  p31_labels: "human"
+  qid: "Q28729593"
+entity_type: "persons"
+id: "e.persons.eudokia-komnene--q28729593"
+label: "Eudokia Komnene"
+qid: "Q28729593"

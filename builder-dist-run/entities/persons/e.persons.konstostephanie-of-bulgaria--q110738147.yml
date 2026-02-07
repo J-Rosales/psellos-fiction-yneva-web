@@ -1,0 +1,42 @@
+assertions:
+  -
+    id: "a.wdqs.P25.000478"
+    object_in_compiled: true
+    object_label: "Konstostephanie of Bulgaria"
+    object_qid: "Q110738147"
+    predicate_pid: "P25"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P25_mother"
+      query_part: "chunk02"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "child_of"
+    status: "confirmed"
+    subject_label: "Maria of Bulgaria"
+    subject_qid: "Q3292878"
+  -
+    id: "a.wdqs.P40.000797"
+    object_in_compiled: true
+    object_label: "Maria of Bulgaria"
+    object_qid: "Q3292878"
+    predicate_pid: "P40"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P40_child"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "parent_of"
+    status: "confirmed"
+    subject_label: "Konstostephanie of Bulgaria"
+    subject_qid: "Q110738147"
+data:
+  description: "11th century princess"
+  label: "Konstostephanie of Bulgaria"
+  p31_labels: "human"
+  qid: "Q110738147"
+entity_type: "persons"
+id: "e.persons.konstostephanie-of-bulgaria--q110738147"
+label: "Konstostephanie of Bulgaria"
+qid: "Q110738147"

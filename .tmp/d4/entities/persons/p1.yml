@@ -1,0 +1,10 @@
+assertions:
+  - id: dup1
+    subject_qid: Q1
+    object_qid: Q2
+    predicate_hint: ally_of
+  - id: dup1
+    subject_qid: Q1
+    object_qid: Q2
+    relation_mapped: ally_of
+    source: codex

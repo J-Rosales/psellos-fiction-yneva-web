@@ -1,0 +1,11 @@
+assertions:
+  []
+data:
+  description: "12th-century Byzantine history by Anna Komnene"
+  label: "Alexiad"
+  p31_labels: "literary work"
+  qid: "Q177359"
+entity_type: "texts"
+id: "e.texts.alexiad--q177359"
+label: "Alexiad"
+qid: "Q177359"

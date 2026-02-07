@@ -1,0 +1,71 @@
+{
+  "build": {
+    "generated_at": "2026-02-06T23:42:06.389076+00:00",
+    "input_mode": "compiled",
+    "run_id": "compiled-20260206T234206Z"
+  },
+  "count": 7,
+  "entities": [
+    {
+      "description": "geographical and historical region in southeastern Europe, today forming parts of the Republics of Greece, North Macedonia and Bulgaria",
+      "label": "Macedonia",
+      "p31_labels": [
+        "historical region",
+        "region"
+      ],
+      "qid": "Q103251"
+    },
+    {
+      "description": "Roman Empire during Late Antiquity and the Middle Ages",
+      "label": "Byzantine Empire",
+      "p31_labels": [
+        "historical country",
+        "historical period"
+      ],
+      "qid": "Q12544"
+    },
+    {
+      "description": "country in Western Europe and other continents (through its overseas territories in America, Africa and Oceania)",
+      "label": "France",
+      "p31_labels": [
+        "country",
+        "republic",
+        "sovereign state"
+      ],
+      "qid": "Q142"
+    },
+    {
+      "description": "Byzantine district (theme)",
+      "label": "Thrace",
+      "p31_labels": "theme of the Byzantine Empire",
+      "qid": "Q1491574"
+    },
+    {
+      "description": "capital of the Eastern Roman, Latin and Ottoman Empires, currently Istanbul, Turkey",
+      "label": "Constantinople",
+      "p31_labels": [
+        "administrative territorial entity",
+        "ancient city",
+        "city"
+      ],
+      "qid": "Q16869"
+    },
+    {
+      "description": "ruler of the Byzantine Empire",
+      "label": "Byzantine emperor",
+      "p31_labels": [
+        "historical position",
+        "noble title"
+      ],
+      "qid": "Q18577504"
+    },
+    {
+      "description": "kingdom in Western Europe (987\u20131792; 1815\u20131848)",
+      "label": "Kingdom of France",
+      "p31_labels": "historical country",
+      "qid": "Q70972"
+    }
+  ],
+  "entity_type": "polities",
+  "schema_version": "v1.compiled"
+}

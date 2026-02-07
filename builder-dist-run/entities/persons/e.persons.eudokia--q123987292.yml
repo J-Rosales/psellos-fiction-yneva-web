@@ -1,0 +1,58 @@
+assertions:
+  -
+    id: "a.wdqs.P22.000316"
+    object_in_compiled: false
+    object_label: "Demetrius I of Georgia"
+    object_qid: "Q887038"
+    predicate_pid: "P22"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P22_father"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "child_of"
+    status: "confirmed"
+    subject_label: "Eudokia"
+    subject_qid: "Q123987292"
+  -
+    id: "a.wdqs.P26.000531"
+    object_in_compiled: true
+    object_label: "Eudokia"
+    object_qid: "Q123987292"
+    predicate_pid: "P26"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P26_spouse"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "spouse_of"
+    status: "confirmed"
+    subject_label: "Alexios Komnenos"
+    subject_qid: "Q1226606"
+  -
+    id: "a.wdqs.P26.000544"
+    object_in_compiled: true
+    object_label: "Alexios Komnenos"
+    object_qid: "Q1226606"
+    predicate_pid: "P26"
+    provenance:
+      phase: "phase1"
+      query_id: "Q_ASSERT_P26_spouse"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "spouse_of"
+    status: "confirmed"
+    subject_label: "Eudokia"
+    subject_qid: "Q123987292"
+data:
+  description: "wife of Alexios Komnenos, the co-emperor of John II Komnenos."
+  label: "Eudokia"
+  p31_labels: "human"
+  qid: "Q123987292"
+entity_type: "persons"
+id: "e.persons.eudokia--q123987292"
+label: "Eudokia"
+qid: "Q123987292"

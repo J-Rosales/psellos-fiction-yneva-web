@@ -1,0 +1,20 @@
+[
+  {
+    "id": "a1",
+    "subject": "Q1",
+    "predicate": "mentor_of",
+    "object": "Q2",
+    "extensions": {
+      "psellos": {
+        "rel": "mentor_of",
+        "layer": "canon",
+        "raw": {
+          "id": "a1",
+          "subject_qid": "Q1",
+          "object_qid": "Q2",
+          "relation_mapped": "mentor_of"
+        }
+      }
+    }
+  }
+]

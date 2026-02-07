@@ -1,0 +1,103 @@
+assertions:
+  -
+    id: "a.wdqs.P1343.000180"
+    object_in_compiled: true
+    object_label: "Brockhaus and Efron Encyclopedic Dictionary"
+    object_qid: "Q602358"
+    predicate_pid: "P1343"
+    provenance:
+      phase: "phase2"
+      query_id: "Q_ASSERT_P1343_described_by_source"
+      query_part: "chunk04"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "described_by"
+    status: "candidate"
+    subject_label: "Black Madonna of Częstochowa"
+    subject_qid: "Q573619"
+  -
+    id: "a.wdqs.P276.000745"
+    object_in_compiled: false
+    object_label: "Jerusalem"
+    object_qid: "Q1218"
+    predicate_pid: "P276"
+    provenance:
+      phase: "phase2"
+      query_id: "Q_ASSERT_P276_location"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "located_in"
+    status: "candidate"
+    subject_label: "Black Madonna of Częstochowa"
+    subject_qid: "Q573619"
+  -
+    id: "a.wdqs.P276.000746"
+    object_in_compiled: false
+    object_label: "Belz"
+    object_qid: "Q156565"
+    predicate_pid: "P276"
+    provenance:
+      phase: "phase2"
+      query_id: "Q_ASSERT_P276_location"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "located_in"
+    status: "candidate"
+    subject_label: "Black Madonna of Częstochowa"
+    subject_qid: "Q573619"
+  -
+    id: "a.wdqs.P276.000747"
+    object_in_compiled: true
+    object_label: "Constantinople"
+    object_qid: "Q16869"
+    predicate_pid: "P276"
+    provenance:
+      phase: "phase2"
+      query_id: "Q_ASSERT_P276_location"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "located_in"
+    status: "candidate"
+    subject_label: "Black Madonna of Częstochowa"
+    subject_qid: "Q573619"
+  -
+    id: "a.wdqs.P276.000748"
+    object_in_compiled: false
+    object_label: "Jasna Góra Monastery"
+    object_qid: "Q573920"
+    predicate_pid: "P276"
+    provenance:
+      phase: "phase2"
+      query_id: "Q_ASSERT_P276_location"
+      query_part: "chunk01"
+      run_id: "20260206-100958"
+      source: "wdqs"
+    relation_mapped: "located_in"
+    status: "candidate"
+    subject_label: "Black Madonna of Częstochowa"
+    subject_qid: "Q573619"
+data:
+  class_labels:
+    - "icon"
+  confidence: "high"
+  context_labels:
+    - "Constantinople"
+  contexts:
+    - "Q16869"
+  description: "icon of the Virgin Mary in Poland"
+  label: "Black Madonna of Czestochowa"
+  qid: "Q573619"
+  reasons:
+    - "linked to Byzantine/Crusader context seed"
+    - "has explicit class typing"
+    - "artifact keyword: icon"
+  score: 5
+  via_properties:
+    - "http://www.wikidata.org/prop/direct/P276"
+entity_type: "artifacts"
+id: "e.artifacts.black-madonna-of-czestochowa--q573619"
+label: "Black Madonna of Czestochowa"
+qid: "Q573619"

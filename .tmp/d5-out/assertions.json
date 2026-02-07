@@ -1,0 +1,43 @@
+[
+  {
+    "id": "a1",
+    "subject": "Q1",
+    "predicate": "mentor_of",
+    "object": "Q2",
+    "extensions": {
+      "psellos": {
+        "rel": "mentor_of",
+        "layer": "canon",
+        "raw": {
+          "id": "a1",
+          "subject_qid": "Q1",
+          "object_qid": "Q2",
+          "relation_mapped": "mentor_of"
+        }
+      }
+    }
+  },
+  {
+    "id": "n1",
+    "subject": "Q1",
+    "predicate": "retold_as",
+    "object": "Q2",
+    "extensions": {
+      "psellos": {
+        "rel": "retold_as",
+        "layer": "canon",
+        "assertion_class": "narrative_layer",
+        "narrative": {
+          "id": "n1",
+          "linked_assertion_id": "a1",
+          "predicate": "retold_as"
+        },
+        "raw": {
+          "id": "n1",
+          "linked_assertion_id": "a1",
+          "predicate": "retold_as"
+        }
+      }
+    }
+  }
+]
