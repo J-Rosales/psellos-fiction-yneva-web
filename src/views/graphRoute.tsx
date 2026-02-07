@@ -48,17 +48,25 @@ export function GraphRouteView() {
   const [data, setData] = useState<GraphPayload>({ nodes: [], edges: [] });
   const [pathFrom, setPathFrom] = useState('');
   const [pathTo, setPathTo] = useState('');
+  const [includeRelations, setIncludeRelations] = useState<string[]>([]);
+  const [excludeRelations, setExcludeRelations] = useState<string[]>([]);
+  const [confidenceOpacity, setConfidenceOpacity] = useState(true);
 
   const containerRef = useRef<HTMLDivElement | null>(null);
   const cyRef = useRef<cytoscape.Core | null>(null);
 
+  const relTypeFilter = useMemo(
+    () => buildRelationFilter(filters.rel_type, includeRelations, excludeRelations),
+    [filters.rel_type, includeRelations, excludeRelations],
+  );
+
   const query = useQuery({
-    queryKey: ['graph', filters.layer, filters.rel_type, selectedId, depth],
+    queryKey: ['graph', filters.layer, relTypeFilter, selectedId, depth],
     queryFn: () =>
       fetchGraphNeighborhood({
         entityId: selectedId || undefined,
         depth,
-        filters,
+        filters: { ...filters, rel_type: relTypeFilter },
       }),
   });
 
@@ -80,7 +88,7 @@ export function GraphRouteView() {
     const cy = cytoscape({
       container: containerRef.current,
       elements: [],
-      style: buildStyle(structureMode, labelScale) as any,
+      style: buildStyle(structureMode, labelScale, confidenceOpacity) as any,
       layout: { name: 'grid', animate: false },
     });
     cy.on('tap', 'node', (event) => {
@@ -89,22 +97,36 @@ export function GraphRouteView() {
       setSelectedId(id);
       focusNode(cy, id);
     });
+    cy.on('zoom', () => {
+      if (cy.zoom() < 0.7) {
+        cy.nodes().style('font-size', 0);
+        cy.edges().style('font-size', 0);
+      } else {
+        cy.nodes().style('font-size', `${10 * labelScale}px`);
+        cy.edges().style('font-size', `${8 * labelScale}px`);
+      }
+    });
     cyRef.current = cy;
     return () => {
       cy.destroy();
       cyRef.current = null;
     };
-  }, [structureMode, labelScale]);
+  }, [structureMode, labelScale, confidenceOpacity]);
 
   useEffect(() => {
     const cy = cyRef.current;
     if (!cy) return;
-    cy.style(buildStyle(structureMode, labelScale) as any);
+    cy.style(buildStyle(structureMode, labelScale, confidenceOpacity) as any);
     applyGraph(cy, data, selectedId, structureMode);
     runLayout(cy, structureMode, selectedId);
-  }, [data, selectedId, structureMode, labelScale]);
+  }, [data, selectedId, structureMode, labelScale, confidenceOpacity]);
 
   const clusterMap = useMemo(() => inferClusters(data.nodes, data.edges, viewMode), [data.nodes, data.edges, viewMode]);
+  const relationTypes = useMemo(() => {
+    const set = new Set<string>();
+    data.edges.forEach((edge) => set.add(String(edge.predicate ?? 'related_to')));
+    return Array.from(set).sort((a, b) => a.localeCompare(b));
+  }, [data.edges]);
 
   if (query.isLoading && data.nodes.length === 0) {
     return (
@@ -203,6 +225,85 @@ export function GraphRouteView() {
                 >
                   Highlight path
                 </Button>
+                <Button
+                  variant="outlined"
+                  onClick={() => {
+                    const cy = cyRef.current;
+                    if (!cy) return;
+                    const image = cy.png({ full: true, scale: 2, bg: '#ffffff' });
+                    const link = document.createElement('a');
+                    link.href = image;
+                    link.download = 'graph.png';
+                    link.click();
+                  }}
+                >
+                  Export PNG
+                </Button>
+                <Button
+                  variant="outlined"
+                  onClick={() => {
+                    const payload = { selected_id: selectedId || null, mode: structureMode, data };
+                    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+                    const url = URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = 'graph-subgraph.json';
+                    link.click();
+                    URL.revokeObjectURL(url);
+                  }}
+                >
+                  Export JSON
+                </Button>
+              </Stack>
+            ) : null}
+            <Stack direction="row" spacing={1} alignItems="center" flexWrap="wrap" useFlexGap>
+              <Typography variant="body2">Relation quick filter:</Typography>
+              {relationTypes.map((rel) => {
+                const included = includeRelations.includes(rel);
+                const excluded = excludeRelations.includes(rel);
+                return (
+                  <Chip
+                    key={rel}
+                    label={excluded ? `!${rel}` : rel}
+                    color={included ? 'primary' : excluded ? 'warning' : 'default'}
+                    variant="outlined"
+                    onClick={() => {
+                      if (included) {
+                        setIncludeRelations((prev) => prev.filter((item) => item !== rel));
+                        setExcludeRelations((prev) => [...new Set([...prev, rel])]);
+                        return;
+                      }
+                      if (excluded) {
+                        setExcludeRelations((prev) => prev.filter((item) => item !== rel));
+                        return;
+                      }
+                      setIncludeRelations((prev) => [...new Set([...prev, rel])]);
+                    }}
+                    onDelete={() => {
+                      setIncludeRelations((prev) => prev.filter((item) => item !== rel));
+                      setExcludeRelations((prev) => prev.filter((item) => item !== rel));
+                    }}
+                  />
+                );
+              })}
+              <Button size="small" onClick={() => { setIncludeRelations([]); setExcludeRelations([]); }}>
+                Reset relation filter
+              </Button>
+            </Stack>
+            {showAdvanced ? (
+              <Stack direction="row" spacing={1} alignItems="center" flexWrap="wrap" useFlexGap>
+                <Button variant="outlined" onClick={() => setConfidenceOpacity((value) => !value)}>
+                  Confidence opacity: {confidenceOpacity ? 'on' : 'off'}
+                </Button>
+                <Button
+                  variant="outlined"
+                  onClick={() => {
+                    setLabelScale(1);
+                    setConfidenceOpacity(true);
+                  }}
+                >
+                  Reset to Preset
+                </Button>
               </Stack>
             ) : null}
           </Stack>
@@ -300,7 +401,7 @@ function focusNode(cy: cytoscape.Core, id: string) {
   cy.animate({ center: { eles: node }, duration: 250 });
 }
 
-function buildStyle(mode: StructureMode, labelScale: number): any[] {
+function buildStyle(mode: StructureMode, labelScale: number, confidenceOpacity: boolean): any[] {
   return [
     {
       selector: 'node',
@@ -308,7 +409,7 @@ function buildStyle(mode: StructureMode, labelScale: number): any[] {
         'background-color': '#1976d2',
         color: '#102a43',
         label: 'data(label)',
-        'font-size': 10 * labelScale,
+        'font-size': `${10 * labelScale}px`,
         width: mode === 'hierarchical' ? 82 : 16,
         height: mode === 'hierarchical' ? 32 : 16,
         shape: mode === 'hierarchical' ? 'round-rectangle' : 'ellipse',
@@ -324,8 +425,9 @@ function buildStyle(mode: StructureMode, labelScale: number): any[] {
         'target-arrow-shape': 'triangle',
         'curve-style': mode === 'hierarchical' ? 'taxi' : 'bezier',
         label: 'data(label)',
-        'font-size': 8 * labelScale,
+        'font-size': `${8 * labelScale}px`,
         color: '#475569',
+        opacity: confidenceOpacity ? 0.75 : 1,
         'text-background-color': '#ffffff',
         'text-background-opacity': 0.8,
       },
@@ -333,6 +435,18 @@ function buildStyle(mode: StructureMode, labelScale: number): any[] {
     { selector: '.selected-node', style: { 'background-color': '#f59e0b', 'border-width': 2, 'border-color': '#b45309' } },
     { selector: '.focus-path', style: { 'line-color': '#ea580c', width: 4, 'target-arrow-color': '#ea580c' } },
   ];
+}
+
+function buildRelationFilter(base: string, include: string[], exclude: string[]): string {
+  const values = [
+    ...String(base ?? '')
+      .split(',')
+      .map((token) => token.trim())
+      .filter(Boolean),
+    ...include,
+    ...exclude.map((token) => `!${token}`),
+  ];
+  return Array.from(new Set(values)).join(',');
 }
 
 function applyPathHighlight(cy: cytoscape.Core, from: string, to: string) {

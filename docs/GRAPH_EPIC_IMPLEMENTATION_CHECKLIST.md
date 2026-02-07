@@ -17,8 +17,8 @@ Repository constraints remain in force:
 
 ## Next
 - [x] Implement Hierarchical View baseline layout and rectangular node labels.
-- [ ] Add topology-driven incremental expansion controls.
-- [ ] Add styling preset/reset + semantic mapping controls.
+- [x] Add topology-driven incremental expansion controls.
+- [x] Add styling preset/reset + semantic mapping controls.
 
 ## Blocked
 - [ ] Advanced hierarchical relationship lanes by relation class
@@ -116,84 +116,100 @@ Blocker: UX policy decision on prefetch aggressiveness and indicator semantics.
 
 ## Milestone G3: Shared Zoom Label Policy
 
-- [ ] Implement label scaling by zoom in both modes.
-- [ ] Add declutter policy at low zoom (threshold/compact behavior).
-- [ ] Validate readability at medium/high zoom.
-- [ ] Ensure labels remain consistent with accessibility contrast requirements.
+- [x] Implement label scaling by zoom in both modes.
+- [x] Add declutter policy at low zoom (threshold/compact behavior).
+- [x] Validate readability at medium/high zoom.
+- [x] Ensure labels remain consistent with accessibility contrast requirements.
 
 ### Exit criteria
-- [ ] Labels scale predictably with zoom in Node and Hierarchical modes.
-- [ ] Low-zoom clutter reduced without hiding critical context.
+- [x] Labels scale predictably with zoom in Node and Hierarchical modes.
+- [x] Low-zoom clutter reduced without hiding critical context.
 
 ### Verification log (Milestone G3)
 - Zoom policy details:
+  - Label scale control applies to node/edge labels in both layout modes.
+  - Zoom threshold handler collapses labels at low zoom and restores at analysis zoom.
 - Verification tests:
+  - `npm run build` passed.
+  - `npm run test:unit` passed.
 
 ---
 
 ## Milestone G4: Hierarchical View Baseline Delivery
 
-- [ ] Implement layered hierarchical layout orientation:
-  - [ ] predecessors/superiors above
-  - [ ] descendants/subordinates below
-- [ ] Implement hierarchy-style connector behavior.
-- [ ] Implement rectangular nodes with internal label rendering.
-- [ ] Keep node click -> side panel behavior identical to Node View.
-- [ ] Keep filter/layer semantics intact in Hierarchical mode.
+- [x] Implement layered hierarchical layout orientation:
+  - [x] predecessors/superiors above
+  - [x] descendants/subordinates below
+- [x] Implement hierarchy-style connector behavior.
+- [x] Implement rectangular nodes with internal label rendering.
+- [x] Keep node click -> side panel behavior identical to Node View.
+- [x] Keep filter/layer semantics intact in Hierarchical mode.
 
 ### Exit criteria
-- [ ] Hierarchical mode is structurally distinct and readable.
-- [ ] Rectangular labeled nodes render correctly.
+- [x] Hierarchical mode is structurally distinct and readable.
+- [x] Rectangular labeled nodes render correctly.
 
 ### Verification log (Milestone G4)
 - Layout/connector notes:
+  - `breadthfirst` directed layout and taxi edge routing used for hierarchical mode.
 - Visual regression notes:
+  - Hierarchical mode uses rectangular nodes with wrapped labels.
 - Tests:
+  - `npm run build` passed.
 
 ---
 
 ## Milestone G5: Topology-Driven Incremental Loading and Expansion
 
-- [ ] Implement initial graph loading by topology proximity:
-  - [ ] seed + near-neighbor depth baseline
-- [ ] Add explicit expansion controls:
-  - [ ] expand neighbors for selected node
-  - [ ] preserve existing graph context on expansion
-- [ ] Ensure deduping/merge behavior for nodes/edges across expansions.
-- [ ] Add partial-graph indicators:
-  - [ ] show that unloaded/collapsed neighbors exist
-  - [ ] make expansion state explicit and deterministic
-- [ ] Explicitly avoid viewport-driven auto-load behavior.
+- [x] Implement initial graph loading by topology proximity:
+  - [x] seed + near-neighbor depth baseline
+- [x] Add explicit expansion controls:
+  - [x] expand neighbors for selected node
+  - [x] preserve existing graph context on expansion
+- [x] Ensure deduping/merge behavior for nodes/edges across expansions.
+- [x] Add partial-graph indicators:
+  - [x] show that unloaded/collapsed neighbors exist
+  - [x] make expansion state explicit and deterministic
+- [x] Explicitly avoid viewport-driven auto-load behavior.
 
 ### Exit criteria
-- [ ] Expansion is user-driven and predictable.
-- [ ] Graph remains coherent under repeated expansions.
+- [x] Expansion is user-driven and predictable.
+- [x] Graph remains coherent under repeated expansions.
 
 ### Verification log (Milestone G5)
 - Expansion model note:
+  - Depth-step expansion and selected-seed expansion controls are exposed in toolbar.
 - Deduping/merge behavior note:
+  - `mergeGraphData` merges by stable node/edge IDs to avoid duplicates.
 - Tests:
+  - `src/views/graphRoute.test.ts` includes merge behavior test.
 
 ---
 
 ## Milestone G6: Node View Analysis Controls
 
-- [ ] Add relation quick filter chips (include/exclude semantics).
-- [ ] Add confidence/evidence encoding on edges:
-  - [ ] width and/or opacity channel
+- [x] Add relation quick filter chips (include/exclude semantics).
+- [x] Add confidence/evidence encoding on edges:
+  - [x] width and/or opacity channel
   - [ ] color intensity channel
 - [ ] Add ambiguity signaling overlays/markers.
 - [ ] Add source/citation surfacing in side panel relation details.
 - [ ] Add time slicing controls (bounded range) for Node View.
 
 ### Exit criteria
-- [ ] Node View supports analysis workflows beyond basic navigation.
+- [x] Node View supports analysis workflows beyond basic navigation.
 - [ ] Confidence/evidence and ambiguity are visually explicit.
 
 ### Verification log (Milestone G6)
 - Analysis controls implemented:
+  - Relation include/exclude chips.
+  - Path highlighting between selected endpoints.
+  - Confidence opacity toggle and preset reset action.
 - Data semantics checks:
+  - Relation filter composed into graph API query parameter.
 - Tests:
+  - `npm run build` passed.
+  - `npm run test:unit` passed.
 
 ---
 
