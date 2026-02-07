@@ -21,13 +21,13 @@ test('URL-state restoration survives reload and back/forward navigation', async 
   });
 
   await page.goto('/entities');
-  await page.getByLabel('Search').fill('alexios');
-  await page.getByRole('button', { name: 'Apply' }).click();
+  await page.getByRole('textbox', { name: 'Search' }).fill('alexios');
+  await page.getByRole('button', { name: 'Update' }).click();
 
   await expect(page).toHaveURL(/q=alexios/);
 
   await page.reload();
-  await expect(page.getByLabel('Search')).toHaveValue('alexios');
+  await expect(page.getByRole('textbox', { name: 'Search' })).toHaveValue('alexios');
 
   page.once('dialog', async (dialog) => {
     await dialog.accept();
@@ -37,7 +37,7 @@ test('URL-state restoration survives reload and back/forward navigation', async 
 
   await page.goBack();
   await expect(page).toHaveURL(/\/entities\?/);
-  await expect(page.getByLabel('Search')).toHaveValue('alexios');
+  await expect(page.getByRole('textbox', { name: 'Search' })).toHaveValue('alexios');
 });
 
 test('share-link style deep link opens stable analysis context for entity detail', async ({ page }) => {

@@ -27,21 +27,23 @@ export async function registerLayerRoutes(app: FastifyInstance, repo: Repository
     if (!parsed.success) {
       return reply.status(400).send(buildBadRequestError(request, z.prettifyError(parsed.error)));
     }
-    const { known, warnings } = resolveLayer(request, repo, layerId);
-    if (!known) {
+    const resolvedLayer = resolveLayer(request, repo, layerId);
+    const resolvedBase = resolveLayer(request, repo, parsed.data.base);
+    const warnings = [...resolvedLayer.warnings, ...resolvedBase.warnings];
+    if (!resolvedLayer.known || !resolvedBase.known) {
       return {
-        meta: buildSuccessMeta(layerId, 0, warnings),
+        meta: buildSuccessMeta(resolvedLayer.layer, 0, warnings),
         item: {
-          layer: layerId,
-          base: parsed.data.base,
+          layer: resolvedLayer.layer,
+          base: resolvedBase.layer,
           added: [],
           removed: [],
         },
       };
     }
-    const item = repo.getLayerChangelog(layerId, parsed.data.base);
+    const item = repo.getLayerChangelog(resolvedLayer.layer, resolvedBase.layer);
     return {
-      meta: buildSuccessMeta(layerId, 1, warnings),
+      meta: buildSuccessMeta(resolvedLayer.layer, 1, warnings),
       item,
     };
   });

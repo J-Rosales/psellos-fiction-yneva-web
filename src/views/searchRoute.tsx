@@ -54,7 +54,7 @@ export function SearchRouteView() {
           {rows.length === 0 ? (
             <Typography color="text.secondary">No results for the current query/filter set.</Typography>
           ) : (
-            <List dense>
+            <List dense sx={{ maxHeight: { xs: 520, md: 'calc(100vh - 320px)' }, overflow: 'auto' }}>
               {rows.map((row) => (
                 <ListItemButton key={row.id} onClick={() => void navigate({ to: `/entity/${row.id}` })}>
                   <ListItemText

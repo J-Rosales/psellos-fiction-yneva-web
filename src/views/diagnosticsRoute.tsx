@@ -86,7 +86,7 @@ export function DiagnosticsRouteView() {
   };
 
   return (
-    <Stack spacing={2}>
+    <Stack spacing={2} sx={{ minHeight: { xs: 520, md: 'calc(100vh - 260px)' } }}>
       <Card>
         <CardContent>
           <Typography variant="h5" gutterBottom>

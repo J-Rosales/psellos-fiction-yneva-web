@@ -36,8 +36,9 @@ import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import { Outlet, useLocation, useNavigate } from '@tanstack/react-router';
 import { useQuery } from '@tanstack/react-query';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import type { ReactElement } from 'react';
+import { fetchEntities } from './api/client';
 import {
   filterLabel,
   getIncompatiblePinnedKeys,
@@ -115,11 +116,20 @@ export function AppShell() {
 
   const [draftFilters, setDraftFilters] = useState<CoreFilters>(appliedFilters);
   const [showSecondaryFilters, setShowSecondaryFilters] = useState(false);
+  const [autoCheck, setAutoCheck] = useState(true);
+  const appBarRef = useRef<HTMLDivElement | null>(null);
+  const [appBarHeight, setAppBarHeight] = useState(112);
   const { mode, setMode, accentId, setAccentId } = useThemePreferences();
   const layersQuery = useQuery({
     queryKey: ['global-layer-options'],
     queryFn: loadLayerOptions,
     staleTime: 60_000,
+  });
+  const autoCheckQuery = useQuery({
+    queryKey: ['search-auto-check', draftFilters],
+    queryFn: () => fetchEntities({ filters: draftFilters, page: 0, pageSize: 1 }),
+    enabled: autoCheck && draftFilters.q.trim().length > 0 && getSupportedKeysForPath(pathname).includes('q'),
+    staleTime: 0,
   });
 
   useEffect(() => {
@@ -204,9 +214,30 @@ export function AppShell() {
 
   const isSupported = (key: CoreFilterKey) => supportedKeys.has(key);
 
+  useEffect(() => {
+    const sync = () => {
+      setAppBarHeight(Math.ceil(appBarRef.current?.getBoundingClientRect().height ?? 112));
+    };
+    sync();
+    window.addEventListener('resize', sync);
+    return () => window.removeEventListener('resize', sync);
+  }, []);
+
   return (
     <Box sx={{ minHeight: '100vh', bgcolor: 'background.default' }}>
-      <AppBar position="sticky" color="transparent" elevation={0} sx={{ borderBottom: '1px solid #e5eaf2' }}>
+      <AppBar
+        ref={appBarRef}
+        position="sticky"
+        color="default"
+        elevation={0}
+        sx={{
+          borderBottom: '1px solid',
+          borderColor: 'divider',
+          bgcolor: 'background.paper',
+          backgroundImage: 'none',
+          backdropFilter: 'blur(10px)',
+        }}
+      >
         <Toolbar sx={{ display: 'grid', gap: 1, alignItems: 'start', py: 1 }}>
           <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ width: '100%' }}>
             <Box>
@@ -216,15 +247,6 @@ export function AppShell() {
               </Typography>
             </Box>
             <Stack direction="row" spacing={0.75} alignItems="center">
-              <Tooltip title={mode === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}>
-                <IconButton
-                  aria-label={mode === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
-                  onClick={() => setMode(mode === 'light' ? 'dark' : 'light')}
-                  size="small"
-                >
-                  {mode === 'light' ? <DarkModeIcon fontSize="small" /> : <LightModeIcon fontSize="small" />}
-                </IconButton>
-              </Tooltip>
               {ACCENT_PRESETS.map((preset) => (
                 <Tooltip key={preset.id} title={preset.label}>
                   <IconButton
@@ -248,6 +270,15 @@ export function AppShell() {
                   </IconButton>
                 </Tooltip>
               ))}
+              <Tooltip title={mode === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}>
+                <IconButton
+                  aria-label={mode === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
+                  onClick={() => setMode(mode === 'light' ? 'dark' : 'light')}
+                  size="small"
+                >
+                  {mode === 'light' ? <DarkModeIcon fontSize="small" /> : <LightModeIcon fontSize="small" />}
+                </IconButton>
+              </Tooltip>
             </Stack>
           </Stack>
 
@@ -257,18 +288,19 @@ export function AppShell() {
             variant="scrollable"
             allowScrollButtonsMobile
             sx={{
-              minHeight: 60,
+              minHeight: 56,
               '& .MuiTab-root': {
-                minHeight: 60,
-                minWidth: 84,
-                fontSize: '0.72rem',
+                minHeight: 56,
+                minWidth: 80,
+                fontSize: '0.7rem',
                 fontWeight: 400,
                 color: 'text.secondary',
                 textTransform: 'none',
                 opacity: 0.88,
                 gap: 0.2,
                 py: 0.25,
-                px: 0.75,
+                px: 0.65,
+                borderRadius: 1.5,
               },
               '& .MuiTab-root:hover': {
                 color: 'text.primary',
@@ -293,17 +325,19 @@ export function AppShell() {
       <Box
         sx={{
           width: '100%',
-          borderBottom: '1px solid #e5eaf2',
+          borderBottom: '1px solid',
+          borderColor: 'divider',
           bgcolor: 'background.paper',
           position: 'sticky',
-          top: { xs: 112, sm: 112 },
+          top: `${appBarHeight}px`,
           zIndex: (theme) => theme.zIndex.appBar - 1,
+          backdropFilter: 'blur(10px)',
         }}
       >
         <Card sx={{ borderRadius: 0, boxShadow: 'none' }}>
           <CardContent>
-            <Stack spacing={1.25}>
-              <Stack direction="row" spacing={1} alignItems="center" justifyContent="space-between">
+            <Stack spacing={1}>
+              <Stack direction="row" spacing={0.75} alignItems="center" flexWrap="wrap" useFlexGap>
                 <Stack direction="row" spacing={1} alignItems="center">
                   <Typography variant="subtitle1">Global filters</Typography>
                   <Tooltip title={pinned ? 'Pinned: filters persist across compatible routes.' : 'Unpinned: filters apply only to the current route context.'}>
@@ -312,39 +346,38 @@ export function AppShell() {
                     </Box>
                   </Tooltip>
                 </Stack>
-                <Stack direction="row" spacing={1} alignItems="center">
-                  <Tooltip title="Keep current filters active while navigating between compatible pages.">
-                    <Chip
-                      label="Pin Globally"
-                      clickable
-                      onClick={() => onPinToggle(!pinned)}
-                      color={pinned ? 'primary' : 'default'}
-                      variant={pinned ? 'filled' : 'outlined'}
-                      sx={{
-                        height: 40,
-                        fontSize: '0.875rem',
-                        '& .MuiChip-label': { px: 1.5 },
-                      }}
-                    />
-                  </Tooltip>
-                  <Button size="small" variant="contained" onClick={onApply} sx={{ height: 40, px: 2 }}>
-                    Update
-                  </Button>
-                  <Button size="small" variant="outlined" onClick={onReset} sx={{ height: 40, px: 2 }}>
-                    Reset
-                  </Button>
-                  <Tooltip title={showSecondaryFilters ? 'Hide advanced filters' : 'Show advanced filters'}>
-                    <IconButton
-                      size="small"
-                      aria-label={showSecondaryFilters ? 'Hide advanced filters' : 'Show advanced filters'}
-                      onClick={() => setShowSecondaryFilters((prev) => !prev)}
-                    >
-                      {showSecondaryFilters ? <VisibilityOffIcon fontSize="small" /> : <VisibilityIcon fontSize="small" />}
-                    </IconButton>
-                  </Tooltip>
-                </Stack>
+                <Tooltip title="Keep current filters active while navigating between compatible pages.">
+                  <Chip
+                    label="Pin Globally"
+                    clickable
+                    onClick={() => onPinToggle(!pinned)}
+                    color={pinned ? 'primary' : 'default'}
+                    variant={pinned ? 'filled' : 'outlined'}
+                    sx={{
+                      height: 34,
+                      fontSize: '0.82rem',
+                      borderRadius: 1,
+                      '& .MuiChip-label': { px: 1.1 },
+                    }}
+                  />
+                </Tooltip>
+                <Button size="small" variant="contained" onClick={onApply} sx={{ height: 34, px: 1.6, borderRadius: 1 }}>
+                  Update
+                </Button>
+                <Button size="small" variant="outlined" onClick={onReset} sx={{ height: 34, px: 1.6, borderRadius: 1 }}>
+                  Reset
+                </Button>
+                <Tooltip title={showSecondaryFilters ? 'Hide advanced filters' : 'Show advanced filters'}>
+                  <IconButton
+                    size="small"
+                    aria-label={showSecondaryFilters ? 'Hide advanced filters' : 'Show advanced filters'}
+                    onClick={() => setShowSecondaryFilters((prev) => !prev)}
+                  >
+                    {showSecondaryFilters ? <VisibilityOffIcon fontSize="small" /> : <VisibilityIcon fontSize="small" />}
+                  </IconButton>
+                </Tooltip>
               </Stack>
-              <Grid container spacing={1} alignItems="center">
+              <Grid container spacing={0.75} alignItems="center">
                 <Grid size={{ xs: 12, md: 3.25 }}>
                   <TextField
                     fullWidth
@@ -353,6 +386,20 @@ export function AppShell() {
                     value={draftFilters.q}
                     onChange={(event) => updateDraft('q', event.target.value)}
                     disabled={!isSupported('q')}
+                    sx={
+                      autoCheck && draftFilters.q.trim().length > 0
+                        ? {
+                            '& .MuiInputBase-input': {
+                              color: autoCheckQuery.isLoading
+                                ? 'text.primary'
+                                : (autoCheckQuery.data?.meta.result_count ?? 0) > 0
+                                  ? 'success.main'
+                                  : 'error.main',
+                            },
+                          }
+                        : undefined
+                    }
+                    slotProps={{ inputLabel: { shrink: true } }}
                   />
                 </Grid>
                 <Grid size={{ xs: 'auto', md: 'auto' }}>
@@ -365,9 +412,28 @@ export function AppShell() {
                       variant={draftFilters.exact ? 'filled' : 'outlined'}
                       disabled={!isSupported('exact')}
                       sx={{
-                        height: 40,
-                        fontSize: '0.875rem',
-                        '& .MuiChip-label': { px: 1.5 },
+                        height: 34,
+                        fontSize: '0.82rem',
+                        borderRadius: 1,
+                        '& .MuiChip-label': { px: 1.1 },
+                      }}
+                    />
+                  </Tooltip>
+                </Grid>
+                <Grid size={{ xs: 'auto', md: 'auto' }}>
+                  <Tooltip title="When enabled, search input silently checks if current filters return results.">
+                    <Chip
+                      label="Auto Check"
+                      clickable
+                      onClick={() => setAutoCheck((v) => !v)}
+                      color={autoCheck ? 'primary' : 'default'}
+                      variant={autoCheck ? 'filled' : 'outlined'}
+                      disabled={!isSupported('q')}
+                      sx={{
+                        height: 34,
+                        fontSize: '0.82rem',
+                        borderRadius: 1,
+                        '& .MuiChip-label': { px: 1.1 },
                       }}
                     />
                   </Tooltip>

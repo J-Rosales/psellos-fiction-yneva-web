@@ -33,6 +33,13 @@ export function EntitiesRouteView() {
     });
     void navigate({ to: '/entities', search: toSearchObject(params) });
   };
+  const onRowClick = (entityId: string) => {
+    const params = new URLSearchParams(window.location.search);
+    void navigate({
+      to: `/entity/${entityId}`,
+      search: toSearchObject(params),
+    });
+  };
 
   if (query.isLoading) {
     return (
@@ -74,7 +81,7 @@ export function EntitiesRouteView() {
             Result count: {meta.result_count} (Total: {meta.total_count ?? meta.result_count}) | Mode:{' '}
             {filters.exact ? 'exact' : 'fuzzy'}
           </Typography>
-          <Box sx={{ height: 560 }}>
+          <Box sx={{ height: { xs: 520, md: 'calc(100vh - 290px)' }, minHeight: 460 }}>
             <DataGrid
               rows={rows}
               columns={COLUMNS}
@@ -88,6 +95,8 @@ export function EntitiesRouteView() {
               onPaginationModelChange={onPaginationModelChange}
               pageSizeOptions={[10, 25, 50, 100]}
               localeText={{ noRowsLabel }}
+              onRowClick={(params) => onRowClick(String(params.row.id))}
+              sx={{ '& .MuiDataGrid-row': { cursor: 'pointer' } }}
             />
           </Box>
         </CardContent>

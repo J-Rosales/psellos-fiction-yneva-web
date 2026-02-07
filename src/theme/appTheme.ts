@@ -35,19 +35,70 @@ export function createAppTheme(mode: 'light' | 'dark', accentId: AccentId) {
       },
     },
     shape: {
-      borderRadius: 10,
+      borderRadius: 8,
     },
     typography: {
-      fontFamily: '"IBM Plex Sans", "Inter", system-ui, -apple-system, sans-serif',
-      h4: { fontWeight: 700, letterSpacing: -0.4 },
-      h6: { fontWeight: 600 },
+      fontFamily: '"Inter", system-ui, -apple-system, sans-serif',
+      h1: { fontFamily: '"Manrope", "Inter", sans-serif', fontWeight: 800, letterSpacing: -0.7 },
+      h2: { fontFamily: '"Manrope", "Inter", sans-serif', fontWeight: 800, letterSpacing: -0.6 },
+      h3: { fontFamily: '"Manrope", "Inter", sans-serif', fontWeight: 700, letterSpacing: -0.5 },
+      h4: { fontFamily: '"Manrope", "Inter", sans-serif', fontWeight: 700, letterSpacing: -0.4 },
+      h5: { fontFamily: '"Manrope", "Inter", sans-serif', fontWeight: 700, letterSpacing: -0.3 },
+      h6: { fontFamily: '"Manrope", "Inter", sans-serif', fontWeight: 600, letterSpacing: -0.2 },
+      body1: { lineHeight: 1.55 },
+      body2: { lineHeight: 1.5 },
     },
     components: {
+      MuiCssBaseline: {
+        styleOverrides: {
+          code: {
+            fontFamily: '"IBM Plex Mono", ui-monospace, monospace',
+            fontSize: '0.9em',
+          },
+        },
+      },
       MuiCard: {
         styleOverrides: {
           root: {
             border: isDark ? '1px solid #273244' : '1px solid #e5eaf2',
-            boxShadow: 'none',
+            boxShadow: isDark ? '0 4px 14px rgba(0,0,0,0.22)' : '0 4px 14px rgba(15,23,42,0.08)',
+            borderRadius: 10,
+          },
+        },
+      },
+      MuiPaper: {
+        styleOverrides: {
+          root: {
+            borderRadius: 10,
+          },
+        },
+      },
+      MuiButton: {
+        styleOverrides: {
+          root: {
+            borderRadius: 8,
+            textTransform: 'none',
+            fontWeight: 600,
+          },
+        },
+      },
+      MuiChip: {
+        styleOverrides: {
+          root: {
+            borderRadius: 8,
+            fontWeight: 500,
+          },
+        },
+      },
+      MuiTextField: {
+        defaultProps: {
+          size: 'small',
+        },
+      },
+      MuiOutlinedInput: {
+        styleOverrides: {
+          root: {
+            borderRadius: 8,
           },
         },
       },
