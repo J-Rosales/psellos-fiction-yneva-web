@@ -2,6 +2,19 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
+const ENTITY_TYPE_PRECEDENCE = [
+  'persons',
+  'groups',
+  'polities',
+  'institutions',
+  'offices',
+  'places',
+  'artifacts',
+  'texts',
+  'sources',
+  'species',
+];
+
 function fail(message) {
   console.error(message);
   process.exit(1);
@@ -146,6 +159,11 @@ function main() {
     clearDir(outDir);
   }
 
+  const persons = buildPersons(path.join(distRun, 'machine'));
+  if (!args.dryRun) {
+    writeJson(path.join(outDir, 'persons.json'), persons);
+  }
+
   const report = {
     started_at: startedAt,
     finished_at: new Date().toISOString(),
@@ -161,12 +179,116 @@ function main() {
       missing_optional: missingOptional,
       entity_yaml_files_count: entityFiles.length,
     },
+    counts: {
+      persons: Object.keys(persons).length,
+    },
     warnings,
     note: 'D1 scaffold complete. Artifact generation pipeline is implemented in later milestones.',
   };
 
   writeJson(reportPath, report);
   console.log(`Import scaffold completed. Report written to ${reportPath}`);
+}
+
+function parseJsonFile(filePath, fallback = null) {
+  try {
+    return JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+  } catch {
+    return fallback;
+  }
+}
+
+function normalizeType(value) {
+  return String(value ?? '')
+    .trim()
+    .toLowerCase();
+}
+
+function selectPrimaryType(types) {
+  if (types.length === 0) {
+    return 'unknown';
+  }
+  const ranked = [...types].sort((a, b) => {
+    const ai = ENTITY_TYPE_PRECEDENCE.indexOf(a);
+    const bi = ENTITY_TYPE_PRECEDENCE.indexOf(b);
+    const safeAi = ai === -1 ? Number.MAX_SAFE_INTEGER : ai;
+    const safeBi = bi === -1 ? Number.MAX_SAFE_INTEGER : bi;
+    if (safeAi !== safeBi) {
+      return safeAi - safeBi;
+    }
+    return a.localeCompare(b);
+  });
+  return ranked[0];
+}
+
+function readCanonicalEntities(machineDir) {
+  const files = fs
+    .readdirSync(machineDir)
+    .filter((name) => name.endsWith('.canonical.json'))
+    .filter((name) => name !== 'assertions.canonical.json');
+
+  const rows = [];
+  for (const fileName of files) {
+    const typeFromFile = normalizeType(fileName.replace('.canonical.json', ''));
+    const payload = parseJsonFile(path.join(machineDir, fileName), null);
+    if (!payload) continue;
+    const items = Array.isArray(payload)
+      ? payload
+      : Array.isArray(payload.items)
+        ? payload.items
+        : Array.isArray(payload.entities)
+          ? payload.entities
+          : Object.values(payload).filter((value) => typeof value === 'object' && value !== null);
+    for (const item of items) {
+      if (!item || typeof item !== 'object') continue;
+      rows.push({ typeFromFile, row: item });
+    }
+  }
+  return rows;
+}
+
+function buildPersons(machineDir) {
+  const entries = new Map();
+  const rows = readCanonicalEntities(machineDir);
+  for (const { typeFromFile, row } of rows) {
+    const qid = String(row.qid ?? row.id ?? '').trim();
+    if (!qid) continue;
+    const sourceTypes = new Set([
+      typeFromFile,
+      normalizeType(row.entity_type),
+      ...(Array.isArray(row.entity_types) ? row.entity_types.map((v) => normalizeType(v)) : []),
+      normalizeType(row.type),
+    ].filter(Boolean));
+    const sourceEntityIds = Array.isArray(row.source_entity_ids)
+      ? row.source_entity_ids.map((value) => String(value)).filter(Boolean)
+      : row.source_entity_id
+        ? [String(row.source_entity_id)]
+        : row.id
+          ? [String(row.id)]
+          : [];
+
+    const existing = entries.get(qid) ?? {
+      id: qid,
+      qid,
+      label: String(row.label ?? row.name ?? qid),
+      entity_types: [],
+      source_entity_ids: [],
+    };
+
+    const mergedTypes = new Set([...(existing.entity_types ?? []), ...sourceTypes]);
+    const mergedSourceIds = new Set([...(existing.source_entity_ids ?? []), ...sourceEntityIds]);
+    existing.entity_types = Array.from(mergedTypes).sort((a, b) => a.localeCompare(b));
+    existing.entity_type = selectPrimaryType(existing.entity_types);
+    existing.source_entity_ids = Array.from(mergedSourceIds).sort((a, b) => a.localeCompare(b));
+    existing.label = String(existing.label ?? row.label ?? row.name ?? qid);
+    entries.set(qid, existing);
+  }
+
+  return Object.fromEntries(
+    Array.from(entries.keys())
+      .sort((a, b) => a.localeCompare(b))
+      .map((qid) => [qid, entries.get(qid)]),
+  );
 }
 
 main();
